@@ -40,8 +40,8 @@ export default function Home() {
                 Creating powerful, local-first AI tools, developed by the
                 community for the community
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                <Button size="lg" className="group text-base" asChild>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 w-full sm:w-auto">
+                <Button size="lg" className="group text-base w-full sm:w-auto" asChild>
                   <a
                     href="https://github.com/Nano-Collective"
                     target="_blank"
@@ -54,7 +54,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="group text-base"
+                  className="group text-base w-full sm:w-auto"
                   asChild
                 >
                   <a
@@ -230,7 +230,7 @@ export default function Home() {
 
                 {/* CTA */}
                 <div className="text-center pt-8">
-                  <Button size="lg" className="group text-base" asChild>
+                  <Button size="lg" className="group text-base w-full sm:w-auto" asChild>
                     <a
                       href="https://github.com/Nano-Collective/nanocoder"
                       target="_blank"
@@ -256,8 +256,8 @@ export default function Home() {
                 marketing. Join our community and help shape the future of
                 local-first AI tools.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                <Button size="lg" className="group" asChild>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 w-full sm:w-auto">
+                <Button size="lg" className="group w-full sm:w-auto" asChild>
                   <a
                     href="https://github.com/Nano-Collective"
                     target="_blank"
@@ -267,7 +267,7 @@ export default function Home() {
                     Contribute on GitHub
                   </a>
                 </Button>
-                <Button size="lg" variant="outline" className="group" asChild>
+                <Button size="lg" variant="outline" className="group w-full sm:w-auto" asChild>
                   <a
                     href="https://discord.gg/ktPDV6rekE"
                     target="_blank"
