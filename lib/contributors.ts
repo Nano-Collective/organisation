@@ -44,7 +44,6 @@ export const CONTRIBUTORS: Contributor[] = [
     name: "Will Lamerton",
     photo: "will-lamerton.jpg",
     github: "will-lamerton",
-    website: "https://nanocollective.org",
     bio: "Founder of Nano Collective, building open-source AI tools for everyone.",
   },
 ];
