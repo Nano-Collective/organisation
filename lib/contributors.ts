@@ -1,0 +1,50 @@
+/**
+ * Contributors Data Structure
+ *
+ * To add yourself as a contributor:
+ * 1. Add your photo to /public/contributors/ directory (recommended: 400x400px)
+ * 2. Add your entry to the CONTRIBUTORS array below
+ * 3. Follow the Contributor type structure
+ * 4. Submit a pull request!
+ */
+
+export interface Contributor {
+  /** Your full name or preferred display name */
+  name: string;
+
+  /** Path to your photo in /public/contributors/ directory (e.g., "yourname.jpg") */
+  photo: string;
+
+  /** Your GitHub username (without the @ symbol) */
+  github?: string;
+
+  /** Your personal website URL (optional, full URL including https://) */
+  website?: string;
+
+  /** Brief description of your contributions (optional) */
+  bio?: string;
+}
+
+/**
+ * Contributors Array
+ *
+ * Add your entry here in alphabetical order by first name.
+ * Make sure your photo exists in /public/contributors/ before submitting!
+ */
+export const CONTRIBUTORS: Contributor[] = [
+  // Example entry (remove this and add real contributors):
+  // {
+  //   name: "Jane Doe",
+  //   photo: "janedoe.jpg",
+  //   github: "janedoe",
+  //   website: "https://janedoe.com",
+  //   bio: "Full-stack developer passionate about open source AI tools"
+  // },
+  {
+    name: "Will Lamerton",
+    photo: "will-lamerton.jpg",
+    github: "will-lamerton",
+    website: "https://nanocollective.org",
+    bio: "Founder of Nano Collective, building open-source AI tools for everyone.",
+  },
+];

@@ -41,7 +41,11 @@ export default function Home() {
                 community for the community
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 w-full sm:w-auto">
-                <Button size="lg" className="group text-base w-full sm:w-auto" asChild>
+                <Button
+                  size="lg"
+                  className="group text-base w-full sm:w-auto"
+                  asChild
+                >
                   <a
                     href="https://github.com/Nano-Collective"
                     target="_blank"
@@ -230,7 +234,11 @@ export default function Home() {
 
                 {/* CTA */}
                 <div className="text-center pt-8">
-                  <Button size="lg" className="group text-base w-full sm:w-auto" asChild>
+                  <Button
+                    size="lg"
+                    className="group text-base w-full sm:w-auto"
+                    asChild
+                  >
                     <a
                       href="https://github.com/Nano-Collective/nanocoder"
                       target="_blank"
@@ -256,8 +264,8 @@ export default function Home() {
                 marketing. Join our community and help shape the future of
                 local-first AI tools.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 w-full sm:w-auto">
-                <Button size="lg" className="group w-full sm:w-auto" asChild>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto pt-4">
+                <Button size="lg" className="group w-full" asChild>
                   <a
                     href="https://github.com/Nano-Collective"
                     target="_blank"
@@ -267,7 +275,12 @@ export default function Home() {
                     Contribute on GitHub
                   </a>
                 </Button>
-                <Button size="lg" variant="outline" className="group w-full sm:w-auto" asChild>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="group w-full"
+                  asChild
+                >
                   <a
                     href="https://discord.gg/ktPDV6rekE"
                     target="_blank"
@@ -275,6 +288,17 @@ export default function Home() {
                   >
                     <FaDiscord className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
                     Join Discord
+                  </a>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="group w-full sm:col-span-2"
+                  asChild
+                >
+                  <a href="/contributors">
+                    <Users className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                    View Contributors
                   </a>
                 </Button>
               </div>
@@ -288,31 +312,32 @@ export default function Home() {
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="text-center md:text-left">
                 <h3 className="font-bold text-xl mb-2">Nano Collective</h3>
-                <p className="text-sm text-muted-foreground">
-                  Building powerful, local-first AI tools for everyone
+                <p className="text-sm text-muted-foreground mb-2 font-semibold">
+                  Building powerful, local-first AI tools for everyone.
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  © {new Date().getFullYear()} Nano Collective. Open source and
-                  community driven.
+                  © {new Date().getFullYear()} Nano Collective.
                 </p>
               </div>
-              <div className="flex gap-6">
-                <a
-                  href="https://github.com/Nano-Collective"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors group"
-                >
-                  <FaGithub className="h-6 w-6 group-hover:rotate-12 transition-transform" />
-                </a>
-                <a
-                  href="https://discord.gg/ktPDV6rekE"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors group"
-                >
-                  <FaDiscord className="h-6 w-6 group-hover:rotate-12 transition-transform" />
-                </a>
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <div className="flex gap-6">
+                  <a
+                    href="https://github.com/Nano-Collective"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors group"
+                  >
+                    <FaGithub className="h-6 w-6 group-hover:rotate-12 transition-transform" />
+                  </a>
+                  <a
+                    href="https://discord.gg/ktPDV6rekE"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors group"
+                  >
+                    <FaDiscord className="h-6 w-6 group-hover:rotate-12 transition-transform" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
