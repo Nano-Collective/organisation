@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Code2, Terminal, Zap, Users, Lock, Sparkles } from "lucide-react";
 import { FaGithub, FaDiscord } from "react-icons/fa";
 import NanocoderTerminal from "@/components/NanocoderTerminal";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -296,10 +297,10 @@ export default function Home() {
                   className="group w-full sm:col-span-2"
                   asChild
                 >
-                  <a href="/contributors">
+                  <Link href="/contributors">
                     <Users className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                     View Contributors
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </div>
