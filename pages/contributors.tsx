@@ -155,11 +155,11 @@ export default function ContributorsPage() {
           {/* How to Contribute Section */}
           <div id="how-to-contribute" className="mx-auto">
             <Card>
-              <CardContent className="p-8 space-y-6">
+              <CardContent className="p-8 space-y-6 ">
                 <h2 className="text-2xl font-bold">
                   Contributed? Add yourself!
                 </h2>
-                <div className="space-y-4 text-muted-foreground">
+                <div className="space-y-4 text-muted-foreground max-w-2xl">
                   <div className="space-y-2">
                     <h3 className="text-foreground font-semibold">
                       1. Prepare your photo
