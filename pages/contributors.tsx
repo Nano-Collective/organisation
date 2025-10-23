@@ -153,7 +153,7 @@ export default function ContributorsPage() {
           )}
 
           {/* How to Contribute Section */}
-          <div id="how-to-contribute" className="max-w-3xl mx-auto">
+          <div id="how-to-contribute" className="mx-auto">
             <Card>
               <CardContent className="p-8 space-y-6">
                 <h2 className="text-2xl font-bold">
