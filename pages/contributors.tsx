@@ -223,7 +223,7 @@ export default function ContributorsPage() {
               <div className="text-center md:text-left">
                 <h3 className="font-bold text-xl mb-2">Nano Collective</h3>
                 <p className="text-sm text-muted-foreground mb-2 font-semibold">
-                  Building powerful, local-first AI tools for everyone.
+                  Building powerful, privacy-first AI tools for everyone.
                 </p>
                 <p className="text-sm text-muted-foreground">
                   © {new Date().getFullYear()} Nano Collective.

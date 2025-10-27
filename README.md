@@ -1,6 +1,6 @@
 # Nano Collective Website
 
-The official website for the [Nano Collective](https://nanocollective.org) - an open-source AI tools collective building local-first, privacy-respecting AI applications.
+The official website for the [Nano Collective](https://nanocollective.org) - an open-source AI tools collective building privacy-first, privacy-respecting AI applications.
 
 ## About
 

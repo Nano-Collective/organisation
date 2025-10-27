@@ -16,10 +16,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Nano Collective - Open Source Local-First AI Tools</title>
+        <title>Nano Collective - Open Source Privacy-First AI Tools</title>
         <meta
           name="description"
-          content="Creating powerful, local-first AI tools, developed by the community for the community. Privacy-first, open source AI that runs on your machine."
+          content="Creating powerful, privacy-first AI tools, developed by the community for the community. Privacy-first, open source AI that runs on your machine."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -38,7 +38,7 @@ export default function Home() {
                 Nano Collective
               </h1>
               <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Creating powerful, local-first AI tools, developed by the
+                Creating powerful, privacy-first AI tools, developed by the
                 community for the community
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 w-full sm:w-auto">
@@ -104,7 +104,7 @@ export default function Home() {
                   <CardTitle>Privacy First</CardTitle>
                   <CardDescription className="text-base">
                     Your data should stay on your machine. We're building
-                    local-first architectures to ensure complete control.
+                    privacy-first architectures to ensure complete control.
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -148,7 +148,7 @@ export default function Home() {
                 </Badge>
                 <h2 className="text-4xl sm:text-5xl font-bold">Nanocoder</h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  A beautiful local-first coding agent running in your terminal
+                  A beautiful privacy-first coding agent running in your terminal
                 </p>
               </div>
 
@@ -263,7 +263,7 @@ export default function Home() {
               <p className="text-xl text-muted-foreground leading-relaxed">
                 We welcome contributions in code, documentation, design, and
                 marketing. Join our community and help shape the future of
-                local-first AI tools.
+                privacy-first AI tools.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto pt-4">
                 <Button size="lg" className="group w-full" asChild>
@@ -314,7 +314,7 @@ export default function Home() {
               <div className="text-center md:text-left">
                 <h3 className="font-bold text-xl mb-2">Nano Collective</h3>
                 <p className="text-sm text-muted-foreground mb-2 font-semibold">
-                  Building powerful, local-first AI tools for everyone.
+                  Building powerful, privacy-first AI tools for everyone.
                 </p>
                 <p className="text-sm text-muted-foreground">
                   © {new Date().getFullYear()} Nano Collective.
