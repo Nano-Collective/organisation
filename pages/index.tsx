@@ -10,9 +10,16 @@ import { Badge } from "@/components/ui/badge";
 import { Code2, Terminal, Zap, Users, Lock, Sparkles } from "lucide-react";
 import { FaGithub, FaDiscord } from "react-icons/fa";
 import NanocoderTerminal from "@/components/NanocoderTerminal";
+import WhatsNextSection from "@/components/WhatsNextSection";
 import Link from "next/link";
+import { GetStaticProps } from "next";
+import { Discussion } from "@/types/discussion";
 
-export default function Home() {
+interface HomeProps {
+  discussions: Discussion[];
+}
+
+export default function Home({ discussions }: HomeProps) {
   return (
     <>
       <Head>
@@ -255,6 +262,9 @@ export default function Home() {
           </div>
         </section>
 
+        {/* What's Next Section */}
+        <WhatsNextSection discussions={discussions} />
+
         {/* Get Involved Section */}
         <section className="py-20 border-t border-border/40">
           <div className="container mx-auto px-4">
@@ -347,3 +357,47 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  try {
+    const response = await fetch(
+      "https://api.github.com/repos/Nano-Collective/organisation/discussions",
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.error("Failed to fetch discussions:", response.statusText);
+      return {
+        props: {
+          discussions: [],
+        },
+      };
+    }
+
+    const discussions: Discussion[] = await response.json();
+
+    // Sort by newest first
+    const sortedDiscussions = discussions.sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+
+    return {
+      props: {
+        discussions: sortedDiscussions,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching discussions:", error);
+    return {
+      props: {
+        discussions: [],
+      },
+    };
+  }
+};
