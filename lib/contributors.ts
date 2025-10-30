@@ -44,6 +44,18 @@ export const CONTRIBUTORS: Contributor[] = [
     name: "Will Lamerton",
     photo: "will-lamerton.jpg",
     github: "will-lamerton",
-    bio: "Founder of Nano Collective, building open-source AI tools for everyone.",
+    bio: "Founder of the Nano Collective, building open-source AI tools for everyone.",
+  },
+  {
+    name: "Matthew Spence",
+    photo: "matthew-spence.jpg",
+    github: "mrspence",
+    bio: "Founder of the Nano Collective, building open-source AI tools for everyone.",
+  },
+  {
+    name: "Alexandru Spînu",
+    photo: "alexandru-spinu.jpg",
+    website: "https://alexspinu.eu/",
+    bio: "Software Engineer, leveraging 12 years of full-stack experience for the web & developer tooling. Passionate about AI/ML",
   },
 ];
