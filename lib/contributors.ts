@@ -58,4 +58,10 @@ export const CONTRIBUTORS: Contributor[] = [
     website: "https://alexspinu.eu/",
     bio: "Software Engineer, leveraging 12 years of full-stack experience for the web & developer tooling. Passionate about AI/ML",
   },
+  {
+    name: "Deniz Okcu",
+    photo: "deniz.png",
+    github: "DenizOkcu",
+    bio: "Deniz is working on mobile and browser games. In his free time he enjoys building AI-powered productivity tools.",
+  },
 ];
