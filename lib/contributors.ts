@@ -46,4 +46,10 @@ export const CONTRIBUTORS: Contributor[] = [
     github: "will-lamerton",
     bio: "Founder of Nano Collective, building open-source AI tools for everyone.",
   },
+  {
+    name: "Deniz Okcu",
+    photo: "deniz.png",
+    github: "DenizOkcu",
+    bio: "Deniz is working on mobile and browser games. In his free time he enjoys building AI-powered productivity tools.",
+  },
 ];
