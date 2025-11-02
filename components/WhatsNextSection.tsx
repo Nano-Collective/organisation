@@ -5,7 +5,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, MessageCircle } from "lucide-react";
 import { Discussion } from "@/types/discussion";
 
 interface WhatsNextSectionProps {
@@ -117,17 +117,34 @@ export default function WhatsNextSection({
 																							{label.name}
 																						</Badge>
 																					))}
+
+																					{discussion.comments > 0 && (
+																						<div className="flex items-center gap-1 text-xs opacity-50 whitespace-nowrap">
+																							<MessageCircle
+																								className="h-3 w-3 transform -translate-y-0.25"
+																								strokeWidth={3}
+																							/>
+																							<span className="font-bold">
+																								{discussion.comments}{" "}
+																								{discussion.comments > 1
+																									? "comments"
+																									: "comment"}
+																							</span>
+																						</div>
+																					)}
 																				</div>
 																			)}
 																	</div>
-																	<span className="text-xs text-muted-foreground whitespace-nowrap mt-0.5">
-																		{new Date(
-																			discussion.created_at,
-																		).toLocaleDateString(undefined, {
-																			month: "short",
-																			day: "numeric",
-																		})}
-																	</span>
+																	<div className="flex items-center gap-3 text-xs text-muted-foreground whitespace-nowrap mt-0.5">
+																		<span>
+																			{new Date(
+																				discussion.created_at,
+																			).toLocaleDateString(undefined, {
+																				month: "short",
+																				day: "numeric",
+																			})}
+																		</span>
+																	</div>
 																</a>
 															);
 														})}

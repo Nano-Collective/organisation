@@ -4,6 +4,7 @@ export interface Discussion {
 	title: string;
 	html_url: string;
 	created_at: string;
+	comments: number;
 	category: {
 		name: string;
 		emoji: string;
