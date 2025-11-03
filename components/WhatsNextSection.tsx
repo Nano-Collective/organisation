@@ -24,7 +24,7 @@ export default function WhatsNextSection({
 	return (
 		<section className="py-20 border-t border-border/40">
 			<div className="container mx-auto px-4">
-				<div className="max-w-4xl mx-auto">
+				<div className="max-w-6xl mx-auto">
 					<div className="text-center space-y-4 mb-12">
 						<h2 className="text-4xl sm:text-5xl font-bold">What's Next</h2>
 						<p className="text-xl text-muted-foreground">
