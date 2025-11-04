@@ -134,7 +134,7 @@ export default function NanocoderGrowth({
       </Head>
 
       <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-16 py-16 max-w-7xl">
+        <div className="container mx-auto px-5 lg:px-16 py-16 max-w-7xl">
           {/* Header */}
           <div className="mb-12">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
@@ -154,7 +154,7 @@ export default function NanocoderGrowth({
                   </a>
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Last updated:{" "}
+                  <strong>Last updated: </strong>
                   {new Date(lastUpdated).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -164,12 +164,12 @@ export default function NanocoderGrowth({
               </div>
 
               {/* Time Period Selector */}
-              <div className="flex flex-col gap-2 md:mt-2">
+              <div className="flex flex-col gap-2 mt-2">
                 <label className="text-sm font-medium text-muted-foreground">
                   Time Period
                 </label>
                 <Select value={timePeriod} onValueChange={setTimePeriod}>
-                  <SelectTrigger className="w-[200px]">
+                  <SelectTrigger className="w-full lg:w-[200px]">
                     <SelectValue placeholder="Select period" />
                   </SelectTrigger>
                   <SelectContent>
