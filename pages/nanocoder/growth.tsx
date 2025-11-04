@@ -40,14 +40,10 @@ export default function NanocoderGrowth({
 
   // Filter data based on selected time period
   const filteredData = useMemo(() => {
-    const august2025 = new Date("2025-08-01");
     const now = new Date();
 
     let startDate: Date;
     switch (timePeriod) {
-      case "from-august":
-        startDate = august2025;
-        break;
       case "last-30-days":
         startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
         break;
@@ -92,6 +88,11 @@ export default function NanocoderGrowth({
     acc.push({ date: curr.date, cumulative });
     return acc;
   }, [] as { date: string; cumulative: number }[]);
+
+  // Calculate total downloads for the filtered period
+  const periodTotalDownloads = useMemo(() => {
+    return filteredData.reduce((sum, d) => sum + d.downloads, 0);
+  }, [filteredData]);
 
   // Filter releases to match time period
   const filteredReleases = useMemo(() => {
@@ -173,9 +174,6 @@ export default function NanocoderGrowth({
                     <SelectValue placeholder="Select period" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="from-august">
-                      From August 2025
-                    </SelectItem>
                     <SelectItem value="last-30-days">Last 30 Days</SelectItem>
                     <SelectItem value="last-60-days">Last 60 Days</SelectItem>
                     <SelectItem value="last-90-days">Last 90 Days</SelectItem>
@@ -196,7 +194,7 @@ export default function NanocoderGrowth({
 
           {/* Key Metrics */}
           <GrowthMetrics
-            totalDownloads={totalDownloads}
+            totalDownloads={periodTotalDownloads}
             currentSevenDay={sevenDayAvg[sevenDayAvg.length - 1]?.average || 0}
             currentThirtyDay={
               thirtyDayAvg[thirtyDayAvg.length - 1]?.average || 0
@@ -221,30 +219,57 @@ export default function NanocoderGrowth({
 }
 
 export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
-  const PACKAGE_NAME = "@nanocollective/nanocoder";
+  const CURRENT_PACKAGE = "@nanocollective/nanocoder";
+  const OLD_PACKAGE = "@motesoftware/nanocoder";
   const GITHUB_REPO = "Nano-Collective/nanocoder";
 
   try {
-    // Fetch NPM download statistics (start from package's first release)
+    // Fetch NPM download statistics for current package
     const npmResponse = await fetch(
       `https://api.npmjs.org/downloads/range/2025-08-01:${
         new Date().toISOString().split("T")[0]
-      }/${PACKAGE_NAME}`
+      }/${CURRENT_PACKAGE}`
     );
 
     if (!npmResponse.ok) {
-      throw new Error(`NPM API error: ${npmResponse.status}`);
+      throw new Error(`NPM API error for ${CURRENT_PACKAGE}: ${npmResponse.status}`);
     }
 
     const npmData = (await npmResponse.json()) as {
       downloads: Array<{ day: string; downloads: number }>;
     };
 
-    // Use NPM download data directly
-    const downloadData: DownloadData[] = npmData.downloads.map((d) => ({
-      date: d.day,
-      downloads: d.downloads,
-    }));
+    // Fetch NPM download statistics for old deprecated package
+    const oldNpmResponse = await fetch(
+      `https://api.npmjs.org/downloads/range/2025-08-01:${
+        new Date().toISOString().split("T")[0]
+      }/${OLD_PACKAGE}`
+    );
+
+    let oldNpmData: { downloads: Array<{ day: string; downloads: number }> } = { downloads: [] };
+    if (oldNpmResponse.ok) {
+      oldNpmData = (await oldNpmResponse.json()) as {
+        downloads: Array<{ day: string; downloads: number }>;
+      };
+    }
+
+    // Combine downloads from both packages by date
+    const downloadsByDate: Record<string, number> = {};
+
+    // Add current package downloads
+    npmData.downloads.forEach((d) => {
+      downloadsByDate[d.day] = (downloadsByDate[d.day] || 0) + d.downloads;
+    });
+
+    // Add old package downloads
+    oldNpmData.downloads.forEach((d) => {
+      downloadsByDate[d.day] = (downloadsByDate[d.day] || 0) + d.downloads;
+    });
+
+    // Convert to array and sort by date
+    const downloadData: DownloadData[] = Object.entries(downloadsByDate)
+      .map(([date, downloads]) => ({ date, downloads }))
+      .sort((a, b) => a.date.localeCompare(b.date));
 
     const totalDownloads = downloadData.reduce(
       (sum, d) => sum + d.downloads,

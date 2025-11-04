@@ -27,7 +27,7 @@ export function GrowthMetrics({
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{totalDownloads.toLocaleString()}</div>
-          <p className="text-xs text-muted-foreground mt-1">All-time NPM downloads</p>
+          <p className="text-xs text-muted-foreground mt-1">Total for selected period</p>
         </CardContent>
       </Card>
 

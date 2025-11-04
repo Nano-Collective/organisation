@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,8 +10,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  ReferenceLine
-} from 'recharts';
+  ReferenceLine,
+} from "recharts";
 
 interface DownloadData {
   date: string;
@@ -36,31 +37,82 @@ export function GrowthChart({
   sevenDayAvg,
   thirtyDayAvg,
   cumulativeData,
-  releases
+  releases,
 }: GrowthChartProps) {
+  // State to track which lines are visible
+  const [visibleLines, setVisibleLines] = useState({
+    daily: true,
+    sevenDay: true,
+    thirtyDay: true,
+    cumulative: true,
+  });
+
+  // Handle legend click to toggle line visibility
+  const handleLegendClick = (dataKey: string) => {
+    setVisibleLines((prev) => ({
+      ...prev,
+      [dataKey]: !prev[dataKey as keyof typeof prev],
+    }));
+  };
+
+  // Custom legend renderer
+  const renderLegend = (props: any) => {
+    const { payload } = props;
+    return (
+      <div className="flex flex-wrap justify-center gap-4 pt-5">
+        {payload.map((entry: any) => {
+          const isVisible =
+            visibleLines[entry.dataKey as keyof typeof visibleLines];
+          return (
+            <div
+              key={entry.dataKey}
+              onClick={() => handleLegendClick(entry.dataKey)}
+              className="flex items-center gap-2 cursor-pointer select-none"
+              style={{ opacity: isVisible ? 1 : 0.3 }}
+            >
+              <div
+                style={{
+                  width: 20,
+                  height: 2,
+                  backgroundColor: entry.color,
+                  borderStyle:
+                    entry.dataKey === "cumulative" ? "dashed" : "solid",
+                }}
+              />
+              <span className="text-sm">{entry.value}</span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
   // Combine all data by date
   const chartData = downloadData.map((d, index) => ({
     date: d.date,
     daily: d.downloads,
     sevenDay: sevenDayAvg[index]?.average || null,
     thirtyDay: thirtyDayAvg[index]?.average || null,
-    cumulative: cumulativeData[index]?.cumulative || 0
+    cumulative: cumulativeData[index]?.cumulative || 0,
   }));
 
   // Format date for display
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   };
 
   // Custom tooltip
-  const CustomTooltip = ({ active, payload, label }: {
+  const CustomTooltip = ({
+    active,
+    payload,
+    label,
+  }: {
     active?: boolean;
     payload?: Array<{ dataKey: string; value: number | null; color: string }>;
     label?: string;
   }) => {
     if (active && payload && payload.length && label) {
-      const release = releases.find(r => r.date === label);
+      const release = releases.find((r) => r.date === label);
 
       return (
         <div className="bg-card border border-border p-4 rounded-lg shadow-lg">
@@ -73,24 +125,28 @@ export function GrowthChart({
           {payload.map((entry) => {
             if (entry.value === null || entry.value === undefined) return null;
 
-            let label = '';
+            let label = "";
             switch (entry.dataKey) {
-              case 'daily':
-                label = 'Daily Downloads';
+              case "daily":
+                label = "Daily Downloads";
                 break;
-              case 'sevenDay':
-                label = '7-Day Avg';
+              case "sevenDay":
+                label = "7-Day Avg";
                 break;
-              case 'thirtyDay':
-                label = '30-Day Avg';
+              case "thirtyDay":
+                label = "30-Day Avg";
                 break;
-              case 'cumulative':
-                label = 'Total Downloads';
+              case "cumulative":
+                label = "Total Downloads";
                 break;
             }
 
             return (
-              <p key={entry.dataKey} className="text-sm" style={{ color: entry.color }}>
+              <p
+                key={entry.dataKey}
+                className="text-sm"
+                style={{ color: entry.color }}
+              >
                 {label}: {entry.value.toLocaleString()}
               </p>
             );
@@ -106,7 +162,10 @@ export function GrowthChart({
       <h2 className="text-2xl font-serif font-bold mb-6">Download Trends</h2>
 
       <ResponsiveContainer width="100%" height={500}>
-        <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <LineChart
+          data={chartData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
           <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
 
           <XAxis
@@ -121,7 +180,12 @@ export function GrowthChart({
             yAxisId="left"
             tick={{ fontSize: 12 }}
             className="text-muted-foreground"
-            label={{ value: 'Daily Downloads', angle: -90, position: 'insideLeft', style: { fontSize: 12 } }}
+            label={{
+              value: "Daily Downloads",
+              angle: -90,
+              position: "insideLeft",
+              style: { fontSize: 12 },
+            }}
           />
 
           <YAxis
@@ -129,15 +193,17 @@ export function GrowthChart({
             orientation="right"
             tick={{ fontSize: 12 }}
             className="text-muted-foreground"
-            label={{ value: 'Total Downloads', angle: 90, position: 'insideRight', style: { fontSize: 12 } }}
+            label={{
+              value: "Total Downloads",
+              angle: 90,
+              position: "insideRight",
+              style: { fontSize: 12 },
+            }}
           />
 
           <Tooltip content={<CustomTooltip />} />
 
-          <Legend
-            wrapperStyle={{ paddingTop: '20px' }}
-            iconType="line"
-          />
+          <Legend content={renderLegend} />
 
           {/* Release markers */}
           {releases.map((release) => (
@@ -147,13 +213,14 @@ export function GrowthChart({
               yAxisId="left"
               stroke="#ffc658"
               strokeDasharray="5 5"
+              opacity={0.25}
               strokeWidth={1}
               label={{
                 value: release.tag,
-                position: 'top',
+                position: "top",
                 fontSize: 11,
-                fill: '#ffc658',
-                fontWeight: 600
+                fill: "#ffc658",
+                fontWeight: 600,
               }}
             />
           ))}
@@ -168,6 +235,7 @@ export function GrowthChart({
             strokeDasharray="3 3"
             dot={false}
             name="Total Downloads"
+            hide={!visibleLines.cumulative}
           />
 
           {/* 30-Day rolling average (blue) */}
@@ -176,9 +244,10 @@ export function GrowthChart({
             type="monotone"
             dataKey="thirtyDay"
             stroke="oklch(0.6 0.15 250)"
-            strokeWidth={2.5}
+            strokeWidth={1.5}
             dot={false}
             name="30-Day Avg"
+            hide={!visibleLines.thirtyDay}
           />
 
           {/* 7-Day rolling average (orange/red) */}
@@ -187,9 +256,10 @@ export function GrowthChart({
             type="monotone"
             dataKey="sevenDay"
             stroke="oklch(0.65 0.2 30)"
-            strokeWidth={2.5}
+            strokeWidth={1.5}
             dot={false}
             name="7-Day Avg"
+            hide={!visibleLines.sevenDay}
           />
 
           {/* Daily downloads (pink solid line on top) */}
@@ -198,9 +268,10 @@ export function GrowthChart({
             type="monotone"
             dataKey="daily"
             stroke="oklch(0.7 0.15 340)"
-            strokeWidth={2}
+            strokeWidth={1.5}
             dot={false}
             name="Daily"
+            hide={!visibleLines.daily}
           />
         </LineChart>
       </ResponsiveContainer>
