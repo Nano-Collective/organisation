@@ -7,6 +7,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    # Run daily at 00:00 UTC to update growth stats
+    - cron: '0 0 * * *'
 
 concurrency:
   group: ${{ github.actor }}-push
