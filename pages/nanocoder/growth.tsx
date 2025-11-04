@@ -134,7 +134,7 @@ export default function NanocoderGrowth({
       </Head>
 
       <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-16 max-w-7xl">
+        <div className="container mx-auto px-16 py-16 max-w-7xl">
           {/* Header */}
           <div className="mb-12">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
@@ -232,7 +232,9 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
     );
 
     if (!npmResponse.ok) {
-      throw new Error(`NPM API error for ${CURRENT_PACKAGE}: ${npmResponse.status}`);
+      throw new Error(
+        `NPM API error for ${CURRENT_PACKAGE}: ${npmResponse.status}`
+      );
     }
 
     const npmData = (await npmResponse.json()) as {
@@ -246,7 +248,9 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
       }/${OLD_PACKAGE}`
     );
 
-    let oldNpmData: { downloads: Array<{ day: string; downloads: number }> } = { downloads: [] };
+    let oldNpmData: { downloads: Array<{ day: string; downloads: number }> } = {
+      downloads: [],
+    };
     if (oldNpmResponse.ok) {
       oldNpmData = (await oldNpmResponse.json()) as {
         downloads: Array<{ day: string; downloads: number }>;
