@@ -56,17 +56,24 @@ export function GrowthChart({
   };
 
   // Custom legend renderer
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderLegend = (props: any) => {
     const { payload } = props;
+    if (!payload) return null;
     return (
       <div className="flex flex-wrap justify-center gap-4 pt-5">
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {payload.map((entry: any) => {
+          if (!entry.dataKey || typeof entry.dataKey !== "string") return null;
           const isVisible =
             visibleLines[entry.dataKey as keyof typeof visibleLines];
           return (
             <div
               key={entry.dataKey}
-              onClick={() => handleLegendClick(entry.dataKey)}
+              onClick={() =>
+                typeof entry.dataKey === "string" &&
+                handleLegendClick(entry.dataKey)
+              }
               className="flex items-center gap-2 cursor-pointer select-none"
               style={{ opacity: isVisible ? 1 : 0.3 }}
             >
@@ -74,12 +81,12 @@ export function GrowthChart({
                 style={{
                   width: 20,
                   height: 2,
-                  backgroundColor: entry.color,
+                  backgroundColor: entry.color || "#000",
                   borderStyle:
                     entry.dataKey === "cumulative" ? "dashed" : "solid",
                 }}
               />
-              <span className="text-sm">{entry.value}</span>
+              <span className="text-sm">{entry.value || ""}</span>
             </div>
           );
         })}
@@ -94,6 +101,14 @@ export function GrowthChart({
     thirtyDay: thirtyDayAvg[index]?.average || null,
     cumulative: cumulativeData[index]?.cumulative || 0,
   }));
+
+  // Calculate fixed domain for Y-axes to prevent rescaling
+  const leftAxisMax = Math.max(
+    ...downloadData.map((d) => d.downloads),
+    ...sevenDayAvg.map((d) => d.average),
+    ...thirtyDayAvg.map((d) => d.average)
+  );
+  const rightAxisMax = Math.max(...cumulativeData.map((d) => d.cumulative));
 
   // Format date for display
   const formatDate = (dateString: string) => {
@@ -159,7 +174,7 @@ export function GrowthChart({
 
   return (
     <div className="bg-card p-6 rounded-lg border">
-      <h2 className="text-2xl font-serif font-bold mb-6">Download Trends</h2>
+      <h2 className="text-2xl font-bold mb-6">Download Trends</h2>
 
       <ResponsiveContainer width="100%" height={500}>
         <LineChart
@@ -180,6 +195,8 @@ export function GrowthChart({
             yAxisId="left"
             tick={{ fontSize: 12 }}
             className="text-muted-foreground"
+            domain={[0, leftAxisMax * 1.1]}
+            allowDecimals={false}
             label={{
               value: "Daily Downloads",
               angle: -90,
@@ -193,6 +210,8 @@ export function GrowthChart({
             orientation="right"
             tick={{ fontSize: 12 }}
             className="text-muted-foreground"
+            domain={[0, rightAxisMax * 1.1]}
+            allowDecimals={false}
             label={{
               value: "Total Downloads",
               angle: 90,

@@ -33,7 +33,6 @@ interface GrowthPageProps {
 export default function NanocoderGrowth({
   downloadData,
   releases,
-  totalDownloads,
   lastUpdated,
 }: GrowthPageProps) {
   const [timePeriod, setTimePeriod] = useState<string>("last-30-days");
@@ -185,10 +184,11 @@ export default function NanocoderGrowth({
           </div>
 
           {/* Engagement Alert */}
-          {needsEngagement && (
+          {sevenDayAvg.length > 0 && thirtyDayAvg.length > 0 && (
             <EngagementAlert
               sevenDayAvg={sevenDayAvg[sevenDayAvg.length - 1].average}
               thirtyDayAvg={thirtyDayAvg[thirtyDayAvg.length - 1].average}
+              needsEngagement={needsEngagement}
             />
           )}
 

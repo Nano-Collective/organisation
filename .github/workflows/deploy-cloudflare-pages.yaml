@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   schedule:
     # Run daily at 00:00 UTC to update growth stats
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 concurrency:
   group: ${{ github.actor }}-push
@@ -44,6 +44,9 @@ jobs:
 
       - name: Run linting
         run: pnpm run lint
+
+      - name: Run type checking
+        run: pnpm run types
 
       - name: Generate build
         run: pnpm run build

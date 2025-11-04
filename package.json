@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "types": "tsc --noEmit",
+    "test:all": "pnpm run types && pnpm run lint"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
