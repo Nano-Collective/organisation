@@ -12,19 +12,16 @@ export function EngagementAlert({
   thirtyDayAvg,
   needsEngagement,
 }: EngagementAlertProps) {
-  const difference = thirtyDayAvg - sevenDayAvg;
-  const percentageDown = ((difference / thirtyDayAvg) * 100).toFixed(1);
-
   if (needsEngagement) {
     return (
       <Alert variant="destructive" className="mb-8">
         <AlertCircle className="h-5 w-5" />
-        <AlertTitle className="mb-2">Engagement Needed!</AlertTitle>
+        <AlertTitle className="mb-2">Time to Post!</AlertTitle>
         <AlertDescription>
           <p className="mb-3">
-            The 7-day average ({sevenDayAvg.toLocaleString()} downloads/day) has
-            dropped below the 30-day average ({thirtyDayAvg.toLocaleString()}{" "}
-            downloads/day) by <strong>{percentageDown}%</strong>.
+            The 7-day average ({sevenDayAvg.toLocaleString()} downloads/day) is
+            below the 30-day average ({thirtyDayAvg.toLocaleString()}{" "}
+            downloads/day).
           </p>
           <div className="bg-background/50 p-4 rounded-md">
             <p className="font-semibold mb-2">Recommended Actions:</p>
@@ -51,10 +48,9 @@ export function EngagementAlert({
       </AlertTitle>
       <AlertDescription>
         <p className="text-emerald-500">
-          The 7-day average ({sevenDayAvg.toLocaleString()} downloads/day) is{" "}
-          {sevenDayAvg >= thirtyDayAvg ? "above" : "within 20% of"} the 30-day
-          average ({thirtyDayAvg.toLocaleString()} downloads/day). Keep up the
-          great work!
+          The 7-day average ({sevenDayAvg.toLocaleString()} downloads/day) is
+          above the 30-day average ({thirtyDayAvg.toLocaleString()}{" "}
+          downloads/day). Keep up the great work!
         </p>
       </AlertDescription>
     </Alert>

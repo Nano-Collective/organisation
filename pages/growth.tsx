@@ -157,17 +157,15 @@ export default function Growth({ packages, lastUpdated }: GrowthPageProps) {
     );
   }, [currentPackageData, filteredData, timePeriod]);
 
-  // Check if engagement is needed (7-day is 20%+ below 30-day average)
+  // Check if engagement is needed (7-day is below 30-day average)
   const needsEngagement = (() => {
     if (sevenDayAvg.length < 1 || thirtyDayAvg.length < 1) return false;
 
     const currentSevenDay = sevenDayAvg[sevenDayAvg.length - 1].average;
     const currentThirtyDay = thirtyDayAvg[thirtyDayAvg.length - 1].average;
 
-    // Alert if 7-day average is 20% or more below 30-day average
-    const percentageBelow =
-      ((currentThirtyDay - currentSevenDay) / currentThirtyDay) * 100;
-    return percentageBelow >= 20;
+    // Alert if 7-day average is below 30-day average
+    return currentSevenDay < currentThirtyDay;
   })();
 
   const currentTrend =
