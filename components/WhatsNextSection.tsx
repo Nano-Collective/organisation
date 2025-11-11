@@ -4,8 +4,11 @@ import {
 	CardHeader,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { ExternalLink, MessageCircle } from "lucide-react";
 import { Discussion } from "@/types/discussion";
+import Link from "next/link";
+import { generateBlogSlug } from "@/lib/slugify";
 
 interface WhatsNextSectionProps {
 	discussions: Discussion[];
@@ -29,6 +32,21 @@ export default function WhatsNextSection({
 						<p className="text-xl text-muted-foreground">
 							See what we're planning and join the discussion
 						</p>
+						<div className="flex gap-4 justify-center pt-4">
+							<Button asChild variant="default">
+								<Link href="/blog">View All Posts</Link>
+							</Button>
+							<Button asChild variant="outline">
+								<a
+									href="https://github.com/Nano-Collective/organisation/discussions"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<ExternalLink className="mr-2 h-4 w-4" />
+									GitHub Discussions
+								</a>
+							</Button>
+						</div>
 					</div>
 
 					<div className="space-y-6">
@@ -39,18 +57,9 @@ export default function WhatsNextSection({
 
 							return (
 								<div key={category.slug} className="space-y-3">
-									<div className="flex items-center justify-between">
-										<h3 className="text-xl font-semibold text-foreground">
-											{category.emoji} {category.name}
-										</h3>
-										<a
-											href={`https://github.com/Nano-Collective/organisation/discussions/categories/${category.slug}`}
-											target="_blank"
-											className="text-sm text-muted-foreground hover:text-primary transition-colors"
-										>
-											Show all →
-										</a>
-									</div>
+									<h3 className="text-xl font-semibold text-foreground">
+										{category.emoji} {category.name}
+									</h3>
 									<div className="space-y-2">
 										<Card>
 											<CardHeader className="py-3">
@@ -63,10 +72,9 @@ export default function WhatsNextSection({
 															);
 
 															return (
-																<a
+																<Link
 																	key={discussion.id}
-																	href={discussion.html_url}
-																	target="_blank"
+																	href={`/blog/${generateBlogSlug(discussion.title, discussion.number)}`}
 																	className="flex items-start gap-3 py-3 group hover:bg-accent/5 -mx-4 px-4 rounded transition-colors cursor-pointer"
 																>
 																	<div className="flex items-center mt-0.5">
@@ -97,8 +105,7 @@ export default function WhatsNextSection({
 																	</div>
 																	<div className="flex-1 min-w-0">
 																		<div className="text-sm font-semibold group-hover:text-primary transition-colors">
-																			{discussion.title}{" "}
-																			<ExternalLink className="inline-flex w-4 h-4 mx-1 transform -translate-y-1 opacity-50" />
+																			{discussion.title}
 																		</div>
 																		{discussion.labels &&
 																			discussion.labels.length > 0 && (
@@ -144,7 +151,7 @@ export default function WhatsNextSection({
 																			})}
 																		</span>
 																	</div>
-																</a>
+																</Link>
 															);
 														})}
 													</div>

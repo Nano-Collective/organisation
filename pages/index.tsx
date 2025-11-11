@@ -389,6 +389,17 @@ export default function Home({ discussions }: HomeProps) {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-4">
+                <nav className="flex gap-4 text-sm">
+                  <Link href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Blog
+                  </Link>
+                  <Link href="/contributors" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Contributors
+                  </Link>
+                  <Link href="/growth" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Growth
+                  </Link>
+                </nav>
                 <div className="flex gap-6">
                   <a
                     href="https://github.com/Nano-Collective"
@@ -418,14 +429,19 @@ export default function Home({ discussions }: HomeProps) {
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   try {
+    const headers: HeadersInit = {
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+    };
+
+    // Add authorization if token is available
+    if (process.env.GITHUB_TOKEN) {
+      headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+    }
+
     const response = await fetch(
       "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-      {
-        headers: {
-          Accept: "application/vnd.github+json",
-          "X-GitHub-Api-Version": "2022-11-28",
-        },
-      }
+      { headers }
     );
 
     if (!response.ok) {

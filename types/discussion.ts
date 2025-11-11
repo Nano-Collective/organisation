@@ -4,7 +4,14 @@ export interface Discussion {
 	title: string;
 	html_url: string;
 	created_at: string;
+	updated_at?: string;
 	comments: number;
+	body?: string;
+	node_id?: string;
+	user?: {
+		login: string;
+		avatar_url: string;
+	};
 	category: {
 		name: string;
 		emoji: string;
