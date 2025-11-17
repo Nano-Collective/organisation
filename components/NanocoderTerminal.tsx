@@ -82,7 +82,7 @@ export default function NanocoderTerminal() {
         <div className="border border-[#bb9af7] rounded-md p-4 pt-5 mb-6 bg-black relative text-xs">
           <div className="absolute -top-3 left-2">
             <div className="inline-block bg-[#bb9af7] rounded-full px-2 py-0.5 text-[#1a1b26]">
-              ✱ Welcome to Nanocoder 1.13.7
+               ✱ Welcome to Nanocoder 1.16.0
             </div>
           </div>
           <div className="text-[#c0caf5] mb-4">Tips for getting started:</div>
