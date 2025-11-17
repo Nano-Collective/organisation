@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { MessageCircle, Calendar } from "lucide-react";
 import { BlogPost } from "@/types/blog";
+import Footer from "@/components/footer";
 import { generateBlogSlug } from "@/lib/slugify";
 
 // Define website published categories
@@ -83,7 +84,10 @@ export default function Blog({ posts }: BlogProps) {
                     {categoryPosts.map((post) => (
                       <Link
                         key={post.id}
-                        href={`/blog/${generateBlogSlug(post.title, post.number)}`}
+                        href={`/blog/${generateBlogSlug(
+                          post.title,
+                          post.number
+                        )}`}
                         className="block group"
                       >
                         <Card className="hover:shadow-lg transition-shadow">
@@ -157,6 +161,7 @@ export default function Blog({ posts }: BlogProps) {
             )}
           </div>
         </main>
+        <Footer />
       </div>
     </>
   );

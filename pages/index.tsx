@@ -7,13 +7,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code2, Terminal, Zap, Users, Lock, Sparkles, Package } from "lucide-react";
-import { FaGithub, FaDiscord } from "react-icons/fa";
+import {
+  Code2,
+  Terminal,
+  Zap,
+  Users,
+  Lock,
+  Sparkles,
+  Package,
+} from "lucide-react";
+import Footer from "@/components/footer";
 import NanocoderTerminal from "@/components/NanocoderTerminal";
 import WhatsNextSection from "@/components/WhatsNextSection";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import { Discussion } from "@/types/discussion";
+import { FaDiscord, FaGithub } from "react-icons/fa";
 
 interface HomeProps {
   discussions: Discussion[];
@@ -155,7 +164,8 @@ export default function Home({ discussions }: HomeProps) {
                 </Badge>
                 <h2 className="text-4xl sm:text-5xl font-bold">Nanocoder</h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  A beautiful privacy-first coding agent running in your terminal
+                  A beautiful privacy-first coding agent running in your
+                  terminal
                 </p>
               </div>
 
@@ -290,9 +300,9 @@ export default function Home({ discussions }: HomeProps) {
                           </Badge>
                         </div>
                         <CardDescription className="text-sm leading-relaxed">
-                          A fast, lightweight HTML to Markdown converter optimized
-                          for LLM consumption. Clean, well-structured markdown with
-                          intelligent content extraction.
+                          A fast, lightweight HTML to Markdown converter
+                          optimized for LLM consumption. Clean, well-structured
+                          markdown with intelligent content extraction.
                         </CardDescription>
                         <div className="mt-4">
                           <Button
@@ -374,54 +384,7 @@ export default function Home({ discussions }: HomeProps) {
             </div>
           </div>
         </section>
-
-        {/* Footer */}
-        <footer className="border-t border-border/40 py-12">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-              <div className="text-center md:text-left">
-                <h3 className="font-bold text-xl mb-2">Nano Collective</h3>
-                <p className="text-sm text-muted-foreground mb-2 font-semibold">
-                  Building powerful, privacy-first AI tools for everyone.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  © {new Date().getFullYear()} Nano Collective.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row items-center gap-4">
-                <nav className="flex gap-4 text-sm">
-                  <Link href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
-                    Blog
-                  </Link>
-                  <Link href="/contributors" className="text-muted-foreground hover:text-foreground transition-colors">
-                    Contributors
-                  </Link>
-                  <Link href="/growth" className="text-muted-foreground hover:text-foreground transition-colors">
-                    Growth
-                  </Link>
-                </nav>
-                <div className="flex gap-6">
-                  <a
-                    href="https://github.com/Nano-Collective"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors group"
-                  >
-                    <FaGithub className="h-6 w-6 group-hover:rotate-12 transition-transform" />
-                  </a>
-                  <a
-                    href="https://discord.gg/ktPDV6rekE"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors group"
-                  >
-                    <FaDiscord className="h-6 w-6 group-hover:rotate-12 transition-transform" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

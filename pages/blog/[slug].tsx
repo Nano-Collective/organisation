@@ -8,6 +8,7 @@ import { BlogPostDetails } from "@/types/blog";
 import { Button } from "@/components/ui/button";
 import { marked } from "marked";
 import { generateBlogSlug, extractNumberFromSlug } from "@/lib/slugify";
+import Footer from "@/components/footer";
 
 interface BlogPostProps {
   post: BlogPostDetails;
@@ -136,6 +137,7 @@ export default function BlogPost({ post }: BlogPostProps) {
             </Card>
           </div>
         </main>
+        <Footer />
       </div>
     </>
   );
@@ -246,9 +248,7 @@ export const getStaticProps: GetStaticProps<BlogPostProps> = async ({
       labels?: Array<{ id: string; name: string; color: string }>;
       user?: { login: string; avatar_url: string };
     }>;
-    const discussion = discussions.find(
-      (d) => d.number === number
-    );
+    const discussion = discussions.find((d) => d.number === number);
 
     if (!discussion) {
       return {
