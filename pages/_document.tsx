@@ -10,6 +10,18 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Nano Collective RSS Feed"
+          href="/feed.xml"
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title="Nano Collective Atom Feed"
+          href="/feed.atom"
+        />
       </Head>
       <body className="antialiased">
         <Main />

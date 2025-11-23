@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack && next-sitemap",
+    "build": "next build --turbopack && next-sitemap && npx tsx scripts/generate-feed.ts",
     "start": "next start",
     "lint": "eslint",
     "types": "tsc --noEmit",
@@ -16,6 +16,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "feed": "^5.1.0",
     "lucide-react": "^0.545.0",
     "marked": "^17.0.0",
     "next": "15.5.4",

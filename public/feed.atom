@@ -1,0 +1,947 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://nanocollective.org</id>
+    <title>Nano Collective</title>
+    <updated>2025-11-23T15:14:31.202Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <author>
+        <name>Nano Collective</name>
+        <uri>https://nanocollective.org</uri>
+    </author>
+    <link rel="alternate" href="https://nanocollective.org"/>
+    <link rel="self" href="https://nanocollective.org/feed.atom"/>
+    <subtitle>Updates, discussions, and announcements from the Nano Collective community. Privacy-first open source AI development.</subtitle>
+    <logo>https://nanocollective.org/logo.png</logo>
+    <icon>https://nanocollective.org/favicon.ico</icon>
+    <rights>All rights reserved 2025, Nano Collective</rights>
+    <entry>
+        <title type="html"><![CDATA[Next Up: Terminal Bench Integration for Benchmarking]]></title>
+        <id>https://nanocollective.org/blog/next-up-terminal-bench-integration-for-benchmarking-14</id>
+        <link href="https://nanocollective.org/blog/next-up-terminal-bench-integration-for-benchmarking-14"/>
+        <updated>2025-11-12T22:24:18.000Z</updated>
+        <summary type="html"><![CDATA[**Status:** In Development Queue
+**Issue:** [#78](https://github.com/Nano-Collective/nanocoder/issues/78)
+**Priority:** Medium
+
+## Overview
+
+We're integrating with Terminal-Bench, a comprehensive benchmark framework designed to test AI coding agents on complex terminal tasks. This will allow us to systematically measure Nanocoder's performance across different models and track improvements over time.
+
+## What is Terminal-Bench?
+
+Terminal-Bench is a specialized benchmarking tool that ev]]></summary>
+        <content type="html"><![CDATA[**Status:** In Development Queue
+**Issue:** [#78](https://github.com/Nano-Collective/nanocoder/issues/78)
+**Priority:** Medium
+
+## Overview
+
+We're integrating with Terminal-Bench, a comprehensive benchmark framework designed to test AI coding agents on complex terminal tasks. This will allow us to systematically measure Nanocoder's performance across different models and track improvements over time.
+
+## What is Terminal-Bench?
+
+Terminal-Bench is a specialized benchmarking tool that evaluates AI agents on real-world terminal and coding tasks. By integrating with it, we'll be able to:
+
+- **Objectively measure performance** across different LLM providers and models
+- **Track improvements** as Nanocoder evolves
+- **Compare results** with other AI coding assistants
+- **Identify strengths and weaknesses** in specific task categories
+- **Validate changes** before releases
+
+## The Integration Approach
+
+We're taking a clean, non-invasive approach by creating a separate Python wrapper repository called `nanocoder-tbench`. This keeps benchmarking logic completely separate from Nanocoder's core codebase.
+
+### Architecture
+
+The integration follows a simple workflow:
+
+```
+Terminal-Bench → Python wrapper → nanocoder CLI → Tmux session
+```
+
+The wrapper implements Terminal-Bench's `BaseAgent` interface and spawns Nanocoder as a subprocess, interacting with it exactly as a real user would through the CLI.
+
+### Key Design Decisions
+
+**Zero modifications to Nanocoder:** The wrapper works with any installed version of Nanocoder without requiring code changes. This means:
+
+- No coupling between benchmarking and core functionality
+- Works with released versions, not just development builds
+- True "as-shipped" testing that reflects real user experience
+
+**Minimal implementation:** The entire wrapper will be approximately 80-100 lines of Python, focusing on:
+
+- Clean subprocess management
+- Proper timeout handling
+- Configuration for testing different models
+- Integration with Terminal-Bench's scoring system
+
+**Separation of concerns:** By keeping this in a separate repository:
+
+- Benchmark code doesn't clutter the main codebase
+- Different release cycles for benchmarking tools
+- Easy for the community to contribute benchmark improvements
+- No Python dependencies added to the TypeScript project
+
+## Implementation Plan
+
+The development follows a straightforward five-phase approach:
+
+1. **Repository Setup** - Create `nanocoder-tbench` with proper structure
+2. **BaseAgent Implementation** - Write the core adapter (80-100 lines)
+3. **Configuration** - Set up benchmark execution and model switching
+4. **Packaging** - Configure `pyproject.toml` for easy installation
+5. **Results Collection** - Leverage Terminal-Bench's built-in scoring
+
+## What Gets Tested?
+
+Terminal-Bench evaluates agents on complex terminal tasks including:
+
+- File manipulation and editing
+- Code refactoring and bug fixes
+- Multi-step workflows
+- Error handling and recovery
+- Tool usage and command execution
+- Project understanding and navigation
+
+This will give us comprehensive insight into Nanocoder's real-world capabilities.
+
+## Benefits for Users
+
+While this is primarily a development tool, users benefit indirectly:
+
+- **Quality assurance** - Systematic testing catches regressions
+- **Model recommendations** - Data-driven guidance on which models work best
+- **Transparency** - Public benchmark results show actual performance
+- **Confidence** - Know that features are validated before release
+
+## Multi-Model Testing
+
+One of the most exciting aspects is testing Nanocoder with different models:
+
+- Compare performance across Ollama, OpenRouter, and OpenAI providers
+- Identify which models excel at specific task types
+- Validate that Nanocoder works well with various LLM backends
+- Help users choose the right model for their needs
+
+## Success Criteria
+
+The integration is considered successful when:
+
+- The wrapper is under 100 lines of Python
+- No complex IPC protocols required
+- Supports benchmarking with multiple models via configuration
+- Proper timeout handling prevents hanging tests
+- Results integrate cleanly with Terminal-Bench's scoring system
+
+## Looking Ahead
+
+This integration lays the groundwork for continuous quality monitoring. As Nanocoder evolves and adds features like LSP support, we'll be able to measure the actual impact on performance and user experience.
+
+Benchmark results will also inform our roadmap, helping prioritize features that deliver the most value to real-world coding tasks.
+
+## Get Involved
+
+Interested in benchmarking AI coding agents? Here's how you can participate:
+
+- Follow progress on the [GitHub issue](https://github.com/Nano-Collective/nanocoder/issues/78)
+- Suggest additional test scenarios to include
+- Share which models you'd like to see benchmarked
+- Contribute to the `nanocoder-tbench` repository once it's created
+
+Stay tuned for benchmark results once integration is complete!
+
+---
+
+_Nanocoder is a local-first AI coding assistant built with React and Ink.js, supporting multiple LLM providers including Ollama, OpenRouter, and OpenAI-compatible APIs._
+]]></content>
+        <author>
+            <name>will-lamerton</name>
+        </author>
+        <category label="Nanocoder"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Next Up: LSP Support & IDE Plugin Implementation]]></title>
+        <id>https://nanocollective.org/blog/next-up-lsp-support-ide-plugin-implementation-13</id>
+        <link href="https://nanocollective.org/blog/next-up-lsp-support-ide-plugin-implementation-13"/>
+        <updated>2025-11-12T22:15:33.000Z</updated>
+        <summary type="html"><![CDATA[
+**Status:** In Development Queue
+**Issue:** [#52](https://github.com/Nano-Collective/nanocoder/issues/52)
+**Priority:** High
+
+## Overview
+
+We're excited to announce that LSP (Language Server Protocol) support and IDE plugin implementation is up next in Nanocoder's development roadmap. This feature represents a significant leap forward in bringing deep code intelligence capabilities to our AI coding assistant.
+
+## What's Coming?
+
+The upcoming implementation will add comprehensive LSP ]]></summary>
+        <content type="html"><![CDATA[
+**Status:** In Development Queue
+**Issue:** [#52](https://github.com/Nano-Collective/nanocoder/issues/52)
+**Priority:** High
+
+## Overview
+
+We're excited to announce that LSP (Language Server Protocol) support and IDE plugin implementation is up next in Nanocoder's development roadmap. This feature represents a significant leap forward in bringing deep code intelligence capabilities to our AI coding assistant.
+
+## What's Coming?
+
+The upcoming implementation will add comprehensive LSP support to Nanocoder, enabling it to leverage the same powerful code intelligence tools that modern IDEs use. This means the AI will have access to:
+
+- **Real-time diagnostics** - Syntax errors, type checking, and linting issues
+- **Code navigation** - Jump to definitions, find references, and symbol lookups
+- **Type information** - Hover details and signature help
+- **Intelligent refactoring** - Code actions, renaming, and completions
+- **Workspace awareness** - Full understanding of project structure and dependencies
+
+## Two-Part Approach
+
+### Part 1: LSP Client in Nanocoder
+
+The core enhancement will embed an LSP client directly into Nanocoder, automatically discovering and connecting to language servers in your development environment. This zero-configuration approach means:
+
+- Auto-detection of installed language servers
+- Support for multiple simultaneous connections (TypeScript, Python, Rust, etc.)
+- 10 new AI tools powered by LSP data
+- Graceful fallbacks when LSP isn't available
+
+### Part 2: VS Code Extension
+
+A dedicated VS Code extension will provide seamless IDE integration with:
+
+- **Chat panel sidebar** - Interact with Nanocoder without leaving your editor
+- **Editor integration** - Right-click context menus for quick AI assistance
+- **File watching** - Bidirectional synchronization between VS Code and Nanocoder
+- **Workspace awareness** - Full context of your project structure
+
+## Design Philosophy
+
+True to Nanocoder's ethos, LSP support will follow a zero-configuration philosophy. It should "just work" out of the box, with:
+
+- Automatic detection of language servers
+- No required configuration files or setup steps
+- Intelligent fallbacks when LSP data isn't available
+- Optional advanced configuration for power users
+
+## Implementation Timeline
+
+The development will follow a six-phase approach:
+
+1. **LSP Foundation** - Core client implementation and auto-discovery
+2. **Tools Integration** - New LSP-powered AI tools
+3. **Context Enhancement** - Intelligent context building with LSP data
+4. **Extension Server** - Communication bridge for IDE integration
+5. **VS Code Extension** - Full-featured IDE plugin
+6. **Testing & Polish** - Comprehensive testing and refinements
+
+## Why This Matters
+
+LSP support will fundamentally transform Nanocoder's capabilities. Instead of relying solely on file reading and text analysis, the AI will have access to the same rich semantic understanding that language servers provide to your IDE. This means:
+
+- **More accurate suggestions** based on actual type information
+- **Fewer errors** by leveraging real-time diagnostics
+- **Better refactoring** with awareness of all symbol references
+- **Faster development** with IDE-integrated workflows
+
+## Get Involved
+
+This is an ambitious feature that will take Nanocoder to the next level. We're starting development soon and would love community input:
+
+- Share your thoughts on the [GitHub issue](https://github.com/Nano-Collective/nanocoder/issues/52)
+- Suggest additional LSP capabilities you'd like to see
+- Help us prioritize which language servers to support first
+
+Stay tuned for updates as we begin implementation!
+
+---
+
+*Nanocoder is a local-first AI coding assistant built with React and Ink.js, supporting multiple LLM providers including Ollama, OpenRouter, and OpenAI-compatible APIs.*
+]]></content>
+        <author>
+            <name>will-lamerton</name>
+        </author>
+        <category label="Nanocoder"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Introducing AI-Powered HTML to Markdown Conversion in get-md]]></title>
+        <id>https://nanocollective.org/blog/introducing-ai-powered-html-to-markdown-conversion-in-get-md-12</id>
+        <link href="https://nanocollective.org/blog/introducing-ai-powered-html-to-markdown-conversion-in-get-md-12"/>
+        <updated>2025-11-12T22:03:18.000Z</updated>
+        <summary type="html"><![CDATA[We're excited to announce an upcoming feature for `@nanocollective/get-md`: optional AI-powered HTML to Markdown conversion using locally-run language models. This enhancement will give developers the choice between lightning-fast conversion and AI-enhanced quality, all while maintaining complete offline functionality.
+
+## The Challenge
+
+While our current Turndown-based conversion is fast and reliable (sub-100ms for most pages), complex HTML structures like nested tables, intricate layouts, ]]></summary>
+        <content type="html"><![CDATA[We're excited to announce an upcoming feature for `@nanocollective/get-md`: optional AI-powered HTML to Markdown conversion using locally-run language models. This enhancement will give developers the choice between lightning-fast conversion and AI-enhanced quality, all while maintaining complete offline functionality.
+
+## The Challenge
+
+While our current Turndown-based conversion is fast and reliable (sub-100ms for most pages), complex HTML structures like nested tables, intricate layouts, and heavily formatted content can sometimes result in less-than-perfect Markdown output. We wanted to offer a solution that could handle these edge cases better without forcing all users to adopt a slower, more resource-intensive approach.
+
+## The Solution: Optional Local LLM
+
+We're adding support for ReaderLM-v2, a 1.5 billion parameter language model specifically designed for HTML-to-Markdown conversion. The key aspects of our approach:
+
+- **Completely optional**: Turndown remains the default. Users opt-in via a simple flag.
+- **Runs locally**: No API keys, no cloud services, no internet required (after model download).
+- **Full control**: Developers using get-md in their applications can let their end-users decide whether to enable AI conversion.
+- **Smart fallback**: If the LLM fails for any reason, the system automatically falls back to Turndown.
+
+## How It Works
+
+### For CLI Users
+
+```bash
+# Check if the model is available
+getmd --model-info
+
+# Download the AI model (986MB, one-time)
+getmd --download-model
+
+# Convert using AI
+getmd https://example.com --use-llm
+```
+
+The CLI provides interactive prompts and progress bars to guide users through the model download process.
+
+### For SDK/Package Users
+
+```typescript
+import {
+  convertToMarkdown,
+  checkLLMModel,
+  downloadLLMModel
+} from '@nanocollective/get-md';
+
+// Check if model is available
+const status = await checkLLMModel();
+
+if (!status.available) {
+  // Download with progress callbacks
+  await downloadLLMModel({
+    onProgress: (downloaded, total, percentage) => {
+      console.log(`Downloading: ${percentage.toFixed(1)}%`);
+    }
+  });
+}
+
+// Convert with AI
+const result = await convertToMarkdown('https://example.com', {
+  useLLM: true,
+  onLLMEvent: (event) => {
+    // React to conversion events
+    if (event.type === 'conversion-complete') {
+      console.log(`Done in ${event.duration}ms`);
+    }
+  }
+});
+```
+
+## Perfect for Application Developers
+
+One of the most powerful aspects of this feature is how it works for developers building applications with get-md. Whether you're creating an Obsidian plugin, VS Code extension, Electron app, or web service, you can give your users the choice to enable AI conversion.
+
+### Example: Obsidian Plugin
+
+```typescript
+// In your plugin settings
+new Setting(containerEl)
+  .setName('AI-powered conversion')
+  .setDesc('Better quality, slower (986MB model)')
+  .addToggle(toggle => toggle
+    .setValue(this.settings.useAI)
+    .onChange(async (value) => {
+      this.settings.useAI = value;
+      await this.saveSettings();
+    }));
+
+// Add a download button if model isn't installed
+if (!modelAvailable) {
+  new Setting(containerEl)
+    .addButton(button => button
+      .setButtonText('Download AI Model')
+      .onClick(async () => {
+        await downloadLLMModel({
+          onProgress: (_, __, percentage) => {
+            button.setButtonText(`Downloading... ${percentage}%`);
+          }
+        });
+      }));
+}
+```
+
+Your users get a seamless experience with progress feedback, and the model downloads directly to their machine—no server-side infrastructure needed on your end.
+
+## Performance Trade-offs
+
+We believe in transparency, so here's what you need to know:
+
+| Metric | Turndown (Default) | LLM (Optional) |
+|--------|-------------------|----------------|
+| **Speed** | <100ms | 5-10 seconds |
+| **RAM** | ~100MB | 2-4GB |
+| **Disk** | 0MB | 986MB (model) |
+| **Quality** | Good | Excellent |
+| **Complex layouts** | Good | Excellent |
+| **Consistency** | 100% deterministic | ~95% consistent |
+
+### When to Use Each
+
+- **Use Turndown** (default) for:
+  - Batch processing thousands of pages
+  - CI/CD pipelines
+  - Real-time conversion
+  - Low-resource environments
+  - Simple blog posts and articles
+
+- **Use LLM** (opt-in) for:
+  - High-quality single conversions
+  - Complex documentation sites
+  - Pages with intricate tables and nested structures
+  - When visual fidelity matters most
+
+## Technical Architecture
+
+The LLM integration is designed to enhance, not replace, the existing pipeline:
+
+1. **Content extraction** (Readability) - removes ads, nav, etc.
+2. **HTML cleaning** - removes scripts, normalizes structure
+3. **Structure enhancement** - fixes heading hierarchy
+4. **Conversion** - Either Turndown OR LLM (user's choice)
+5. **Post-processing** - adds frontmatter, calculates stats
+
+By running the LLM on pre-cleaned HTML, we get better results while reducing token usage and processing time.
+
+## Callback System for Rich UIs
+
+We've designed a comprehensive callback system so developers can build rich user interfaces around the conversion process:
+
+```typescript
+await convertToMarkdown(url, {
+  useLLM: true,
+  onLLMEvent: (event) => {
+    switch (event.type) {
+      case 'model-loading':
+        showSpinner('Loading AI model...');
+        break;
+      case 'download-progress':
+        updateProgressBar(event.percentage);
+        break;
+      case 'conversion-complete':
+        hideSpinner();
+        showSuccess(`Converted in ${event.duration}ms`);
+        break;
+      case 'fallback-start':
+        showWarning('Using fallback method');
+        break;
+    }
+  }
+});
+```
+
+This means whether you're building a CLI tool, desktop app, or web service, you can provide users with real-time feedback on what's happening.
+
+## Why ReaderLM-v2?
+
+We chose ReaderLM-v2 for several reasons:
+
+- **Purpose-built**: Specifically designed for HTML-to-Markdown conversion
+- **Efficient**: 1.5B parameters with GGUF quantization (Q4_K_M) runs on consumer hardware
+- **Multilingual**: Supports 29 languages out of the box
+- **Proven**: Outperforms much larger models on conversion tasks
+- **Open source**: Available on Hugging Face, MIT-compatible licensing
+
+The Q4_K_M quantized version strikes the perfect balance—high quality at 986MB, running comfortably on systems with 8GB+ RAM.
+
+## Open Questions & Future Enhancements
+
+We're considering several enhancements for future versions:
+
+- **Hybrid mode**: Use LLM only for complex sections (tables, nested structures), Turndown for simple content
+- **GPU acceleration**: Faster inference on compatible hardware
+- **Caching layer**: Store conversions to avoid re-processing identical content
+- **Alternative models**: Support for other models based on user preference
+- **Smart detection**: Automatically choose method based on HTML complexity
+
+We'd love to hear your feedback on which features would be most valuable to you.
+
+## No Breaking Changes
+
+This is a purely additive feature. All existing code continues to work exactly as before. The default behavior remains unchanged—fast, deterministic Turndown conversion. LLM conversion is opt-in only.
+
+## Try It Out
+
+The implementation is currently in planning stages. We're working through the architecture and will be rolling this out in phases:
+
+- **Phase 1**: Core infrastructure and LLM integration
+- **Phase 2**: CLI and SDK integration with callbacks
+- **Phase 3**: Enhanced features (model management, config files)
+- **Phase 4**: Comprehensive testing and documentation
+
+Follow our [GitHub repository](https://github.com/nano-collective/get-md) for updates, or check out [Issue #3](https://github.com/Nano-Collective/get-md/issues/3) to join the discussion.
+
+## We Want Your Feedback
+
+This feature is being designed with the community in mind. We'd love to hear:
+
+- What use cases would benefit most from AI-powered conversion?
+- What should the user experience look like in your application?
+- Are there specific models or configurations you'd like to see supported?
+- What concerns do you have about the implementation?
+
+Join the conversation on GitHub or reach out to us directly. Let's build something amazing together.
+
+---
+
+*get-md is an open-source HTML to Markdown converter optimized for LLM consumption, built by the Nano Collective. Fast, reliable, and now with optional AI enhancement.*
+]]></content>
+        <author>
+            <name>will-lamerton</name>
+        </author>
+        <category label="Packages"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Nanocoder Recent Releases Overview – v1.15.0 -> v1.16.0]]></title>
+        <id>https://nanocollective.org/blog/nanocoder-recent-releases-overview-v1150-v1160-11</id>
+        <link href="https://nanocollective.org/blog/nanocoder-recent-releases-overview-v1150-v1160-11"/>
+        <updated>2025-11-10T16:28:02.000Z</updated>
+        <summary type="html"><![CDATA[# Nanocoder Recent Updates: v1.15.0 to v1.16.4
+
+Here's what's been happening with Nanocoder lately! We've been busy shipping some pretty cool stuff from v1.15.0 to v1.16.4 - including a complete backend overhaul, new features for tracking context usage and tagging files, tool system refinements for better context management, configuration directory improvements, and a bunch of important fixes to make everything run smoother. Let's dive in.
+
+## v1.16.4 - Configuration, Updates & Input Handlin]]></summary>
+        <content type="html"><![CDATA[# Nanocoder Recent Updates: v1.15.0 to v1.16.4
+
+Here's what's been happening with Nanocoder lately! We've been busy shipping some pretty cool stuff from v1.15.0 to v1.16.4 - including a complete backend overhaul, new features for tracking context usage and tagging files, tool system refinements for better context management, configuration directory improvements, and a bunch of important fixes to make everything run smoother. Let's dive in.
+
+## v1.16.4 - Configuration, Updates & Input Handling
+
+**Release Focus**: Configuration/data separation, intelligent update detection, and improved terminal compatibility
+
+### New Features
+
+**New**: Dracula theme added to the theme selector
+
+### Major Changes
+
+**Big**: Decoupled configuration vs data directories to introduce clear separation between configuration and application data directories (contributed by @bowmanjd) 🎉
+
+- Config now lives in platform-specific config directories (e.g., `~/.config/nanocoder/`)
+- Data stored separately in platform-specific data directories
+- Optional `NANOCODER_DATA_DIR` environment variable for custom data location
+- Automatic migration from old paths with user feedback
+
+**Big**: Update checker now intelligently detects how you installed Nanocoder and provides appropriate update instructions (contributed by @fabriziosalmi)
+
+- Auto-detects installation method (npm, Homebrew, Nix, etc.)
+- Shows correct update commands based on detection
+- Provides manual update steps if auto-detection fails
+
+### Fixes
+
+**Fix**: Command auto-complete now auto-completes to the top suggestion regardless of how many matches exist (previously only worked with single match)
+
+**Fix**: Improved paste detection to create placeholders for any pasted content (removed 80-char minimum), fixed consecutive paste placeholder sizing, and improved paste chunking for VSCode and other terminals
+
+**Fix**: Creating new lines in VSCode Terminal was broken - now fully functional
+
+**Fix**: History navigation issues resolved
+
+---
+
+## v1.16.3 - Tool System Overhaul
+
+**Release Focus**: Context management optimization and tool refinement for smaller models
+
+### Major Changes
+
+**Big**: Complete tool system redesign to better manage context and improve accuracy for smaller models like Qwen 3 Coder 30B
+
+### New Tools
+
+**New**: `find_files` tool - Model provides a pattern and gets back matching files and directory paths
+
+**New**: `search_file_contents` tool - Model provides a pattern and gets back matching content with metadata for further use
+
+### Tool Improvements
+
+**Enhanced**: `read_file` tool now reveals progressive information about files
+
+- Called alone: Returns just file metadata
+- With line number ranges: Returns specific content
+- Reduces unnecessary context loading
+
+### Removed Tools
+
+**Removed**: `read_many_files` tool - Rarely used by models over `read_file` with little benefit
+
+**Removed**: `search_files` tool - Models often found it confusing when trying to differentiate finding files vs searching content
+
+### Enhancements
+
+**Enhancement**: Removed message display limit - You can now see entire session history (message queue is well optimized)
+
+**Enhancement**: Many edge-case fixes in the markdown parser for assistant messages - Outputs are far cleaner now
+
+### Fixes
+
+**Fix**: Update checker used old rendering method so appeared broken and always checking for an update - Now fully functional
+
+**Fix**: Config files now correctly use `~/.config/nanocoder/` (or platform equivalents) instead of `~/.local/share/nanocoder/`, restoring proper XDG semantic separation between configuration and data (contributed by @bowmanjd)
+
+---
+
+## v1.16.2 - Output Management & Parsing Improvements
+
+**Release Focus**: Enhanced tool output handling and model response reliability
+
+### Fixes
+
+**Fix**: Models returning empty responses after tool execution now automatically reprompted
+
+**Fix**: HTML tags in responses no longer trigger false tool call detection errors
+
+### Enhancements
+
+**Enhancement**: `search_files` tool limited to 10 results (reduced from 50) to prevent large outputs
+
+**Enhancement**: `execute_bash` output truncated to 2,000 chars (reduced from 4,000) and returns plain string
+
+**Enhancement**: Model context limit tests updated to match actual implementation
+
+---
+
+## v1.16.1 - Installation Fix
+
+**Release Focus**: Resolving installation issues for better package reliability
+
+### Fixes
+
+**Fix**: Removed postinstall hook that caused installation failures when scripts directory was missing from published package
+
+**Change**: Models.dev data now fetched on first use instead of during installation
+
+---
+
+## v1.16.0 - Usage Tracking & Stability
+
+**Release Focus**: Context usage visibility and tool calling reliability
+
+### New Features
+
+**New**: `/usage` command for visualizing model context usage (contributed by @spinualexandru, closes #12) 🎉
+
+### Enhancements
+
+**Enhancement**: Added new models to recommendations database
+
+### Fixes
+
+**Fix**: Resolved issue where model requested permission for non-existent tools - Now errors and loops back to the model to self-correct
+
+---
+
+## v1.15.1 - Compatibility Fixes
+
+**Release Focus**: Cross-platform compatibility and edge case handling
+
+### Fixes
+
+**Fix**: Ollama tool calls without IDs no longer cause empty responses - IDs now auto-generated when missing
+
+**Fix**: Homebrew installer now working correctly
+
+**Fix**: Node version requirement updated to 20+
+
+---
+
+## v1.15.0 - Major Architecture Update
+
+**Release Focus**: Backend modernization and enhanced user experience
+
+### Major Changes
+
+**Big**: Switched backend architecture from LangGraph to AI SDK - A better fit for Nanocoder (contributed by @DenizOkcu)
+
+### New Features
+
+**New**: File tagging with `@` symbol - Fuzzy search and select files to include in messages directly
+
+**New**: Real-time message streaming to see agent respond in realtime - Toggle stream mode on/off via the `/streaming` command
+
+**New**: Homebrew installation option
+
+### Enhancements
+
+**Enhancement**: Command auto-complete now uses fuzzy search for better discoverability
+
+**Enhancement**: Replaced custom table renderer with the more robust `cli-table3` library
+
+**Enhancement**: Refined XML/JSON parsing flow for non-native tool calls
+
+---
+
+## Summary
+
+These releases demonstrate Nanocoder's commitment to:
+
+**Stability**: Critical fixes for installation, tool calling, terminal compatibility, and cross-platform support
+
+**Performance**: Architectural improvements with AI SDK migration, optimized context management, and refined tool system
+
+**User Experience**: New features like context usage tracking, file tagging, real-time streaming, intelligent update detection, and improved configuration management
+
+**Community**: Multiple contributor acknowledgments (@spinualexandru, @DenizOkcu, @bowmanjd, @fabriziosalmi) and continued focus on user feedback
+
+The journey from v1.15.0 to v1.16.4 represents both major architectural milestones (AI SDK migration, tool system overhaul, config/data separation) and incremental refinements based on real-world usage and community feedback. Special focus on making Nanocoder work better with smaller models through intelligent context management shows our commitment to accessibility and performance across all hardware configurations.
+
+---
+
+Want to get involved? Drop a comment or an issue on the relevant repo 😎
+]]></content>
+        <author>
+            <name>will-lamerton</name>
+        </author>
+        <category label="Nanocoder"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[New Feature Development: Homebrew Installation Support 🍺]]></title>
+        <id>https://nanocollective.org/blog/new-feature-development-homebrew-installation-support-10</id>
+        <link href="https://nanocollective.org/blog/new-feature-development-homebrew-installation-support-10"/>
+        <updated>2025-11-04T16:16:52.000Z</updated>
+        <summary type="html"><![CDATA[One of the next things up for Nanocoder is official Homebrew support. This has been our _longest_ open issue so we thought we'd better get to it 😉
+
+### What this means for you:
+Installing and updating Nanocoder will be as simple as:
+
+```bash
+brew install Nano-Collective/nanocoder/nanocoder
+```
+### Key benefits:
+- Streamlined installation for macOS and Linux users
+- Automatic updates with each new release
+- Standardized package management that integrates with your existing workflow
+-]]></summary>
+        <content type="html"><![CDATA[One of the next things up for Nanocoder is official Homebrew support. This has been our _longest_ open issue so we thought we'd better get to it 😉
+
+### What this means for you:
+Installing and updating Nanocoder will be as simple as:
+
+```bash
+brew install Nano-Collective/nanocoder/nanocoder
+```
+### Key benefits:
+- Streamlined installation for macOS and Linux users
+- Automatic updates with each new release
+- Standardized package management that integrates with your existing workflow
+- One-command upgrades to always stay current
+
+### What we're building:
+
+- Native Homebrew formula in our main repository
+- Automated formula updates with every release
+- Comprehensive documentation and troubleshooting guides
+- Rigorous testing across multiple macOS versions
+
+This addition makes Nanocoder even more accessible while maintaining our commitment to local-first, privacy-respecting AI tools.
+
+Stay tuned for the official release.]]></content>
+        <author>
+            <name>will-lamerton</name>
+        </author>
+        <category label="Nanocoder"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[New Feature Development: Adding @ File Syntax to Nanocoder]]></title>
+        <id>https://nanocollective.org/blog/new-feature-development-adding-file-syntax-to-nanocoder-9</id>
+        <link href="https://nanocollective.org/blog/new-feature-development-adding-file-syntax-to-nanocoder-9"/>
+        <updated>2025-10-31T15:06:19.000Z</updated>
+        <summary type="html"><![CDATA[### Update: Adding @ File Syntax to Nanocoder
+
+Next up for Nanocoder, we'll be working on `@` syntax for file references, based on the feature request in issue #5.
+
+### What's changing:
+You'll be able to include files directly in your messages using `@` syntax. Instead of asking Nanocoder to read files separately, you can reference them inline:
+
+`"Fix the TypeScript errors in @src/utils/validation.ts and update @types/user.ts accordingly"`
+
+### Planned features:
+
+- File inclusion with]]></summary>
+        <content type="html"><![CDATA[### Update: Adding @ File Syntax to Nanocoder
+
+Next up for Nanocoder, we'll be working on `@` syntax for file references, based on the feature request in issue #5.
+
+### What's changing:
+You'll be able to include files directly in your messages using `@` syntax. Instead of asking Nanocoder to read files separately, you can reference them inline:
+
+`"Fix the TypeScript errors in @src/utils/validation.ts and update @types/user.ts accordingly"`
+
+### Planned features:
+
+- File inclusion with @filename.ts
+- Line range support with @filename.ts:10-20
+- Multiple file references in one message
+- Tab completion for file paths
+- Glob pattern support
+
+This should streamline your workflow by reducing the steps needed to work with multiple files.
+
+We'll share another discussion once released!]]></content>
+        <author>
+            <name>will-lamerton</name>
+        </author>
+        <category label="Nanocoder"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[New Package: LLM Scorer / Profiler / Bench based on system]]></title>
+        <id>https://nanocollective.org/blog/new-package-llm-scorer-profiler-bench-based-on-system-4</id>
+        <link href="https://nanocollective.org/blog/new-package-llm-scorer-profiler-bench-based-on-system-4"/>
+        <updated>2025-10-29T13:37:08.000Z</updated>
+        <summary type="html"><![CDATA[# New Package: LLM Scorer / Profiler / Bench based on system
+
+In [Nanocoder](https://github.com/Nano-Collective/nanocoder) we offer LLM recommendations via a [`/recommendations` command](https://github.com/Nano-Collective/nanocoder/issues/43). This has proven useful for users to see how well a particular LLM will run on a system.
+
+We're taking this idea and building an isolated package that takes in a list of models and system information, returning a series of metrics for each model and an ]]></summary>
+        <content type="html"><![CDATA[# New Package: LLM Scorer / Profiler / Bench based on system
+
+In [Nanocoder](https://github.com/Nano-Collective/nanocoder) we offer LLM recommendations via a [`/recommendations` command](https://github.com/Nano-Collective/nanocoder/issues/43). This has proven useful for users to see how well a particular LLM will run on a system.
+
+We're taking this idea and building an isolated package that takes in a list of models and system information, returning a series of metrics for each model and an overall performance score.
+
+## How it might work...
+
+This package produces metrics for each model, based on...
+
+- User's system information (memory, CPU, GPU, TPU, Swap, Arch, ...)
+- LLM's model card information (arch, quant, ...)
+- LLM's skills (vision, tools, ...)
+
+... then rate how well the LLM operates on the user's system.
+
+Primarily this package will be used to rate local LLMs on the runtime's system, but we also see merits in scoring skills and allowing you to override system information too. We also need to consider when the list of models features entries that are cloud-side, meaning system information doesn't weigh in nearly as much.
+
+Usage may look something like this:
+
+```typescript
+const result = llmScorer({
+    models: [
+        {
+            model: 'meta-llama/Llama-3.1-8B',
+            quantization: ...,
+            arch: 'llama',
+            // Many other optional parameters for this model...
+        },
+        {
+            model: 'meta-llama/Llama-3.2-1B',
+            quantization: ...,
+            arch: 'llama',
+        },
+    ],
+    system: {
+        // optionally override default behaviour of pulling system information
+        memoryGB: 24,
+        // ...
+    }
+})
+```
+
+And the results will look something like this, ordered by best rated model first:
+
+```
+[
+    {
+        model: "meta-llama/Llama-3.1-8B",
+        score: 0.8,
+        metrics: {
+            ...
+        }
+    },
+    {
+        ...
+    },
+]
+```
+
+# What Next
+
+We're in the process of building an initial solution and plan to release this on a public repository to gather feedback from our community and evolve it.
+
+We recognise that there's many angles and opinions to consider for this, so we welcome contributors and our community to help form how this package works.
+
+We'll announce the alpha version of this package once it is prepared and released.
+
+# Community
+We're a small community-led team building local and privacy-first AI solutions under the [Nano Collective](https://nanocollective.org/) and would love your help! Whether you're interested in contributing code, documentation, or just being part of our community, there are several ways to get involved.
+
+**If you want to contribute to this new concept:**
+
+- Drop comments and thoughts below, or [join our Discord server](https://discord.gg/ktPDV6rekE)
+
+**If you want to be part of our community or help with other aspects like code, design or marketing:**
+
+- Join our Discord server to connect with other users, ask questions, share ideas, and get help: [Join our Discord server](https://discord.gg/ktPDV6rekE)
+
+- Head to our GitHub issues or discussions to open and join current conversations with others in the community.
+]]></content>
+        <author>
+            <name>mrspence</name>
+        </author>
+        <category label="Packages"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[New Package: Lightweight HTML to Markdown utility for LLM use]]></title>
+        <id>https://nanocollective.org/blog/new-package-lightweight-html-to-markdown-utility-for-llm-use-3</id>
+        <link href="https://nanocollective.org/blog/new-package-lightweight-html-to-markdown-utility-for-llm-use-3"/>
+        <updated>2025-10-29T12:27:10.000Z</updated>
+        <summary type="html"><![CDATA[# New Package: Lightweight HTML to Markdown utility for LLM use
+
+Our members saw the sheer speed of [Markitdown](https://github.com/microsoft/markitdown) in the Python space, so we begun to wonder what lessons we could bring to the Node JS space, with LLM use in mind.
+
+---
+
+**Now Released**: new LLM oriented utility for converting HTML to Markdown - [@nanocollective/get-md](https://github.com/Nano-Collective/get-md)
+
+---
+
+For speed, markdown is often a preferable format for LLMs to dig]]></summary>
+        <content type="html"><![CDATA[# New Package: Lightweight HTML to Markdown utility for LLM use
+
+Our members saw the sheer speed of [Markitdown](https://github.com/microsoft/markitdown) in the Python space, so we begun to wonder what lessons we could bring to the Node JS space, with LLM use in mind.
+
+---
+
+**Now Released**: new LLM oriented utility for converting HTML to Markdown - [@nanocollective/get-md](https://github.com/Nano-Collective/get-md)
+
+---
+
+For speed, markdown is often a preferable format for LLMs to digest content. So when you want to process a webpage, converting it to markdown helps strip out anything but the relevant content an LLM needs to perform a job.
+
+We produced a binary version of Markitdown that can be bundled into a Node JS package (see [@mote-software/markitdown](https://github.com/Mote-Software/markitdown)) but the cold-boot performance hit is much worse than we hoped. We'll explore options to speed this up, but ultimately using binaries  - especially Python based - will always have a degraded performance.
+
+So with a focus on speed and quality, this new Node JS package can take in HTML and produce a markdown format optimised for LLM use within moments (~100ms), and save you magnitudes of compute.
+
+> [!TIP]
+> We'd like to bring more input formats too, so you could convert PDF, DOCX, audio, and other file formats... just like [Markitdown](https://github.com/microsoft/markitdown) does. [We welcome contributors](https://github.com/Nano-Collective/get-md/blob/main/CONTRIBUTING.md) to help our community with this mission.
+
+# Community
+We're a small community-led team building local and privacy-first AI solutions under the [Nano Collective](https://nanocollective.org/) and would love your help! Whether you're interested in contributing code, documentation, or just being part of our community, there are several ways to get involved.
+
+**If you want to contribute to the code:**
+
+- Read our detailed [CONTRIBUTING.md](https://github.com/Nano-Collective/get-md/blob/main/CONTRIBUTING.md) guide for information on development setup, coding standards, and how to submit your changes.
+
+**If you want to be part of our community or help with other aspects like design or marketing:**
+
+- Join our Discord server to connect with other users, ask questions, share ideas, and get help: [Join our Discord server](https://discord.gg/ktPDV6rekE)
+
+- Head to our GitHub issues or discussions to open and join current conversations with others in the community.]]></content>
+        <author>
+            <name>mrspence</name>
+        </author>
+        <category label="Packages"/>
+    </entry>
+</feed>
