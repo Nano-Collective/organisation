@@ -52,6 +52,7 @@ jobs:
         run: pnpm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_OPTIONS: --max_old_space_size=4096
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
