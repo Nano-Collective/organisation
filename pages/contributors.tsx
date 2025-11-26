@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { FaDiscord, FaGithub } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
