@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.0.0]
+        node-version: [22]
 
     steps:
       - name: Checkout repository
@@ -52,7 +52,6 @@ jobs:
         run: pnpm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_OPTIONS: --max_old_space_size=4096
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1

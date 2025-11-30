@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack && next-sitemap && tsx scripts/generate-feed.ts",
+    "build": "next build --turbopack && next-sitemap && node scripts/generate-feed.js",
     "start": "next start",
     "lint": "eslint",
     "types": "tsc --noEmit",

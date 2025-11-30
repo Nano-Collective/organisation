@@ -10,18 +10,7 @@ const SITE_DESCRIPTION =
 // Categories to include in the feed
 const DISCUSSION_CATEGORIES = ["nanocoder", "packages"];
 
-interface Discussion {
-  id: string;
-  number: number;
-  title: string;
-  body: string;
-  created_at: string;
-  updated_at?: string;
-  category: { name: string; emoji: string; slug: string };
-  user: { login: string; avatar_url: string };
-}
-
-function slugify(text: string): string {
+function slugify(text) {
   return text
     .toString()
     .toLowerCase()
@@ -33,12 +22,12 @@ function slugify(text: string): string {
     .replace(/-+$/, "");
 }
 
-function generateBlogSlug(title: string, number: number): string {
+function generateBlogSlug(title, number) {
   return `${slugify(title)}-${number}`;
 }
 
-async function fetchDiscussions(): Promise<Discussion[]> {
-  const headers: HeadersInit = {
+async function fetchDiscussions() {
+  const headers = {
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
   };
@@ -57,7 +46,7 @@ async function fetchDiscussions(): Promise<Discussion[]> {
     return [];
   }
 
-  const discussions = (await response.json()) as Discussion[];
+  const discussions = await response.json();
 
   // Filter to only include blog categories
   return discussions.filter((d) =>
