@@ -12,9 +12,18 @@ import { MessageCircle, Calendar } from "lucide-react";
 import { BlogPost } from "@/types/blog";
 import Footer from "@/components/footer";
 import { generateBlogSlug } from "@/lib/slugify";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useState } from "react";
 
 // Define website published categories
 const DISCUSSION_CATEGORIES = [
+  { name: "All", emoji: "📰", slug: "all" },
   { name: "Nanocoder", emoji: "🧑‍💻", slug: "nanocoder" },
   { name: "Packages", emoji: "📦", slug: "packages" },
 ];
@@ -24,6 +33,12 @@ interface BlogProps {
 }
 
 export default function Blog({ posts }: BlogProps) {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const filteredPosts = selectedCategory === "all" 
+    ? posts
+    : posts.filter((post) => post.category.slug === selectedCategory);
+
   return (
     <>
       <Head>
@@ -66,95 +81,92 @@ export default function Blog({ posts }: BlogProps) {
             </p>
           </div>
 
+          {/* Category Filter */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <Select
+              value={selectedCategory}
+              onValueChange={setSelectedCategory}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent>
+                {DISCUSSION_CATEGORIES.map((category) => (
+                  <SelectItem key={category.slug} value={category.slug}>
+                    <span className="flex items-center gap-2">
+                      <span>{category.emoji}</span>
+                      <span>{category.name}</span>
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           {/* Blog Posts */}
           <div className="max-w-4xl mx-auto space-y-8">
-            {DISCUSSION_CATEGORIES.map((category) => {
-              const categoryPosts = posts.filter(
-                (post) => post.category.slug === category.slug
-              );
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
+                <Link
+                  key={post.id}
+                  href={`/blog/${generateBlogSlug(post.title, post.number)}`}
+                  className="block group"
+                >
+                  <Card className="hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                      <div className="space-y-3">
+                        <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                          {post.title}
+                        </CardTitle>
 
-              if (categoryPosts.length === 0) return null;
-
-              return (
-                <div key={category.slug} className="space-y-4 mb-20">
-                  <h2 className="text-2xl font-bold text-foreground">
-                    {category.emoji} {category.name}
-                  </h2>
-                  <div className="space-y-4">
-                    {categoryPosts.map((post) => (
-                      <Link
-                        key={post.id}
-                        href={`/blog/${generateBlogSlug(
-                          post.title,
-                          post.number
-                        )}`}
-                        className="block group"
-                      >
-                        <Card className="hover:shadow-lg transition-shadow">
-                          <CardHeader>
-                            <div className="space-y-3">
-                              <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                                {post.title}
-                              </CardTitle>
-
-                              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                                <div className="flex items-center gap-1.5">
-                                  <Calendar className="h-4 w-4" />
-                                  <time dateTime={post.createdAt}>
-                                    {new Date(
-                                      post.createdAt
-                                    ).toLocaleDateString("en-US", {
-                                      year: "numeric",
-                                      month: "long",
-                                      day: "numeric",
-                                    })}
-                                  </time>
-                                </div>
-                                {post.commentCount > 0 && (
-                                  <div className="flex items-center gap-1.5">
-                                    <MessageCircle className="h-4 w-4" />
-                                    <span>
-                                      {post.commentCount}{" "}
-                                      {post.commentCount === 1
-                                        ? "comment"
-                                        : "comments"}
-                                    </span>
-                                  </div>
-                                )}
-                              </div>
-
-                              {post.labels && post.labels.length > 0 && (
-                                <div className="flex flex-wrap gap-1.5">
-                                  {post.labels.map((label) => (
-                                    <Badge
-                                      key={label.id}
-                                      variant="outline"
-                                      style={{
-                                        borderColor: `#${label.color}`,
-                                        color: `#${label.color}`,
-                                      }}
-                                      className="text-xs"
-                                    >
-                                      {label.name}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              )}
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1.5">
+                            <Calendar className="h-4 w-4" />
+                            <time dateTime={post.createdAt}>
+                              {new Date(post.createdAt).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })}
+                            </time>
+                          </div>
+                          {post.commentCount > 0 && (
+                            <div className="flex items-center gap-1.5">
+                              <MessageCircle className="h-4 w-4" />
+                              <span>
+                                {post.commentCount} {post.commentCount === 1 ? "comment" : "comments"}
+                              </span>
                             </div>
-                          </CardHeader>
-                        </Card>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+                          )}
+                        </div>
 
-            {posts.length === 0 && (
+                        {post.labels && post.labels.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5">
+                            {post.labels.map((label) => (
+                              <Badge
+                                key={label.id}
+                                variant="outline"
+                                style={{
+                                  borderColor: `#${label.color}`,
+                                  color: `#${label.color}`,
+                                }}
+                                className="text-xs"
+                              >
+                                {label.name}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              ))
+            ) : (
               <Card>
                 <CardHeader>
                   <CardDescription className="text-center py-8">
-                    No blog posts yet. Check back soon!
+                    No blog posts in this category. Check back soon!
                   </CardDescription>
                 </CardHeader>
               </Card>
