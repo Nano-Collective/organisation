@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   CartesianGrid,
   Legend,
+  LegendPayload,
   Line,
   LineChart,
   ReferenceLine,
@@ -57,7 +58,7 @@ export function GrowthChart({
 
   // Custom legend renderer
   const renderLegend = (props: {
-    payload?: Array<{ dataKey: string; value: string; color: string }>;
+    payload?: readonly LegendPayload[];
   }) => {
     const { payload } = props;
     if (!payload) return null;

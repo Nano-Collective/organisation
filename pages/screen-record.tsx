@@ -1,7 +1,21 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import NanocoderTerminal from "@/components/NanocoderTerminal";
+import { themes, type Theme, type ThemePreset } from "@/types/ui";
 
 export default function ScreenRecord() {
+  const [currentTheme, setCurrentTheme] = useState<Theme>(themes["tokyo-night"]);
+
+  // Create a callback for theme changes
+  const handleThemeChange = (theme: Theme) => {
+    setCurrentTheme(theme);
+  };
+
+  const colors = currentTheme.colors;
+  const themeGradient = colors.gradientColors
+    ? `linear-gradient(to right, ${colors.gradientColors.join(", ")})`
+    : `linear-gradient(to right, ${colors.primary}, ${colors.tool})`;
+
   return (
     <>
       <Head>
@@ -12,9 +26,14 @@ export default function ScreenRecord() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <div className="min-h-screen bg-gradient-to-br from-[#1a1b26] via-[#2ac3de]/20 to-[#bb9af7]/20 flex items-center justify-center p-8">
+      <div
+        className="min-h-screen flex items-center justify-center p-8 transition-colors duration-700 ease-in-out"
+        style={{
+          background: themeGradient,
+        }}
+      >
         <div className="w-full max-w-4xl">
-          <NanocoderTerminal />
+          <NanocoderTerminal onThemeChange={handleThemeChange} />
         </div>
       </div>
     </>
