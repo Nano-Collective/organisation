@@ -1,6 +1,6 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 import { Feed } from "feed";
-import { writeFileSync, mkdirSync } from "fs";
-import { join } from "path";
 
 const SITE_URL = "https://nanocollective.org";
 const SITE_TITLE = "Nano Collective";
@@ -16,8 +16,8 @@ function slugify(text) {
     .toLowerCase()
     .trim()
     .replace(/\s+/g, "-")
-    .replace(/[^\w\-]+/g, "")
-    .replace(/\-\-+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-")
     .replace(/^-+/, "")
     .replace(/-+$/, "");
 }
@@ -38,7 +38,7 @@ async function fetchDiscussions() {
 
   const response = await fetch(
     "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-    { headers }
+    { headers },
   );
 
   if (!response.ok) {
@@ -50,7 +50,7 @@ async function fetchDiscussions() {
 
   // Filter to only include blog categories
   return discussions.filter((d) =>
-    DISCUSSION_CATEGORIES.includes(d.category.slug)
+    DISCUSSION_CATEGORIES.includes(d.category.slug),
   );
 }
 
@@ -81,7 +81,7 @@ async function generateFeed() {
   // Sort discussions by date (newest first)
   const sortedDiscussions = discussions.sort(
     (a, b) =>
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
   );
 
   for (const discussion of sortedDiscussions) {

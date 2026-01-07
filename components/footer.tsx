@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaGithub, FaDiscord } from "react-icons/fa";
+import { FaDiscord, FaGithub } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -17,7 +17,10 @@ export default function Footer() {
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <nav className="flex gap-4 text-sm">
-              <Link href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                href="/blog"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Blog
               </Link>
             </nav>

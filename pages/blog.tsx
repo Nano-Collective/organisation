@@ -1,17 +1,16 @@
+import { Calendar, MessageCircle } from "lucide-react";
+import type { GetStaticProps } from "next";
 import Head from "next/head";
-import { GetStaticProps } from "next";
 import Link from "next/link";
+import { useState } from "react";
+import Footer from "@/components/footer";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { MessageCircle, Calendar } from "lucide-react";
-import { BlogPost } from "@/types/blog";
-import Footer from "@/components/footer";
-import { generateBlogSlug } from "@/lib/slugify";
 import {
   Select,
   SelectContent,
@@ -19,7 +18,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { generateBlogSlug } from "@/lib/slugify";
+import type { BlogPost } from "@/types/blog";
 
 // Define website published categories
 const DISCUSSION_CATEGORIES = [
@@ -35,9 +35,10 @@ interface BlogProps {
 export default function Blog({ posts }: BlogProps) {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const filteredPosts = selectedCategory === "all" 
-    ? posts
-    : posts.filter((post) => post.category.slug === selectedCategory);
+  const filteredPosts =
+    selectedCategory === "all"
+      ? posts
+      : posts.filter((post) => post.category.slug === selectedCategory);
 
   return (
     <>
@@ -123,18 +124,24 @@ export default function Blog({ posts }: BlogProps) {
                           <div className="flex items-center gap-1.5">
                             <Calendar className="h-4 w-4" />
                             <time dateTime={post.createdAt}>
-                              {new Date(post.createdAt).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              })}
+                              {new Date(post.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                },
+                              )}
                             </time>
                           </div>
                           {post.commentCount > 0 && (
                             <div className="flex items-center gap-1.5">
                               <MessageCircle className="h-4 w-4" />
                               <span>
-                                {post.commentCount} {post.commentCount === 1 ? "comment" : "comments"}
+                                {post.commentCount}{" "}
+                                {post.commentCount === 1
+                                  ? "comment"
+                                  : "comments"}
                               </span>
                             </div>
                           )}
@@ -193,7 +200,7 @@ export const getStaticProps: GetStaticProps<BlogProps> = async () => {
 
     const response = await fetch(
       "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-      { headers }
+      { headers },
     );
 
     if (!response.ok) {
@@ -237,7 +244,7 @@ export const getStaticProps: GetStaticProps<BlogProps> = async () => {
     // Sort by newest first
     const sortedPosts = posts.sort(
       (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
 
     return {

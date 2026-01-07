@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function NanocoderTerminal() {
   const commands = useMemo(
@@ -18,11 +18,11 @@ export default function NanocoderTerminal() {
       "Add error boundary to catch React errors",
       "Write documentation for the API endpoints",
     ],
-    []
+    [],
   );
 
   const [currentCommandIndex, setCurrentCommandIndex] = useState(() =>
-    Math.floor(Math.random() * commands.length)
+    Math.floor(Math.random() * commands.length),
   );
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -49,7 +49,7 @@ export default function NanocoderTerminal() {
         }, 30);
         return () => clearTimeout(timeout);
       } else {
-        let newIndex;
+        let newIndex: number;
         do {
           newIndex = Math.floor(Math.random() * commands.length);
         } while (newIndex === currentCommandIndex && commands.length > 1);
@@ -79,12 +79,10 @@ export default function NanocoderTerminal() {
         </div>
 
         {/* Tips Section with Welcome Banner */}
+        <div className="inline-block bg-[#bb9af7] px-2 py-0 text-[#1a1b26] mb-2 text-xs">
+          ✱ Welcome to Nanocoder 1.20.0 ✱
+        </div>
         <div className="border border-[#bb9af7] rounded-md p-4 pt-5 mb-6 bg-black relative text-xs">
-          <div className="absolute -top-3 left-2">
-            <div className="inline-block bg-[#bb9af7] rounded-full px-2 py-0.5 text-[#1a1b26]">
-               ✱ Welcome to Nanocoder 1.16.0
-            </div>
-          </div>
           <div className="text-[#c0caf5] mb-4">Tips for getting started:</div>
           <div className="space-y-1 text-[#565f89]">
             <div>
@@ -103,12 +101,10 @@ export default function NanocoderTerminal() {
         </div>
 
         {/* Status Section */}
+        <div className="inline-block bg-[#2ac3de] px-2 py-0 text-[#1a1b26] mb-2 text-xs">
+          Status
+        </div>
         <div className="border border-[#2ac3de] rounded-md p-4 pt-5 mb-6 bg-black relative text-xs">
-          <div className="absolute -top-3 left-2">
-            <div className="inline-block bg-[#2ac3de] rounded-full px-2 py-0.5 text-[#1a1b26]">
-              Status
-            </div>
-          </div>
           <div className="space-y-1">
             <div>
               <span className="text-[#2ac3de] font-bold">CWD:</span>{" "}
@@ -122,7 +118,7 @@ export default function NanocoderTerminal() {
               <span className="text-[#7AF778] font-bold">Provider:</span>{" "}
               <span className="text-[#7AF778]">Ollama, </span>
               <span className="text-[#7AF778] font-bold">Model:</span>{" "}
-              <span className="text-[#7AF778]">gpt-oss:20b</span>
+              <span className="text-[#7AF778]">devstral-small-2:24b</span>
             </div>
             <div>
               <span className="text-[#bb9af7] font-bold">Theme:</span>{" "}
@@ -131,12 +127,12 @@ export default function NanocoderTerminal() {
             <div className="text-[#565f89] italic">
               ↳ Using AGENTS.md. Project initialized
             </div>
+            <div className="text-[#565f89] italic">✓ Preferences loaded</div>
+            <div className="text-[#565f89] italic">
+              ✓ 4 custom commands loaded
+            </div>
+            <div className="text-[#565f89] italic">✓ LSP: 1/1 connected</div>
           </div>
-        </div>
-
-        {/* Loading Message */}
-        <div className="text-[#7AF778] mb-6 text-xs">
-          User preferences loaded...
         </div>
 
         {/* Prompt Section */}
@@ -152,7 +148,8 @@ export default function NanocoderTerminal() {
             </span>
           </div>
           <div className="text-[#565f89] text-xs mt-2">
-            Type "/" and then press Tab for command suggestions or "!" to execute bash commands. Use ↑/↓ for history.
+            Type "/" and then press Tab for command suggestions or "!" to
+            execute bash commands. Use ↑/↓ for history.
           </div>
           <div className="text-[#565f89] flex items-center gap-2 mt-4">
             <span className="text-[#565f89]">▶</span> normal mode on{" "}

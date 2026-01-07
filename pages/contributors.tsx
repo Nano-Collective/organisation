@@ -1,12 +1,12 @@
+import { ExternalLink } from "lucide-react";
 import Head from "next/head";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { CONTRIBUTORS, type Contributor } from "@/lib/contributors";
 import Footer from "@/components/footer";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { CONTRIBUTORS, type Contributor } from "@/lib/contributors";
 
 /**
  * Contributors Page

@@ -1,4 +1,19 @@
+import {
+  Code2,
+  Lock,
+  Package,
+  Sparkles,
+  Terminal,
+  Users,
+  Zap,
+} from "lucide-react";
+import type { GetStaticProps } from "next";
 import Head from "next/head";
+import Link from "next/link";
+import { FaDiscord, FaGithub } from "react-icons/fa";
+import Footer from "@/components/footer";
+import NanocoderTerminal from "@/components/NanocoderTerminal";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,23 +21,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Code2,
-  Terminal,
-  Zap,
-  Users,
-  Lock,
-  Sparkles,
-  Package,
-} from "lucide-react";
-import Footer from "@/components/footer";
-import NanocoderTerminal from "@/components/NanocoderTerminal";
 import WhatsNextSection from "@/components/WhatsNextSection";
-import Link from "next/link";
-import { GetStaticProps } from "next";
-import { Discussion } from "@/types/discussion";
-import { FaDiscord, FaGithub } from "react-icons/fa";
+import type { Discussion } from "@/types/discussion";
 
 interface HomeProps {
   discussions: Discussion[];
@@ -404,7 +404,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 
     const response = await fetch(
       "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-      { headers }
+      { headers },
     );
 
     if (!response.ok) {
@@ -421,7 +421,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     // Sort by newest first
     const sortedDiscussions = discussions.sort(
       (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
     );
 
     return {

@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import {
-  LineChart,
+  CartesianGrid,
+  Legend,
   Line,
+  LineChart,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  ReferenceLine,
 } from "recharts";
 
 interface DownloadData {
@@ -56,25 +56,26 @@ export function GrowthChart({
   };
 
   // Custom legend renderer
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const renderLegend = (props: any) => {
+  const renderLegend = (props: {
+    payload?: Array<{ dataKey: string; value: string; color: string }>;
+  }) => {
     const { payload } = props;
     if (!payload) return null;
     return (
       <div className="flex flex-wrap justify-center gap-4 pt-5">
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        {payload.map((entry: any) => {
+        {payload.map((entry) => {
           if (!entry.dataKey || typeof entry.dataKey !== "string") return null;
           const isVisible =
             visibleLines[entry.dataKey as keyof typeof visibleLines];
           return (
-            <div
+            <button
               key={entry.dataKey}
+              type="button"
               onClick={() =>
                 typeof entry.dataKey === "string" &&
                 handleLegendClick(entry.dataKey)
               }
-              className="flex items-center gap-2 cursor-pointer select-none"
+              className="flex items-center gap-2 cursor-pointer select-none bg-transparent border-0 p-0"
               style={{ opacity: isVisible ? 1 : 0.3 }}
             >
               <div
@@ -87,7 +88,7 @@ export function GrowthChart({
                 }}
               />
               <span className="text-sm">{entry.value || ""}</span>
-            </div>
+            </button>
           );
         })}
       </div>
@@ -106,7 +107,7 @@ export function GrowthChart({
   const leftAxisMax = Math.max(
     ...downloadData.map((d) => d.downloads),
     ...sevenDayAvg.map((d) => d.average),
-    ...thirtyDayAvg.map((d) => d.average)
+    ...thirtyDayAvg.map((d) => d.average),
   );
   const rightAxisMax = Math.max(...cumulativeData.map((d) => d.cumulative));
 

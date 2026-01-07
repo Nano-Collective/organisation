@@ -50,15 +50,20 @@
   --spacing: 0.25rem;
   --shadow-2xs: 3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 0.5);
   --shadow-xs: 3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 0.5);
-  --shadow-sm: 3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
+  --shadow-sm:
+    3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
     3px 1px 2px -1px hsl(325.78 58.18% 56.86% / 1);
-  --shadow: 3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
+  --shadow:
+    3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
     3px 1px 2px -1px hsl(325.78 58.18% 56.86% / 1);
-  --shadow-md: 3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
+  --shadow-md:
+    3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
     3px 2px 4px -1px hsl(325.78 58.18% 56.86% / 1);
-  --shadow-lg: 3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
+  --shadow-lg:
+    3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
     3px 4px 6px -1px hsl(325.78 58.18% 56.86% / 1);
-  --shadow-xl: 3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
+  --shadow-xl:
+    3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 1),
     3px 8px 10px -1px hsl(325.78 58.18% 56.86% / 1);
   --shadow-2xl: 3px 3px 0px 0px hsl(325.78 58.18% 56.86% / 2.5);
   --tracking-normal: 0em;
@@ -198,15 +203,20 @@ body::before {
   --spacing: 0.25rem;
   --shadow-2xs: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 0.5);
   --shadow-xs: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 0.5);
-  --shadow-sm: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
+  --shadow-sm:
+    3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
     3px 1px 2px -1px hsl(206.1538 28.0576% 27.2549% / 1);
-  --shadow: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
+  --shadow:
+    3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
     3px 1px 2px -1px hsl(206.1538 28.0576% 27.2549% / 1);
-  --shadow-md: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
+  --shadow-md:
+    3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
     3px 2px 4px -1px hsl(206.1538 28.0576% 27.2549% / 1);
-  --shadow-lg: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
+  --shadow-lg:
+    3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
     3px 4px 6px -1px hsl(206.1538 28.0576% 27.2549% / 1);
-  --shadow-xl: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
+  --shadow-xl:
+    3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 1),
     3px 8px 10px -1px hsl(206.1538 28.0576% 27.2549% / 1);
   --shadow-2xl: 3px 3px 0px 0px hsl(206.1538 28.0576% 27.2549% / 2.5);
 }
@@ -357,7 +367,7 @@ body::before {
   color: var(--foreground);
   border-left-width: 0.25rem;
   border-left-color: var(--border);
-  quotes: "\201C""\201D""\2018""\2019";
+  quotes: "\201C" "\201D" "\2018" "\2019";
   margin-top: 1.6em;
   margin-bottom: 1.6em;
   padding-left: 1em;

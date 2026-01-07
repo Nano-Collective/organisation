@@ -1,21 +1,34 @@
-import { ArrowUp, ArrowDown, Minus, Download, TrendingUp, Calendar } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  ArrowDown,
+  ArrowUp,
+  Calendar,
+  Download,
+  Minus,
+  TrendingUp,
+} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface GrowthMetricsProps {
   totalDownloads: number;
   currentSevenDay: number;
   currentThirtyDay: number;
-  trend: 'up' | 'down' | 'neutral';
+  trend: "up" | "down" | "neutral";
 }
 
 export function GrowthMetrics({
   totalDownloads,
   currentSevenDay,
   currentThirtyDay,
-  trend
+  trend,
 }: GrowthMetricsProps) {
-  const TrendIcon = trend === 'up' ? ArrowUp : trend === 'down' ? ArrowDown : Minus;
-  const trendColor = trend === 'up' ? 'text-green-500' : trend === 'down' ? 'text-destructive' : 'text-muted-foreground';
+  const TrendIcon =
+    trend === "up" ? ArrowUp : trend === "down" ? ArrowDown : Minus;
+  const trendColor =
+    trend === "up"
+      ? "text-green-500"
+      : trend === "down"
+        ? "text-destructive"
+        : "text-muted-foreground";
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -26,8 +39,12 @@ export function GrowthMetrics({
           <Download className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{totalDownloads.toLocaleString()}</div>
-          <p className="text-xs text-muted-foreground mt-1">Total for selected period</p>
+          <div className="text-2xl font-bold">
+            {totalDownloads.toLocaleString()}
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">
+            Total for selected period
+          </p>
         </CardContent>
       </Card>
 
@@ -38,8 +55,12 @@ export function GrowthMetrics({
           <Calendar className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{currentSevenDay.toLocaleString()}</div>
-          <p className="text-xs text-muted-foreground mt-1">Downloads per day</p>
+          <div className="text-2xl font-bold">
+            {currentSevenDay.toLocaleString()}
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">
+            Downloads per day
+          </p>
         </CardContent>
       </Card>
 
@@ -50,8 +71,12 @@ export function GrowthMetrics({
           <TrendingUp className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{currentThirtyDay.toLocaleString()}</div>
-          <p className="text-xs text-muted-foreground mt-1">Downloads per day</p>
+          <div className="text-2xl font-bold">
+            {currentThirtyDay.toLocaleString()}
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">
+            Downloads per day
+          </p>
         </CardContent>
       </Card>
 
@@ -63,12 +88,16 @@ export function GrowthMetrics({
         </CardHeader>
         <CardContent>
           <div className={`text-2xl font-bold ${trendColor}`}>
-            {trend === 'up' ? 'Growing' : trend === 'down' ? 'Declining' : 'Stable'}
+            {trend === "up"
+              ? "Growing"
+              : trend === "down"
+                ? "Declining"
+                : "Stable"}
           </div>
           <p className="text-xs text-muted-foreground mt-1">
-            {trend === 'up' && '7-day avg is increasing'}
-            {trend === 'down' && '7-day avg is decreasing'}
-            {trend === 'neutral' && 'Minimal change'}
+            {trend === "up" && "7-day avg is increasing"}
+            {trend === "down" && "7-day avg is decreasing"}
+            {trend === "neutral" && "Minimal change"}
           </p>
         </CardContent>
       </Card>

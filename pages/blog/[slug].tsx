@@ -1,14 +1,15 @@
-import Head from "next/head";
-import { GetStaticPaths, GetStaticProps } from "next";
-import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, MessageCircle, ExternalLink } from "lucide-react";
-import { BlogPostDetails } from "@/types/blog";
-import { Button } from "@/components/ui/button";
+import { Calendar, ExternalLink, MessageCircle } from "lucide-react";
 import { marked } from "marked";
-import { generateBlogSlug, extractNumberFromSlug } from "@/lib/slugify";
+import type { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 import Footer from "@/components/footer";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { extractNumberFromSlug, generateBlogSlug } from "@/lib/slugify";
+import type { BlogPostDetails } from "@/types/blog";
 
 interface BlogPostProps {
   post: BlogPostDetails;
@@ -97,9 +98,11 @@ export default function BlogPost({ post }: BlogPostProps) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 hover:underline hover:text-foreground transition-colors"
                 >
-                  <img
+                  <Image
                     src={post.author.avatarUrl}
                     alt={post.author.login}
+                    width={20}
+                    height={20}
                     className="h-5 w-5 rounded-full"
                   />
                   <span>by {post.author.login}</span>
@@ -115,6 +118,7 @@ export default function BlogPost({ post }: BlogPostProps) {
               <CardContent className="pt-6">
                 <div
                   className="prose prose-neutral dark:prose-invert max-w-none"
+                  // biome-ignore lint/security/noDangerouslySetInnerHtml: Content from GitHub markdown API
                   dangerouslySetInnerHTML={{ __html: post.bodyHTML }}
                 />
               </CardContent>
@@ -157,7 +161,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const response = await fetch(
       "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-      { headers }
+      { headers },
     );
 
     if (!response.ok) {
@@ -222,13 +226,13 @@ export const getStaticProps: GetStaticProps<BlogPostProps> = async ({
     // Fetch all discussions to find the one we need
     const discussionsResponse = await fetch(
       "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-      { headers }
+      { headers },
     );
 
     if (!discussionsResponse.ok) {
       console.error(
         "Failed to fetch discussions:",
-        discussionsResponse.statusText
+        discussionsResponse.statusText,
       );
       return {
         notFound: true,

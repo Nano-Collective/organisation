@@ -1,9 +1,9 @@
-import { GetStaticProps } from "next";
+import type { GetStaticProps } from "next";
 import Head from "next/head";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
+import { EngagementAlert } from "@/components/EngagementAlert";
 import { GrowthChart } from "@/components/GrowthChart";
 import { GrowthMetrics } from "@/components/GrowthMetrics";
-import { EngagementAlert } from "@/components/EngagementAlert";
 import {
   Select,
   SelectContent,
@@ -69,7 +69,7 @@ export default function Growth({ packages, lastUpdated }: GrowthPageProps) {
 
       // Sort releases by date and remove duplicates by tag
       const uniqueReleases = Array.from(
-        new Map(allReleases.map((r) => [r.tag, r])).values()
+        new Map(allReleases.map((r) => [r.tag, r])).values(),
       ).sort((a, b) => a.date.localeCompare(b.date));
 
       return {
@@ -102,20 +102,19 @@ export default function Growth({ packages, lastUpdated }: GrowthPageProps) {
       case "last-90-days":
         startDate = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
         break;
-      case "all-time":
       default:
         return currentPackageData.downloadData;
     }
 
     return currentPackageData.downloadData.filter(
-      (d) => new Date(d.date) >= startDate
+      (d) => new Date(d.date) >= startDate,
     );
   }, [currentPackageData, timePeriod]);
 
   // Calculate rolling averages
   const calculateRollingAverage = (
     data: DownloadData[],
-    windowSize: number
+    windowSize: number,
   ) => {
     return data.map((_, index) => {
       const start = Math.max(0, index - windowSize + 1);
@@ -133,12 +132,17 @@ export default function Growth({ packages, lastUpdated }: GrowthPageProps) {
   const thirtyDayAvg = calculateRollingAverage(filteredData, 30);
 
   // Calculate cumulative downloads for filtered data
-  const cumulativeData = filteredData.reduce((acc, curr, index) => {
-    const cumulative =
-      index === 0 ? curr.downloads : acc[index - 1].cumulative + curr.downloads;
-    acc.push({ date: curr.date, cumulative });
-    return acc;
-  }, [] as { date: string; cumulative: number }[]);
+  const cumulativeData = filteredData.reduce(
+    (acc, curr, index) => {
+      const cumulative =
+        index === 0
+          ? curr.downloads
+          : acc[index - 1].cumulative + curr.downloads;
+      acc.push({ date: curr.date, cumulative });
+      return acc;
+    },
+    [] as { date: string; cumulative: number }[],
+  );
 
   // Calculate total downloads for the filtered period
   const periodTotalDownloads = useMemo(() => {
@@ -153,7 +157,7 @@ export default function Growth({ packages, lastUpdated }: GrowthPageProps) {
     const startDate =
       filteredData.length > 0 ? new Date(filteredData[0].date) : new Date();
     return currentPackageData.releases.filter(
-      (r) => new Date(r.date) >= startDate
+      (r) => new Date(r.date) >= startDate,
     );
   }, [currentPackageData, filteredData, timePeriod]);
 
@@ -230,14 +234,20 @@ export default function Growth({ packages, lastUpdated }: GrowthPageProps) {
               <div className="flex flex-col gap-4 mt-2">
                 {/* Package Selector */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-medium text-muted-foreground">
+                  <label
+                    htmlFor="package-select"
+                    className="text-sm font-medium text-muted-foreground"
+                  >
                     Package
                   </label>
                   <Select
                     value={selectedPackage}
                     onValueChange={setSelectedPackage}
                   >
-                    <SelectTrigger className="w-full lg:w-[250px]">
+                    <SelectTrigger
+                      id="package-select"
+                      className="w-full lg:w-[250px]"
+                    >
                       <SelectValue placeholder="Select package" />
                     </SelectTrigger>
                     <SelectContent>
@@ -256,11 +266,17 @@ export default function Growth({ packages, lastUpdated }: GrowthPageProps) {
 
                 {/* Time Period Selector */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-medium text-muted-foreground">
+                  <label
+                    htmlFor="time-period-select"
+                    className="text-sm font-medium text-muted-foreground"
+                  >
                     Time Period
                   </label>
                   <Select value={timePeriod} onValueChange={setTimePeriod}>
-                    <SelectTrigger className="w-full lg:w-[250px]">
+                    <SelectTrigger
+                      id="time-period-select"
+                      className="w-full lg:w-[250px]"
+                    >
                       <SelectValue placeholder="Select period" />
                     </SelectTrigger>
                     <SelectContent>
@@ -335,12 +351,12 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
       const npmResponse = await fetch(
         `https://api.npmjs.org/downloads/range/2025-08-01:${
           new Date().toISOString().split("T")[0]
-        }/${config.packageName}`
+        }/${config.packageName}`,
       );
 
       if (!npmResponse.ok) {
         console.error(
-          `NPM API error for ${config.packageName}: ${npmResponse.status}`
+          `NPM API error for ${config.packageName}: ${npmResponse.status}`,
         );
         continue;
       }
@@ -358,7 +374,7 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
         const oldNpmResponse = await fetch(
           `https://api.npmjs.org/downloads/range/2025-08-01:${
             new Date().toISOString().split("T")[0]
-          }/${config.oldPackage}`
+          }/${config.oldPackage}`,
         );
 
         if (oldNpmResponse.ok) {
@@ -388,7 +404,7 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
 
       const totalDownloads = downloadData.reduce(
         (sum, d) => sum + d.downloads,
-        0
+        0,
       );
 
       // Fetch GitHub releases
@@ -398,12 +414,12 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
           headers: process.env.GH_TOKEN
             ? { Authorization: `token ${process.env.GH_TOKEN}` }
             : {},
-        }
+        },
       );
 
       if (!githubResponse.ok) {
         console.error(
-          `GitHub API error for ${config.githubRepo}: ${githubResponse.status}`
+          `GitHub API error for ${config.githubRepo}: ${githubResponse.status}`,
         );
         continue;
       }

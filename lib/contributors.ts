@@ -68,13 +68,13 @@ export const CONTRIBUTORS: Contributor[] = [
     name: "Brijesh K R",
     photo: "brijesh-k-r.png",
     github: "Avtrkrb",
-    bio: "Co-founder & Technology Head at Kashylitics, passionate about building production-grade AI systems and developer tooling."
+    bio: "Co-founder & Technology Head at Kashylitics, passionate about building production-grade AI systems and developer tooling.",
   },
   {
     name: "Nassim Amar",
     photo: "nassim-amar.jpg",
     github: "namar0x0309",
     website: "https://blog.namar0x0309.com/",
-    bio: "Founder @PoezInc and @GoAIX, passionate about technically advanced tools that also feel and look good like Nanocoder!"
-  }
+    bio: "Founder @PoezInc and @GoAIX, passionate about technically advanced tools that also feel and look good like Nanocoder!",
+  },
 ];
