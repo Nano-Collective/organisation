@@ -21,13 +21,22 @@ export default function NanocoderTerminal() {
     [],
   );
 
-  const [currentCommandIndex, setCurrentCommandIndex] = useState(() =>
-    Math.floor(Math.random() * commands.length),
-  );
+  const [currentCommandIndex, setCurrentCommandIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Randomize command index only on client after hydration
+  useEffect(() => {
+    setIsMounted(true);
+    const randomIndex = Math.floor(Math.random() * commands.length);
+    setCurrentCommandIndex(randomIndex);
+  }, [commands.length]);
 
   useEffect(() => {
+    // Only run typing animation after client-side mount
+    if (!isMounted) return;
+
     const currentCommand = commands[currentCommandIndex];
 
     if (isTyping) {
@@ -57,7 +66,7 @@ export default function NanocoderTerminal() {
         setIsTyping(true);
       }
     }
-  }, [displayedText, isTyping, currentCommandIndex, commands]);
+  }, [displayedText, isTyping, currentCommandIndex, commands, isMounted]);
 
   return (
     <div className="bg-black rounded-lg overflow-hidden shadow-2xl border border-[#7dcfff]/30">
