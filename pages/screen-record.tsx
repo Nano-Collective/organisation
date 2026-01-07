@@ -4,7 +4,9 @@ import NanocoderTerminal from "@/components/NanocoderTerminal";
 import { themes, type Theme, type ThemePreset } from "@/types/ui";
 
 export default function ScreenRecord() {
-  const [currentTheme, setCurrentTheme] = useState<Theme>(themes["tokyo-night"]);
+  const [currentTheme, setCurrentTheme] = useState<Theme>(
+    themes["tokyo-night"],
+  );
 
   // Create a callback for theme changes
   const handleThemeChange = (theme: Theme) => {

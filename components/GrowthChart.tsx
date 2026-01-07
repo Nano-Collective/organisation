@@ -57,9 +57,7 @@ export function GrowthChart({
   };
 
   // Custom legend renderer
-  const renderLegend = (props: {
-    payload?: readonly LegendPayload[];
-  }) => {
+  const renderLegend = (props: { payload?: readonly LegendPayload[] }) => {
     const { payload } = props;
     if (!payload) return null;
     return (
