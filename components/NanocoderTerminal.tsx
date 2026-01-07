@@ -110,13 +110,13 @@ export default function NanocoderTerminal({
     setCurrentCommandIndex(randomIndex);
   }, [commands.length]);
 
-  // Cycle through themes every 4 seconds (quicker)
+  // Cycle through themes every 2 seconds (quicker)
   useEffect(() => {
     if (!isMounted) return;
 
     const interval = setInterval(() => {
       setCurrentThemeIndex((prev) => (prev + 1) % themeKeys.length);
-    }, 4000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [isMounted, themeKeys.length]);
