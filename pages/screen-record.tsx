@@ -1,7 +1,7 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NanocoderTerminal from "@/components/NanocoderTerminal";
-import { themes, type Theme, type ThemePreset } from "@/types/ui";
+import { type Theme, themes } from "@/types/ui";
 
 export default function ScreenRecord() {
   const [currentTheme, setCurrentTheme] = useState<Theme>(

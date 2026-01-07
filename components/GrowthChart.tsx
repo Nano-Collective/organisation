@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   CartesianGrid,
   Legend,
-  LegendPayload,
+  type LegendPayload,
   Line,
   LineChart,
   ReferenceLine,
