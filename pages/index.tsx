@@ -1,8 +1,12 @@
 import {
+  AlertCircle,
   Code2,
+  GitCommit,
+  GitPullRequest,
   Lock,
   Package,
   Sparkles,
+  Star,
   Terminal,
   Users,
   Zap,
@@ -24,18 +28,28 @@ import {
 import WhatsNextSection from "@/components/WhatsNextSection";
 import type { Discussion } from "@/types/discussion";
 
-interface HomeProps {
-  discussions: Discussion[];
+interface OrgStatsData {
+  stars: number;
+  contributors: number;
+  pullRequests: number;
+  discordMembers: number;
+  lastUpdated: string;
+  error: string | null;
 }
 
-export default function Home({ discussions }: HomeProps) {
+interface HomeProps {
+  discussions: Discussion[];
+  orgStats: OrgStatsData;
+}
+
+export default function Home({ discussions, orgStats }: HomeProps) {
   return (
     <>
       <Head>
         <title>Nano Collective - Open Source Privacy-First AI Tools</title>
         <meta
           name="description"
-          content="Creating powerful, privacy-first AI tools, developed by the community for the community. Privacy-first, open source AI that runs on your machine."
+          content="Creating powerful, privacy-first AI tools, developed by community for community. Privacy-first, open source AI that runs on your machine."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -54,8 +68,8 @@ export default function Home({ discussions }: HomeProps) {
                 Nano Collective
               </h1>
               <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Creating powerful, privacy-first AI tools, developed by the
-                community for the community
+                Creating powerful, privacy-first AI tools, developed by
+                community for community
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 w-full sm:w-auto">
                 <Button
@@ -88,6 +102,40 @@ export default function Home({ discussions }: HomeProps) {
                   </a>
                 </Button>
               </div>
+
+              {/* Subtle org stats */}
+              <div className="flex flex-wrap justify-center gap-6 md:gap-8 pt-8 text-sm text-muted-foreground">
+                {!orgStats.error ? (
+                  <>
+                    <div className="group flex items-center gap-2">
+                      <Star className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                      <span className="font-semibold text-foreground">{orgStats.stars.toLocaleString()}</span>
+                      <span>stars</span>
+                    </div>
+                    <div className="group flex items-center gap-2">
+                      <Users className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                      <span className="font-semibold text-foreground">{orgStats.contributors.toLocaleString()}</span>
+                      <span>contributors</span>
+                    </div>
+                    <div className="group flex items-center gap-2">
+                      <GitPullRequest className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                      <span className="font-semibold text-foreground">{orgStats.pullRequests.toLocaleString()}</span>
+                      <span>PRs</span>
+                    </div>
+                    {orgStats.discordMembers > 0 && (
+                      <div className="group flex items-center gap-2">
+                        <FaDiscord className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                        <span className="font-semibold text-foreground">{orgStats.discordMembers.toLocaleString()}</span>
+                        <span>members</span>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <span className="text-xs text-muted-foreground">
+                    Stats temporarily unavailable
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </section>
@@ -98,9 +146,9 @@ export default function Home({ discussions }: HomeProps) {
             <div className="max-w-3xl mx-auto text-center space-y-6">
               <h2 className="text-3xl sm:text-4xl font-bold">Our Mission</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                We believe AI is too powerful to be in the hands of big
+                We believe AI is too powerful to be in hands of big
                 corporations alone. Everyone should have access to advanced AI
-                tools that respect privacy, run locally, and are shaped by the
+                tools that respect privacy, run locally, and are shaped by
                 community. Everything we build is open source, transparent, and
                 designed to empower developers and users alike.
               </p>
@@ -145,7 +193,7 @@ export default function Home({ discussions }: HomeProps) {
                   </div>
                   <CardTitle>New Capabilities</CardTitle>
                   <CardDescription className="text-base">
-                    We're building the next generation of AI tools that run
+                    We're building next generation of AI tools that run
                     locally and offline. Powerful, flexible, and private.
                   </CardDescription>
                 </CardHeader>
@@ -242,7 +290,7 @@ export default function Home({ discussions }: HomeProps) {
                           <CardTitle className="mb-2">Enhanced UX</CardTitle>
                           <CardDescription>
                             Smart autocomplete, configurable logging, and
-                            development mode toggles for the best experience
+                            development mode toggles for best experience
                           </CardDescription>
                         </div>
                       </div>
@@ -281,7 +329,7 @@ export default function Home({ discussions }: HomeProps) {
                   Featured Packages
                 </h2>
                 <p className="text-base text-muted-foreground">
-                  Lightweight utilities built by the community
+                  Lightweight utilities built by community
                 </p>
               </div>
 
@@ -340,7 +388,7 @@ export default function Home({ discussions }: HomeProps) {
               <h2 className="text-4xl sm:text-5xl font-bold">Get Involved</h2>
               <p className="text-xl text-muted-foreground leading-relaxed">
                 We welcome contributions in code, documentation, design, and
-                marketing. Join our community and help shape the future of
+                marketing. Join our community and help shape future of
                 privacy-first AI tools.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto pt-4">
@@ -391,50 +439,149 @@ export default function Home({ discussions }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const headers: HeadersInit = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+
+  // Add authorization if token is available
+  if (process.env.GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  }
+
+  // Fetch discussions
+  let discussions: Discussion[] = [];
   try {
-    const headers: HeadersInit = {
-      Accept: "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-    };
-
-    // Add authorization if token is available
-    if (process.env.GITHUB_TOKEN) {
-      headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-    }
-
-    const response = await fetch(
+    const discussionsResponse = await fetch(
       "https://api.github.com/repos/Nano-Collective/organisation/discussions",
       { headers },
     );
 
-    if (!response.ok) {
-      console.error("Failed to fetch discussions:", response.statusText);
-      return {
-        props: {
-          discussions: [],
-        },
-      };
+    if (discussionsResponse.ok) {
+      discussions = await discussionsResponse.json();
+      // Sort by newest first
+      discussions = discussions.sort(
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      );
+    } else {
+      console.error("Failed to fetch discussions:", discussionsResponse.statusText);
     }
-
-    const discussions: Discussion[] = await response.json();
-
-    // Sort by newest first
-    const sortedDiscussions = discussions.sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    );
-
-    return {
-      props: {
-        discussions: sortedDiscussions,
-      },
-    };
   } catch (error) {
     console.error("Error fetching discussions:", error);
-    return {
-      props: {
-        discussions: [],
-      },
-    };
   }
+
+  // Fetch org stats
+  const orgStats: OrgStatsData = {
+    stars: 0,
+    contributors: 0,
+    pullRequests: 0,
+    discordMembers: 0,
+    lastUpdated: new Date().toISOString(),
+    error: null,
+  };
+
+  // Fetch Discord member count via invite API
+  try {
+    const discordRes = await fetch(
+      "https://discord.com/api/invites/ktPDV6rekE?with_counts=true",
+    );
+    if (discordRes.ok) {
+      const data = await discordRes.json();
+      orgStats.discordMembers = data.approximate_member_count || 0;
+    }
+  } catch (error) {
+    console.error("Error fetching Discord stats:", error);
+  }
+  const uniqueContributors = new Set<string>();
+
+  try {
+    // Fetch all repositories in organization
+    let page = 1;
+    let repos: Array<{
+      stargazers_count: number;
+      name: string;
+    }> = [];
+
+    while (true) {
+      const reposResponse = await fetch(
+        `https://api.github.com/orgs/Nano-Collective/repos?type=public&per_page=100&page=${page}`,
+        { headers },
+      );
+
+      if (!reposResponse.ok) {
+        console.error("Failed to fetch repos:", reposResponse.statusText);
+        orgStats.error = "Failed to fetch repository data";
+        break;
+      }
+
+      const pageRepos = await reposResponse.json();
+      if (pageRepos.length === 0) break;
+
+      repos = repos.concat(pageRepos);
+      page++;
+    }
+
+    // Aggregate stats
+    for (const repo of repos) {
+      orgStats.stars += repo.stargazers_count;
+
+      // Fetch detailed stats for each repo (PRs, contributors)
+      try {
+        // Fetch PR count
+        const prResponse = await fetch(
+          `https://api.github.com/repos/Nano-Collective/${repo.name}/pulls?state=all&per_page=1`,
+          { headers },
+        );
+
+        if (prResponse.ok) {
+          const prLink = prResponse.headers.get("Link");
+          if (prLink) {
+            const match = prLink.match(/page=(\d+)>; rel="last"/);
+            if (match) {
+              orgStats.pullRequests += parseInt(match[1], 10);
+            }
+          } else {
+            const prs = await prResponse.json();
+            if (Array.isArray(prs)) {
+              orgStats.pullRequests += prs.length;
+            }
+          }
+        }
+
+        // Fetch contributors to track unique contributors
+        const contributorsResponse = await fetch(
+          `https://api.github.com/repos/Nano-Collective/${repo.name}/contributors`,
+          { headers },
+        );
+
+        if (contributorsResponse.ok) {
+          const contributors = await contributorsResponse.json();
+          if (Array.isArray(contributors)) {
+            for (const contributor of contributors) {
+              if (contributor.login) {
+                uniqueContributors.add(contributor.login);
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.error(`Error fetching stats for repo ${repo.name}:`, error);
+        // Continue with next repo even if one fails
+      }
+    }
+
+    orgStats.contributors = uniqueContributors.size;
+    orgStats.lastUpdated = new Date().toISOString();
+  } catch (error) {
+    console.error("Error fetching org stats:", error);
+    orgStats.error = "Unable to load community statistics";
+  }
+
+  return {
+    props: {
+      discussions,
+      orgStats,
+    },
+  };
 };
