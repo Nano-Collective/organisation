@@ -60,9 +60,7 @@ export function OrgStats({
           <div className="text-2xl font-bold">
             {isLoading ? "..." : formatNumber(stars)}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">
-            Across all repos
-          </p>
+          <p className="text-xs text-muted-foreground mt-1">Across all repos</p>
         </CardContent>
       </Card>
 
@@ -92,9 +90,7 @@ export function OrgStats({
           <div className="text-2xl font-bold">
             {isLoading ? "..." : formatNumber(issues)}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">
-            Open & closed
-          </p>
+          <p className="text-xs text-muted-foreground mt-1">Open & closed</p>
         </CardContent>
       </Card>
 
@@ -108,9 +104,7 @@ export function OrgStats({
           <div className="text-2xl font-bold">
             {isLoading ? "..." : formatNumber(pullRequests)}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">
-            Merged & open
-          </p>
+          <p className="text-xs text-muted-foreground mt-1">Merged & open</p>
         </CardContent>
       </Card>
     </div>

@@ -109,23 +109,31 @@ export default function Home({ discussions, orgStats }: HomeProps) {
                   <>
                     <div className="group flex items-center gap-2">
                       <Star className="h-4 w-4 transition-transform group-hover:rotate-12" />
-                      <span className="font-semibold text-foreground">{orgStats.stars.toLocaleString()}</span>
+                      <span className="font-semibold text-foreground">
+                        {orgStats.stars.toLocaleString()}
+                      </span>
                       <span>stars</span>
                     </div>
                     <div className="group flex items-center gap-2">
                       <Users className="h-4 w-4 transition-transform group-hover:rotate-12" />
-                      <span className="font-semibold text-foreground">{orgStats.contributors.toLocaleString()}</span>
+                      <span className="font-semibold text-foreground">
+                        {orgStats.contributors.toLocaleString()}
+                      </span>
                       <span>contributors</span>
                     </div>
                     <div className="group flex items-center gap-2">
                       <GitPullRequest className="h-4 w-4 transition-transform group-hover:rotate-12" />
-                      <span className="font-semibold text-foreground">{orgStats.pullRequests.toLocaleString()}</span>
+                      <span className="font-semibold text-foreground">
+                        {orgStats.pullRequests.toLocaleString()}
+                      </span>
                       <span>PRs</span>
                     </div>
                     {orgStats.discordMembers > 0 && (
                       <div className="group flex items-center gap-2">
                         <FaDiscord className="h-4 w-4 transition-transform group-hover:rotate-12" />
-                        <span className="font-semibold text-foreground">{orgStats.discordMembers.toLocaleString()}</span>
+                        <span className="font-semibold text-foreground">
+                          {orgStats.discordMembers.toLocaleString()}
+                        </span>
                         <span>members</span>
                       </div>
                     )}
@@ -146,11 +154,11 @@ export default function Home({ discussions, orgStats }: HomeProps) {
             <div className="max-w-3xl mx-auto text-center space-y-6">
               <h2 className="text-3xl sm:text-4xl font-bold">Our Mission</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                We believe AI is too powerful to be in hands of big
-                corporations alone. Everyone should have access to advanced AI
-                tools that respect privacy, run locally, and are shaped by
-                community. Everything we build is open source, transparent, and
-                designed to empower developers and users alike.
+                We believe AI is too powerful to be in hands of big corporations
+                alone. Everyone should have access to advanced AI tools that
+                respect privacy, run locally, and are shaped by community.
+                Everything we build is open source, transparent, and designed to
+                empower developers and users alike.
               </p>
             </div>
           </div>
@@ -193,8 +201,8 @@ export default function Home({ discussions, orgStats }: HomeProps) {
                   </div>
                   <CardTitle>New Capabilities</CardTitle>
                   <CardDescription className="text-base">
-                    We're building next generation of AI tools that run
-                    locally and offline. Powerful, flexible, and private.
+                    We're building next generation of AI tools that run locally
+                    and offline. Powerful, flexible, and private.
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -465,7 +473,10 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
           new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
       );
     } else {
-      console.error("Failed to fetch discussions:", discussionsResponse.statusText);
+      console.error(
+        "Failed to fetch discussions:",
+        discussionsResponse.statusText,
+      );
     }
   } catch (error) {
     console.error("Error fetching discussions:", error);
