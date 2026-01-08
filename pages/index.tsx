@@ -49,7 +49,7 @@ export default function Home({ discussions, orgStats }: HomeProps) {
         <title>Nano Collective - Open Source Privacy-First AI Tools</title>
         <meta
           name="description"
-          content="Creating powerful, privacy-first AI tools, developed by community for community. Privacy-first, open source AI that runs on your machine."
+          content="Creating powerful, privacy-first AI tools, developed by the community for the community. Privacy-first, open source AI that runs on your machine."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -68,8 +68,8 @@ export default function Home({ discussions, orgStats }: HomeProps) {
                 Nano Collective
               </h1>
               <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Creating powerful, privacy-first AI tools, developed by
-                community for community
+                Creating powerful, privacy-first AI tools, developed by the
+                community for the community
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 w-full sm:w-auto">
                 <Button
