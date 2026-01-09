@@ -1,6 +1,6 @@
 "use client";
 
-import { Star, GitCommit, GitPullRequest, AlertCircle } from "lucide-react";
+import { AlertCircle, GitCommit, GitPullRequest, Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface OrgStatsProps {
@@ -18,7 +18,6 @@ export function OrgStats({
   commits,
   issues,
   pullRequests,
-  lastUpdated,
   isLoading = false,
   error = null,
 }: OrgStatsProps) {
