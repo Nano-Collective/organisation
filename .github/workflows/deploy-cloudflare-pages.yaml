@@ -36,7 +36,6 @@ jobs:
             -d '{
               "embeds": [{
                 "title": "💬 New Discussion: ${{ github.event.discussion.title }}",
-                "description": "${{ github.event.discussion.body }}",
                 "color": 3447003,
                 "fields": [
                   {
