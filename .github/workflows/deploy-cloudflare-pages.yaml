@@ -41,12 +41,12 @@ jobs:
                   {
                     "name": "Author",
                     "value": "${{ github.event.discussion.user.login }}",
-                    "inline": true
+                    "inline": false
                   },
                   {
                     "name": "Category",
                     "value": "${{ github.event.discussion.category.name }}",
-                    "inline": true
+                    "inline": false
                   },
                   {
                     "name": "Labels",
