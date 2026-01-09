@@ -1,7 +1,5 @@
 import {
-  AlertCircle,
   Code2,
-  GitCommit,
   GitPullRequest,
   Lock,
   Package,

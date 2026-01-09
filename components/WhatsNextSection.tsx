@@ -64,43 +64,12 @@ export default function WhatsNextSection({
                             {categoryDiscussions
                               .slice(0, 5)
                               .map((discussion) => {
-                                const isReleased = discussion.labels?.some(
-                                  (label) =>
-                                    label.name.toLowerCase() === "released",
-                                );
-
                                 return (
                                   <Link
                                     key={discussion.id}
                                     href={`/blog/${generateBlogSlug(discussion.title, discussion.number)}`}
                                     className="flex items-start gap-3 py-3 group hover:bg-accent/5 -mx-4 px-4 rounded transition-colors cursor-pointer"
                                   >
-                                    <div className="flex items-center mt-0.5">
-                                      <div
-                                        className={`h-4 w-4 rounded border flex items-center justify-center ${
-                                          isReleased
-                                            ? "bg-primary border-primary"
-                                            : "border-border"
-                                        }`}
-                                      >
-                                        {isReleased && (
-                                          <svg
-                                            className="h-3 w-3 text-primary-foreground"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            strokeWidth={3}
-                                          >
-                                            <title>check</title>
-                                            <path
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                              d="M5 13l4 4L19 7"
-                                            />
-                                          </svg>
-                                        )}
-                                      </div>
-                                    </div>
                                     <div className="flex-1 min-w-0">
                                       <div className="text-sm font-semibold group-hover:text-primary transition-colors">
                                         {discussion.title}
