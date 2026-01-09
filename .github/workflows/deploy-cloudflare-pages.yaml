@@ -16,6 +16,54 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'discussion' && github.event.action == 'created'
+    steps:
+      - name: Extract discussion labels
+        id: labels
+        run: |
+          if [ "${{ github.event.discussion.labels }}" != "" ]; then
+            LABELS=$(echo '${{ toJson(github.event.discussion.labels) }}' | jq -r 'map("🏷️ " + .name) | join(" ")')
+            echo "labels=$LABELS" >> $GITHUB_OUTPUT
+          else
+            echo "labels=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Discord notification
+        run: |
+          curl -H "Content-Type: application/json" \
+            -d '{
+              "embeds": [{
+                "title": "💬 New Discussion: ${{ github.event.discussion.title }}",
+                "description": "${{ github.event.discussion.body }}",
+                "color": 3447003,
+                "fields": [
+                  {
+                    "name": "Author",
+                    "value": "${{ github.event.discussion.user.login }}",
+                    "inline": true
+                  },
+                  {
+                    "name": "Category",
+                    "value": "${{ github.event.discussion.category.name }}",
+                    "inline": true
+                  },
+                  {
+                    "name": "Labels",
+                    "value": "${{ steps.labels.outputs.labels || 'None' }}",
+                    "inline": false
+                  }
+                ],
+                "footer": {
+                  "text": "GitHub Discussions"
+                },
+                "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%S.000Z)'",
+                "url": "${{ github.event.discussion.html_url }}"
+              }]
+            }' \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
+
   build:
     runs-on: ubuntu-latest
     strategy:
