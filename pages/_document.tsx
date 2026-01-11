@@ -1,5 +1,16 @@
 import { Head, Html, Main, NextScript } from "next/document";
 
+const themeScript = `
+  (function() {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+`;
+
 export default function Document() {
   return (
     <Html lang="en" className="dark">
@@ -28,6 +39,7 @@ export default function Document() {
         />
       </Head>
       <body className="antialiased">
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <Main />
         <NextScript />
       </body>
