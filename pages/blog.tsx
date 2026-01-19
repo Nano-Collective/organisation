@@ -60,7 +60,7 @@ export default function Blog({ posts }: BlogProps) {
         {/* Main Content */}
         <main className="container mx-auto px-4 py-16">
           {/* Page Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div className="text-center mb-16 space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold">Blog</h1>
             <p className="text-lg text-muted-foreground">
               Updates, discussions, and announcements from the Nano Collective
@@ -69,7 +69,7 @@ export default function Blog({ posts }: BlogProps) {
           </div>
 
           {/* Category Filter */}
-          <div className="max-w-4xl mx-auto mb-12">
+          <div className="mb-12">
             <Select
               value={selectedCategory}
               onValueChange={setSelectedCategory}
@@ -91,7 +91,7 @@ export default function Blog({ posts }: BlogProps) {
           </div>
 
           {/* Blog Posts */}
-          <div className="max-w-4xl mx-auto space-y-8">
+          <div className="space-y-8">
             {filteredPosts.length > 0 ? (
               filteredPosts.map((post) => (
                 <Link

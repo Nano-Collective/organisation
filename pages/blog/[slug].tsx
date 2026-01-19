@@ -35,7 +35,7 @@ export default function BlogPost({ post }: BlogPostProps) {
         {/* Main Content */}
         <main className="container mx-auto px-4 py-16">
           {/* Page Header */}
-          <div className="max-w-4xl mx-auto mb-12">
+          <div className="mb-12">
             <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-2">
                 {post.labels.map((label) => (
@@ -97,7 +97,7 @@ export default function BlogPost({ post }: BlogPostProps) {
           </div>
 
           {/* Content */}
-          <div className="max-w-4xl mx-auto space-y-8">
+          <div className="space-y-8">
             {/* Main Content */}
             <Card>
               <CardContent className="pt-6">
