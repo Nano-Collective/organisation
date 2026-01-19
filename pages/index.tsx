@@ -41,7 +41,11 @@ interface HomeProps {
   nanocoderVersion: string;
 }
 
-export default function Home({ discussions, orgStats, nanocoderVersion }: HomeProps) {
+export default function Home({
+  discussions,
+  orgStats,
+  nanocoderVersion,
+}: HomeProps) {
   return (
     <>
       <Head>
