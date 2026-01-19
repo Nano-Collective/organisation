@@ -5,10 +5,12 @@ import { defaultTheme, type Theme, type ThemePreset, themes } from "@/types/ui";
 
 interface NanocoderTerminalProps {
   onThemeChange?: (theme: Theme) => void;
+  version?: string;
 }
 
 export default function NanocoderTerminal({
   onThemeChange,
+  version = "1.0.0",
 }: NanocoderTerminalProps) {
   const commands = useMemo(
     () => [
@@ -218,7 +220,7 @@ export default function NanocoderTerminal({
               color: colors.base,
             }}
           >
-            ✱ Welcome to Nanocoder 1.20.0 ✱
+            ✱ Welcome to Nanocoder {version} ✱
           </div>
           <div
             className="rounded-md p-4 pt-5 mb-6 relative text-xs"

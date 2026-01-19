@@ -38,9 +38,10 @@ interface OrgStatsData {
 interface HomeProps {
   discussions: Discussion[];
   orgStats: OrgStatsData;
+  nanocoderVersion: string;
 }
 
-export default function Home({ discussions, orgStats }: HomeProps) {
+export default function Home({ discussions, orgStats, nanocoderVersion }: HomeProps) {
   return (
     <>
       <Head>
@@ -53,19 +54,19 @@ export default function Home({ discussions, orgStats }: HomeProps) {
       </Head>
       <div className="min-h-screen bg-background font-sans">
         {/* Hero Section */}
-        <section className="relative overflow-hidden">
+        <section className="relative overflow-hidden animated-gradient">
           <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none" />
           <div className="container mx-auto px-4 py-20 sm:py-32 relative z-10">
             <div className="max-w-4xl mx-auto text-center space-y-8">
-              <div className="inline-block">
+              <div className="inline-block animate-on-scroll">
                 <Badge variant="secondary" className="mb-4 text-sm px-4 py-1.5">
                   Open Source AI
                 </Badge>
               </div>
-              <h1 className="text-5xl sm:text-7xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/60 bg-clip-text text-transparent">
+              <h1 className="text-5xl sm:text-7xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/60 bg-clip-text text-transparent animate-on-scroll animate-delay-100">
                 Nano Collective
               </h1>
-              <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-on-scroll animate-delay-200">
                 Creating powerful, privacy-first AI tools, developed by the
                 community for the community
               </p>
@@ -166,7 +167,7 @@ export default function Home({ discussions, orgStats }: HomeProps) {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              <Card className="relative overflow-hidden hover:shadow-lg transition-shadow">
+              <Card className="relative overflow-hidden card-hover-glow">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                     <Lock className="h-6 w-6 text-primary" />
@@ -179,7 +180,7 @@ export default function Home({ discussions, orgStats }: HomeProps) {
                 </CardHeader>
               </Card>
 
-              <Card className="relative overflow-hidden hover:shadow-lg transition-shadow">
+              <Card className="relative overflow-hidden card-hover-glow">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                     <Users className="h-6 w-6 text-primary" />
@@ -192,7 +193,7 @@ export default function Home({ discussions, orgStats }: HomeProps) {
                 </CardHeader>
               </Card>
 
-              <Card className="relative overflow-hidden hover:shadow-lg transition-shadow">
+              <Card className="relative overflow-hidden card-hover-glow">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                     <Zap className="h-6 w-6 text-primary" />
@@ -225,7 +226,7 @@ export default function Home({ discussions, orgStats }: HomeProps) {
 
               <div className="space-y-8">
                 {/* Terminal Demo */}
-                <NanocoderTerminal />
+                <NanocoderTerminal version={nanocoderVersion} />
 
                 {/* Features List */}
                 <div className="grid md:grid-cols-2 gap-6">
@@ -587,10 +588,25 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     orgStats.error = "Unable to load community statistics";
   }
 
+  // Fetch Nanocoder version from npm
+  let nanocoderVersion = "1.0.0";
+  try {
+    const npmRes = await fetch(
+      "https://registry.npmjs.org/@nanocollective/nanocoder/latest",
+    );
+    if (npmRes.ok) {
+      const data = await npmRes.json();
+      nanocoderVersion = data.version || "1.0.0";
+    }
+  } catch (error) {
+    console.error("Error fetching nanocoder version:", error);
+  }
+
   return {
     props: {
       discussions,
       orgStats,
+      nanocoderVersion,
     },
   };
 };

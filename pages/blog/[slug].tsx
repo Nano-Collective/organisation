@@ -3,7 +3,6 @@ import { marked } from "marked";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import Footer from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,20 +32,6 @@ export default function BlogPost({ post }: BlogPostProps) {
       </Head>
 
       <div className="min-h-screen bg-background">
-        {/* Header */}
-        <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-          <div className="container mx-auto px-4 py-4">
-            <div className="max-w-4xl mx-auto">
-              <Link
-                href="/blog"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                ← Back to Blog
-              </Link>
-            </div>
-          </div>
-        </header>
-
         {/* Main Content */}
         <main className="container mx-auto px-4 py-16">
           {/* Page Header */}

@@ -434,3 +434,101 @@ body::before {
   font-size: 0.875rem;
   line-height: 1.7142857;
 }
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-gradient {
+  background: linear-gradient(
+    -45deg,
+    oklch(0.97 0.008 274),
+    oklch(0.95 0.015 274),
+    oklch(0.96 0.012 274),
+    oklch(0.97 0.008 274)
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.dark .animated-gradient {
+  background: linear-gradient(
+    -45deg,
+    oklch(0.181 0.0165 274),
+    oklch(0.21 0.025 274),
+    oklch(0.195 0.02 274),
+    oklch(0.181 0.0165 274)
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Scroll-triggered fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+/* Mobile menu animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.2s ease-out forwards;
+}
+
+/* Card hover glow effect */
+.card-hover-glow {
+  transition: all 0.3s ease;
+}
+
+.card-hover-glow:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 20px oklch(0.7412 0.143 303 / 0.2),
+    var(--shadow-lg);
+}
+
+:root .card-hover-glow:hover {
+  box-shadow:
+    0 0 20px oklch(0.58 0.18 303 / 0.15),
+    var(--shadow-lg);
+}
