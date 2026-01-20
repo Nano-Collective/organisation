@@ -15,6 +15,16 @@ export default function Document() {
   return (
     <Html lang="en" className="dark">
       <Head>
+        {/* OpenGraph */}
+        <meta property="og:site_name" content="Nano Collective" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/og-image.png" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/og-image.png" />
+
+        {/* Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -25,6 +35,8 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
+
+        {/* Feeds */}
         <link
           rel="alternate"
           type="application/rss+xml"
@@ -37,9 +49,28 @@ export default function Document() {
           title="Nano Collective Atom Feed"
           href="/feed.atom"
         />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Nano Collective",
+              url: "https://nanocollective.org",
+              logo: "https://nanocollective.org/logo.png",
+              description:
+                "Open-source AI tools collective building privacy-first, privacy-respecting AI applications",
+              sameAs: [
+                "https://github.com/Nano-Collective",
+                "https://discord.gg/ktPDV6rekE",
+              ],
+            }),
+          }}
+        />
       </Head>
       <body className="antialiased">
-        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Required for theme flash prevention - script content is static and safe */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <Main />
         <NextScript />

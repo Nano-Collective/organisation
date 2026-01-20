@@ -55,6 +55,31 @@ export default function Home({
           content="Creating powerful, privacy-first AI tools, developed by the community for the community. Privacy-first, open source AI that runs on your machine."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {/* OpenGraph */}
+        <meta
+          property="og:title"
+          content="Nano Collective - Privacy-First AI Tools"
+        />
+        <meta
+          property="og:description"
+          content="Creating powerful, privacy-first AI tools, developed by the community for the community. Privacy-first, open source AI that runs on your machine."
+        />
+        <meta property="og:url" content="https://nanocollective.org" />
+        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:image:alt" content="Nano Collective Logo" />
+
+        {/* Twitter Cards */}
+        <meta
+          name="twitter:title"
+          content="Nano Collective - Privacy-First AI Tools"
+        />
+        <meta
+          name="twitter:description"
+          content="Creating powerful, privacy-first AI tools, developed by the community for the community. Privacy-first, open source AI that runs on your machine."
+        />
+        <meta name="twitter:image" content="/og-image.png" />
+        <meta name="twitter:image:alt" content="Nano Collective Logo" />
       </Head>
       <div className="min-h-screen bg-background font-sans">
         {/* Hero Section */}

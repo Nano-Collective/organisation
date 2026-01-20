@@ -23,6 +23,12 @@ export default function BlogPost({ post }: BlogPostProps) {
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt || post.title} />
         <meta property="og:type" content="article" />
+        <meta
+          property="og:url"
+          content={`https://nanocollective.org/blog/${generateBlogSlug(post.title, post.number)}`}
+        />
+        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:image:alt" content={`Blog post: ${post.title}`} />
         <meta property="article:published_time" content={post.createdAt} />
         <meta property="article:modified_time" content={post.updatedAt} />
         <meta property="article:author" content={post.author.login} />
@@ -103,7 +109,6 @@ export default function BlogPost({ post }: BlogPostProps) {
               <CardContent className="pt-6">
                 <div
                   className="prose prose-neutral dark:prose-invert max-w-none"
-                  // biome-ignore lint/security/noDangerouslySetInnerHtml: Content from GitHub markdown API
                   dangerouslySetInnerHTML={{ __html: post.bodyHTML }}
                 />
               </CardContent>

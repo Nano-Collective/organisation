@@ -54,6 +54,9 @@ export default function Blog({ posts }: BlogProps) {
           content="Latest updates and discussions from the Nano Collective community"
         />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nanocollective.org/blog" />
+        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:image:alt" content="Nano Collective Blog" />
       </Head>
 
       <div className="min-h-screen bg-background">
