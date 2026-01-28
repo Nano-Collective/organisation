@@ -77,4 +77,17 @@ export const CONTRIBUTORS: Contributor[] = [
     website: "https://blog.namar0x0309.com/",
     bio: "Founder @PoezInc and @GoAIX, passionate about technically advanced tools that also feel and look good like Nanocoder!",
   },
+  {
+    name: "Sk Akram",
+    photo: "sk-akram.jpeg",
+    github: "akramcodez",
+    website: "https://www.akramcodez.tech/",
+    bio: "19 y/o Software Developer ッ",
+  },
+  {
+    name: "Ben Parry",
+    photo: "ben-parry.jpeg",
+    website: "https://substack.com/@followbenparry",
+    bio: "I write about sovereignty, decentralisation, and the revolt against cloud-controlled intelligence.",
+  },
 ];

@@ -29,8 +29,8 @@ function ContributorCard({ contributor }: { contributor: Contributor }) {
     .slice(0, 2);
 
   return (
-    <Card className="group hover:shadow-lg transition-all duration-200">
-      <CardContent className="flex flex-col items-center text-center p-6 space-y-4">
+    <Card className="group hover:shadow-lg transition-all duration-200 h-full">
+      <CardContent className="flex flex-col items-center text-center p-6 h-full gap-4">
         {/* Avatar */}
         <Avatar className="size-24 border-2 border-border group-hover:border-primary transition-colors">
           <AvatarImage
@@ -44,7 +44,7 @@ function ContributorCard({ contributor }: { contributor: Contributor }) {
         </Avatar>
 
         {/* Name */}
-        <div className="space-y-1">
+        <div className="space-y-1 flex-1">
           <h3 className="font-semibold text-lg">{contributor.name}</h3>
           {contributor.bio && (
             <p className="text-sm text-muted-foreground">{contributor.bio}</p>
