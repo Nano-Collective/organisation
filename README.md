@@ -14,6 +14,7 @@ For a fuller introduction, see [Introduction to the Nano Collective](https://doc
 - **[Nanotune](https://github.com/Nano-Collective/nanotune)** — Tooling focused on fine-tuning and improving small, local models for practical use.
 - **[get-md](https://github.com/Nano-Collective/get-md)** — A fast, lightweight HTML to Markdown converter optimised for LLM consumption.
 - **[json-up](https://github.com/Nano-Collective/json-up)** — A type-safe JSON migration tool with Zod schema validation.
+- **[prompt-scrub](https://github.com/Nano-Collective/prompt-scrubber)** — A local-first PII scrubbing utility for LLM prompts.
 
 ## Documentation
 
