@@ -43,9 +43,9 @@ const features: Feature[] = [
   },
   {
     icon: Link2,
-    title: "URL or HTML",
+    title: "Flexible Inputs",
     description:
-      "Pass raw HTML, a local file, or a URL. get-md handles fetching, retries, and content extraction for you.",
+      "Pass raw HTML, PDF files, DOCX documents, Markdown files, or a URL. get-md handles fetching, retries, and content extraction for you.",
   },
   {
     icon: Sparkles,
@@ -137,12 +137,12 @@ export default function GetMdPage({ stats }: { stats: ProductStats }) {
         <title>get-md | Nano Collective</title>
         <meta
           name="description"
-          content="A fast, lightweight HTML to Markdown converter optimized for LLM consumption. Built by a community collective rather than a company."
+          content="A fast, lightweight HTML, PDF, DOCX, and Markdown to Markdown converter optimized for LLM consumption. Built by a community collective rather than a company."
         />
         <meta property="og:title" content="get-md | Nano Collective" />
         <meta
           property="og:description"
-          content="A fast, lightweight HTML to Markdown converter optimized for LLM consumption. Built by a community collective rather than a company."
+          content="A fast, lightweight HTML, PDF, DOCX, and Markdown to Markdown converter optimized for LLM consumption. Built by a community collective rather than a company."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nanocollective.org/get-md" />
@@ -153,13 +153,17 @@ export default function GetMdPage({ stats }: { stats: ProductStats }) {
         <ProductHero
           eyebrow="HTML TO MARKDOWN"
           title="get-md"
-          description="A fast, lightweight HTML to Markdown converter optimized for LLM consumption. Pass in HTML or a URL and get clean, structured Markdown back — as a library or from the command line."
+          description="A fast, lightweight HTML, PDF, DOCX, and Markdown to Markdown converter optimized for LLM consumption. Pass in raw HTML, PDF files, DOCX documents, Markdown files, or a URL and get clean, structured Markdown back — as a library or from the command line."
           githubUrl={GITHUB_URL}
           docsUrl={DOCS_URL}
           demo={
             <div className="font-mono text-sm leading-relaxed overflow-x-auto bg-background dark:bg-[#111] text-foreground dark:text-zinc-300 p-6">
               <div className="text-[#0000EE] dark:text-pink-400 mb-2 font-bold dark:font-normal">
                 $ getmd https://example.com -o page.md --verbose
+                <br />
+                $ getmd handbook.pdf -o handbook.md
+                <br />
+                $ getmd document.docx -o document.md
               </div>
               <div className="text-green-600 dark:text-green-400 flex items-center gap-2">
                 <Check className="w-4 h-4" /> Written to page.md
@@ -215,7 +219,7 @@ export default function GetMdPage({ stats }: { stats: ProductStats }) {
                   </h2>
                   <div className="space-y-6 text-sm sm:text-base md:text-lg text-foreground/70 leading-relaxed font-medium">
                     <p>
-                      get-md is a fast, lightweight HTML to Markdown converter
+                      get-md is a fast, lightweight HTML, PDF, DOCX, and Markdown to Markdown converter
                       optimized for LLM consumption. The standard path uses
                       Turndown and Mozilla Readability to return clean,
                       structured Markdown in under 100ms.
