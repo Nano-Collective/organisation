@@ -195,4 +195,10 @@ export const CONTRIBUTORS: Contributor[] = [
     website: "https://www.modakk.tech/",
     bio: "Software Engineer",
   },
+  {
+    name: "Jianzhou Xu",
+    photo: "jianzhou-xu.jpeg",
+    github: "2409324124",
+    bio: "Contributor focused on Chinese developer communities and the Chinese LLM ecosystem, with hands-on knowledge of major Chinese model providers and their strengths.",
+  },
 ];
