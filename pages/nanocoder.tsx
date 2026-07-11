@@ -122,7 +122,11 @@ const reasons: Reason[] = [
 
 const installCommands: InstallCommand[] = [
   { label: "NPM", command: "npm install -g @nanocollective/nanocoder" },
-  { label: "Homebrew", command: "brew install nanocoder" },
+  {
+    label: "Homebrew",
+    command: `brew tap nano-collective/nanocoder https://github.com/Nano-Collective/nanocoder
+brew install nano-collective/nanocoder/nanocoder`,
+  },
   {
     label: "Nix Flakes",
     command: "nix run github:Nano-Collective/nanocoder",
