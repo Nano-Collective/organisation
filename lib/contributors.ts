@@ -201,4 +201,12 @@ export const CONTRIBUTORS: Contributor[] = [
     github: "2409324124",
     bio: "Contributor focused on Chinese developer communities and the Chinese LLM ecosystem, with hands-on knowledge of major Chinese model providers and their strengths.",
   },
+  {
+    name: "Ravi Arnan",
+    photo: "ravi-arnan.jpg",
+    github: "ravi-arnan",
+    website: "https://github.com/ravi-arnan",
+    bio: "Full-stack dev who daily-drives Zorin OS and contributes to open source.",
+    focus: ["Linux", "AI"],
+  },
 ];
