@@ -209,4 +209,11 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Full-stack dev who daily-drives Zorin OS and contributes to open source.",
     focus: ["Linux", "AI"],
   },
+  {
+    name: "jasonC",
+    photo: "jason1015-coder.jpg",
+    github: "jason1015-coder",
+    bio: "a total beginner in AI but good in UI and foreign languages",
+    focus: ["C++", "docs"],
+  },
 ];
