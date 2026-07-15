@@ -5,7 +5,7 @@
   "packageManager": "pnpm@11.0.9",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack && node scripts/generate-sitemap.mjs && node scripts/generate-feed.js",
+    "build": "next build --turbopack && node scripts/generate-sitemap.mjs && node scripts/generate-feed.js && node scripts/generate-llms.mjs",
     "start": "next start",
     "lint": "biome check",
     "lint:fix": "biome check --write",

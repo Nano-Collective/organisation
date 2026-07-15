@@ -50,6 +50,11 @@ const projects = [
     url: "https://github.com/Nano-Collective/json-up",
     description: "Type-safe JSON migration tool with Zod schema validation",
   },
+  {
+    name: "prompt-scrub",
+    url: "https://github.com/Nano-Collective/prompt-scrubber",
+    description: "Local-first PII scrubbing for LLM prompts",
+  },
 ];
 
 const tiers = [
@@ -341,7 +346,7 @@ export default function Sponsor({
                     What the Collective ships today
                   </h2>
                   <p className="text-xs sm:text-lg text-foreground/70 leading-relaxed max-w-3xl mx-auto">
-                    The Collective ships four open-source projects
+                    The Collective ships five open-source projects
                     {downloadsLabel ? (
                       <>
                         , with{" "}

@@ -3,7 +3,7 @@ import AsciiWebsiteBackgroundGenerated from "@/components/ui/AsciiWebsiteBackgro
 
 export function Hero() {
   return (
-    <section className="relative pt-12 pb-12 sm:pb-20 px-4 md:px-6 container mx-auto">
+    <section className="relative overflow-x-clip pt-12 pb-12 sm:pb-20 px-4 md:px-6 container mx-auto">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#0000EE]/5 blur-[120px] rounded-full pointer-events-none hidden dark:block" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-16 items-center lg:items-stretch">
