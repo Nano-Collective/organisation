@@ -96,7 +96,8 @@ export const CONTRIBUTORS: Contributor[] = [
     photo: "luis-edward-miranda.jpg",
     github: "llupRisinglll",
     website: "https://www.linkedin.com/in/lluprisingll",
-    bio: "Senior software engineer building AI agents and developer tools; MBA candidate.",
+    bio: "Works with startups across different industries.",
+    focus: ["Startups", "Engineering"],
   },
   {
     name: "Brijesh K R",
