@@ -172,29 +172,40 @@ export const getStaticPaths: GetStaticPaths = async () => {
       headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
     }
 
-    const response = await fetch(
-      "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-      { headers },
-    );
+    // Paginate: GitHub returns max 100 discussions per page
+    const discussions: Array<{ number: number; title: string }> = [];
+    for (let page = 1; page <= 10; page++) {
+      const response = await fetch(
+        `https://api.github.com/repos/Nano-Collective/organisation/discussions?per_page=100&page=${page}`,
+        { headers },
+      );
 
-    if (!response.ok) {
-      return {
-        paths: [
-          { params: { slug: "nanocoder-hit-2000-github-stars-50" } },
-          {
-            params: {
-              slug: "introducing-nano-collective-a-new-era-of-privacy-first-ai-101",
-            },
-          },
-        ],
-        fallback: false,
-      };
+      if (!response.ok) {
+        if (page === 1) {
+          return {
+            paths: [
+              { params: { slug: "nanocoder-hit-2000-github-stars-50" } },
+              {
+                params: {
+                  slug: "introducing-nano-collective-a-new-era-of-privacy-first-ai-101",
+                },
+              },
+            ],
+            fallback: false,
+          };
+        }
+        break;
+      }
+
+      const batch = (await response.json()) as Array<{
+        number: number;
+        title: string;
+      }>;
+      if (!Array.isArray(batch) || batch.length === 0) break;
+      discussions.push(...batch);
+      if (batch.length < 100) break;
     }
 
-    const discussions = (await response.json()) as Array<{
-      number: number;
-      title: string;
-    }>;
     const paths = discussions.map((discussion) => ({
       params: { slug: generateBlogSlug(discussion.title, discussion.number) },
     }));
@@ -313,26 +324,7 @@ export const getStaticProps: GetStaticProps<BlogPostProps> = async ({
       headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
     }
 
-    const discussionsResponse = await fetch(
-      "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-      { headers },
-    );
-
-    if (!discussionsResponse.ok) {
-      console.error(
-        "Failed to fetch discussions:",
-        discussionsResponse.statusText,
-      );
-      if (
-        slug === "nanocoder-hit-2000-github-stars-50" ||
-        slug === "introducing-nano-collective-a-new-era-of-privacy-first-ai-101"
-      ) {
-        return { props: generateDummyPost() };
-      }
-      return { notFound: true };
-    }
-
-    const discussions = (await discussionsResponse.json()) as Array<{
+    type DiscussionItem = {
       number: number;
       id: string;
       title: string;
@@ -344,7 +336,40 @@ export const getStaticProps: GetStaticProps<BlogPostProps> = async ({
       category: { name: string; emoji: string; slug: string };
       labels?: Array<{ id: string; name: string; color: string }>;
       user?: { login: string; avatar_url: string };
-    }>;
+    };
+
+    // Paginate: GitHub returns max 100 discussions per page
+    const discussions: DiscussionItem[] = [];
+    for (let page = 1; page <= 10; page++) {
+      const discussionsResponse = await fetch(
+        `https://api.github.com/repos/Nano-Collective/organisation/discussions?per_page=100&page=${page}`,
+        { headers },
+      );
+
+      if (!discussionsResponse.ok) {
+        console.error(
+          "Failed to fetch discussions:",
+          discussionsResponse.statusText,
+        );
+        if (page === 1) {
+          if (
+            slug === "nanocoder-hit-2000-github-stars-50" ||
+            slug ===
+              "introducing-nano-collective-a-new-era-of-privacy-first-ai-101"
+          ) {
+            return { props: generateDummyPost() };
+          }
+          return { notFound: true };
+        }
+        break;
+      }
+
+      const batch = (await discussionsResponse.json()) as DiscussionItem[];
+      if (!Array.isArray(batch) || batch.length === 0) break;
+      discussions.push(...batch);
+      if (batch.length < 100) break;
+    }
+
     const discussion = discussions.find((d) => d.number === number);
 
     if (!discussion) {
