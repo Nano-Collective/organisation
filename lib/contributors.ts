@@ -92,6 +92,13 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Community"],
   },
   {
+    name: "Luis Edward Miranda",
+    photo: "luis-edward-miranda.jpg",
+    github: "llupRisinglll",
+    website: "https://www.linkedin.com/in/lluprisingll",
+    bio: "Senior software engineer building AI agents and developer tools; MBA candidate.",
+  },
+  {
     name: "Brijesh K R",
     photo: "brijesh-k-r.png",
     github: "Avtrkrb",
