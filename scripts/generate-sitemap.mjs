@@ -42,17 +42,24 @@ async function fetchDiscussions() {
     headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
   }
 
-  const response = await fetch(
-    "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-    { headers },
-  );
+  // Paginate: GitHub returns max 100 discussions per page
+  const discussions = [];
+  for (let page = 1; page <= 10; page++) {
+    const response = await fetch(
+      `https://api.github.com/repos/Nano-Collective/organisation/discussions?per_page=100&page=${page}`,
+      { headers },
+    );
 
-  if (!response.ok) {
-    console.error("Failed to fetch discussions:", response.statusText);
-    return [];
+    if (!response.ok) {
+      console.error("Failed to fetch discussions:", response.statusText);
+      break;
+    }
+
+    const batch = await response.json();
+    if (!Array.isArray(batch) || batch.length === 0) break;
+    discussions.push(...batch);
+    if (batch.length < 100) break;
   }
-
-  const discussions = await response.json();
 
   return discussions.filter((d) =>
     DISCUSSION_CATEGORIES.includes(d.category.slug),

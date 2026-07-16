@@ -198,11 +198,6 @@ export const getStaticProps: GetStaticProps<BlogProps> = async () => {
       headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
     }
 
-    const response = await fetch(
-      "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-      { headers },
-    );
-
     const fallbackDiscussions = [
       {
         id: "1",
@@ -265,24 +260,34 @@ export const getStaticProps: GetStaticProps<BlogProps> = async () => {
       },
     ];
 
-    let discussions = fallbackDiscussions;
-
+    // Fetch discussions (paginated: GitHub returns max 100 per page)
+    const fetched = [];
     try {
-      if (response.ok) {
-        const data = await response.json();
-        if (Array.isArray(data) && data.length > 0) {
-          discussions = data;
-        }
-      } else {
-        console.error(
-          "Failed to fetch discussions:",
-          response.statusText,
-          "- using fallback data",
+      for (let page = 1; page <= 10; page++) {
+        const response = await fetch(
+          `https://api.github.com/repos/Nano-Collective/organisation/discussions?per_page=100&page=${page}`,
+          { headers },
         );
+
+        if (!response.ok) {
+          console.error(
+            "Failed to fetch discussions:",
+            response.statusText,
+            "- using fallback data",
+          );
+          break;
+        }
+
+        const batch = await response.json();
+        if (!Array.isArray(batch) || batch.length === 0) break;
+        fetched.push(...batch);
+        if (batch.length < 100) break;
       }
     } catch (e) {
       console.error("Error parsing discussions:", e, "- using fallback data");
     }
+
+    const discussions = fetched.length > 0 ? fetched : fallbackDiscussions;
 
     // Transform discussions into blog posts
     const posts: BlogPost[] = discussions.map((discussion) => {

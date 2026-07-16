@@ -114,27 +114,34 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
   }
 
-  // Fetch discussions
+  // Fetch discussions (paginated: GitHub returns max 100 per page)
   let discussions: Discussion[] = [];
   try {
-    const discussionsResponse = await fetch(
-      "https://api.github.com/repos/Nano-Collective/organisation/discussions",
-      { headers },
-    );
+    for (let page = 1; page <= 10; page++) {
+      const discussionsResponse = await fetch(
+        `https://api.github.com/repos/Nano-Collective/organisation/discussions?per_page=100&page=${page}`,
+        { headers },
+      );
 
-    if (discussionsResponse.ok) {
-      discussions = await discussionsResponse.json();
-      // Sort by newest first
-      discussions = discussions.sort(
-        (a, b) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-      );
-    } else {
-      console.error(
-        "Failed to fetch discussions (possibly rate limited or REST API not supported):",
-        discussionsResponse.statusText,
-      );
+      if (!discussionsResponse.ok) {
+        console.error(
+          "Failed to fetch discussions (possibly rate limited or REST API not supported):",
+          discussionsResponse.statusText,
+        );
+        break;
+      }
+
+      const batch = await discussionsResponse.json();
+      if (!Array.isArray(batch) || batch.length === 0) break;
+      discussions.push(...batch);
+      if (batch.length < 100) break;
     }
+
+    // Sort by newest first
+    discussions.sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    );
   } catch (error) {
     console.error("Error fetching discussions:", error);
   }
