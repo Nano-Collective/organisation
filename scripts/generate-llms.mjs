@@ -47,6 +47,13 @@ const PRODUCTS = [
       "A simple, interactive CLI for fine-tuning small language models on Apple Silicon.",
   },
   {
+    route: "/sentinel",
+    file: "sentinel.html",
+    title: "Sentinel (alpha)",
+    description:
+      "In alpha. Continuous, configurable security and code audits across the repositories in your GitHub organisation, filed as issues for a human to act on.",
+  },
+  {
     route: "/get-md",
     file: "get-md.html",
     title: "get-md",

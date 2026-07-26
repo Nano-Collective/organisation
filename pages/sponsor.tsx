@@ -40,6 +40,12 @@ const projects = [
       "Interactive CLI for fine-tuning small language models on Apple Silicon",
   },
   {
+    name: "Sentinel (alpha)",
+    url: "https://github.com/Nano-Collective/sentinel",
+    description:
+      "Continuous, configurable security and code audits across a GitHub organisation",
+  },
+  {
     name: "get-md",
     url: "https://github.com/Nano-Collective/get-md",
     description:

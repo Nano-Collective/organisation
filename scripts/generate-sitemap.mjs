@@ -14,6 +14,13 @@ const STATIC_PAGES = [
   { loc: "growth", priority: "0.8", changefreq: "daily" },
   { loc: "screen-record", priority: "0.6", changefreq: "monthly" },
   { loc: "sponsor", priority: "0.6", changefreq: "monthly" },
+  { loc: "pipeline", priority: "0.7", changefreq: "weekly" },
+  // Product pages
+  { loc: "nanocoder", priority: "0.9", changefreq: "weekly" },
+  { loc: "nanotune", priority: "0.8", changefreq: "weekly" },
+  { loc: "sentinel", priority: "0.8", changefreq: "weekly" },
+  { loc: "get-md", priority: "0.8", changefreq: "weekly" },
+  { loc: "prompt-scrub", priority: "0.8", changefreq: "weekly" },
 ];
 
 function slugify(text) {

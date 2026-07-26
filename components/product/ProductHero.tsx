@@ -15,6 +15,10 @@ interface ProductHeroProps {
   docsUrl: string;
   /** The demo shown on the right — e.g. a terminal animation or a GIF. */
   demo: ReactNode;
+  /** Release maturity, e.g. "alpha". Renders as a badge beside the title. */
+  badge?: string;
+  /** Shown under the badge — what the maturity label means for the reader. */
+  badgeNote?: string;
 }
 
 export function ProductHero({
@@ -24,6 +28,8 @@ export function ProductHero({
   githubUrl,
   docsUrl,
   demo,
+  badge,
+  badgeNote,
 }: ProductHeroProps) {
   return (
     <section className="relative pt-12 pb-12 sm:pb-20 px-4 md:px-6 container mx-auto">
@@ -40,9 +46,16 @@ export function ProductHero({
           </StaggerItem>
 
           <StaggerItem>
-            <h1 className="text-4xl sm:text-5xl lg:text-[4rem] leading-[1.05] font-bold tracking-tight text-foreground break-words">
-              {title}
-            </h1>
+            <div className="flex flex-wrap items-center gap-4">
+              <h1 className="text-4xl sm:text-5xl lg:text-[4rem] leading-[1.05] font-bold tracking-tight text-foreground break-words">
+                {title}
+              </h1>
+              {badge && (
+                <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-widest bg-[#0000EE] dark:bg-foreground text-white dark:text-background px-3 py-1.5">
+                  {badge}
+                </span>
+              )}
+            </div>
           </StaggerItem>
 
           <StaggerItem>
@@ -50,6 +63,14 @@ export function ProductHero({
               {description}
             </p>
           </StaggerItem>
+
+          {badgeNote && (
+            <StaggerItem>
+              <p className="border-l-2 border-[#0000EE] dark:border-[#A1A1AA] pl-4 text-xs sm:text-sm text-foreground/70 font-mono leading-relaxed max-w-[540px]">
+                {badgeNote}
+              </p>
+            </StaggerItem>
+          )}
 
           <StaggerItem>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 pt-4 sm:pt-6">
