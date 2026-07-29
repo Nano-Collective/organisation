@@ -44,15 +44,21 @@ export async function onRequest(context) {
 }
 
 /**
+ * Files that are served as themselves, never as a page: assets and the
+ * Markdown mirrors. Matched by extension rather than by "the last segment
+ * contains a dot", so that a route with a dot in it still resolves to a page.
+ */
+const FILE_EXTENSION =
+  /\.(md|txt|json|xml|html|js|mjs|css|map|png|jpe?g|gif|svg|webp|avif|ico|webmanifest|woff2?|ttf|mp4|webm|pdf|zip|wasm)$/i;
+
+/**
  * The Markdown mirror for a page route: /nanocoder -> /nanocoder.md, / ->
- * /index.md. Returns null for anything that is already a file (an asset, or a
- * `.md` mirror being fetched directly).
+ * /index.md.
  */
 function markdownMirrorFor(pathname) {
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
   if (path === "" || path === "/") return "/index.md";
-  const lastSegment = path.slice(path.lastIndexOf("/") + 1);
-  if (lastSegment.includes(".")) return null;
+  if (FILE_EXTENSION.test(path)) return null;
   return `${path}.md`;
 }
 
