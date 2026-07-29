@@ -23,6 +23,9 @@ const DOCS_PIPELINE_URL =
 const DOCS_WHITEPAPERS_URL =
   "https://docs.nanocollective.org/collective/whitepapers";
 
+const DOCS_BRINGING_URL =
+  "https://docs.nanocollective.org/collective/projects/bringing-an-existing-project";
+
 const STATUS_ORDER: WhitepaperStatus[] = [
   "In public review",
   "Build approved",
@@ -234,6 +237,39 @@ export default function Pipeline({ whitepapers }: PipelineProps) {
                   <FaDiscord className="mr-2 h-4 w-4" />
                   Start in Discord
                 </a>
+              </div>
+
+              <div className="mt-16 md:mt-20 pt-12 md:pt-16 border-t border-white/25">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-5 md:mb-6">
+                  Already built something?
+                </h3>
+                <p className="text-xs sm:text-lg md:text-xl opacity-90 mb-10 leading-relaxed max-w-2xl mx-auto">
+                  Existing projects can move under the umbrella too. If you
+                  maintain a tool that fits the collective's shape, there is a
+                  lighter route in: a short submission, a 14-day public review,
+                  and a recorded decision. Your project keeps its identity, its
+                  maintainers, and its roadmap. What changes is the floor it
+                  stands on.
+                </p>
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                  <a
+                    href={DOCS_BRINGING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-14 items-center justify-center rounded-none bg-white px-10 text-sm font-bold tracking-wide text-[#0000EE] transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0000EE] group"
+                  >
+                    How it works
+                  </a>
+                  <a
+                    href="https://discord.gg/ktPDV6rekE"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-14 items-center justify-center rounded-none border-2 border-white bg-transparent px-10 text-sm font-bold tracking-wide text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0000EE]"
+                  >
+                    <FaDiscord className="mr-2 h-4 w-4" />
+                    Start in Discord
+                  </a>
+                </div>
               </div>
             </div>
           </section>

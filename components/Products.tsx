@@ -36,7 +36,7 @@ export function Products({ nanocoderVersion }: ProductsProps) {
           Featured Projects
         </h2>
         <p className="text-sm sm:text-lg text-foreground/70 font-mono">
-          Open-source tools built by the community.
+          Independent open-source projects shipping under the collective.
         </p>
       </div>
 

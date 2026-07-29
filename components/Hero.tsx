@@ -27,8 +27,8 @@ export function Hero() {
           </h1>
 
           <p className="text-sm sm:text-lg lg:text-xl text-foreground/70 max-w-[540px] leading-relaxed">
-            Nano Collective builds privacy-respecting, local-first AI tools that
-            help developers build, automate, and ship faster without
+            Nano Collective is a home for privacy-respecting, local-first AI
+            tools that help developers build, automate, and ship faster without
             surrendering control.
           </p>
 
