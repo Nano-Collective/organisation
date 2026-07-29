@@ -9,16 +9,18 @@ import {
 } from "@/components/cover-image/cover-image-sidebar";
 import { CoverPreview } from "@/components/cover-image/cover-preview";
 import { Button } from "@/components/ui/button";
+import { DEFAULT_POST_BLOCKS } from "@/lib/cover-image/blocks";
+import { buildFooter } from "@/lib/cover-image/footer";
 import { buildItems } from "@/lib/cover-image/items";
 import { DEFAULT_HUE, paletteFromHue } from "@/lib/cover-image/palette";
 import { renderCoverToCanvas } from "@/lib/cover-image/render";
 import { SPACING_VALUES } from "@/lib/cover-image/spacing";
 import type {
   BgStyle,
-  FontFamily,
   Mode,
   Pattern,
   Spacing,
+  TextBlock,
   Theme,
 } from "@/lib/cover-image/types";
 
@@ -55,19 +57,16 @@ export default function CoverImage() {
   const [showCoverIcons, setShowCoverIcons] = useState(true);
   const [showCoverWebsite, setShowCoverWebsite] = useState(true);
 
-  // Post content
-  const [postTitle, setPostTitle] = useState("get-md");
-  const [postSubtitle, setPostSubtitle] = useState("v1.5.0");
-  const [showPostTitle, setShowPostTitle] = useState(true);
-  const [showPostSubtitle, setShowPostSubtitle] = useState(true);
+  // Post content. An ordered array of text blocks — add, remove and
+  // reorder freely — plus the separate tag list and social icons.
+  const [postBlocks, setPostBlocks] =
+    useState<TextBlock[]>(DEFAULT_POST_BLOCKS);
   const [showPostBadges, setShowPostBadges] = useState(false);
   const [showPostIcons, setShowPostIcons] = useState(false);
-  const [postTitleMono, setPostTitleMono] = useState(true);
-  const [postTitleFont, setPostTitleFont] = useState<FontFamily>("mono");
-  const [postSubtitleFont, setPostSubtitleFont] = useState<FontFamily>("sans");
-  const [postTitleSize, setPostTitleSize] = useState(100);
-  const [postSubtitleSize, setPostSubtitleSize] = useState(100);
   const [postBadges, setPostBadges] = useState("open-source, typescript, cli");
+
+  // Footer watermark
+  const [showFooter, setShowFooter] = useState(true);
 
   // Theme
   const [pattern, setPattern] = useState<Pattern>("grid");
@@ -109,22 +108,11 @@ export default function CoverImage() {
         showCoverSubtitle,
         showCoverIcons,
         showCoverWebsite,
-        postTitle,
-        postSubtitle,
-        showPostTitle,
-        showPostSubtitle,
+        postBlocks,
         showPostIcons,
-        postTitleFont,
-        postSubtitleFont,
-        postTitleMono,
-        postTitleSize,
-        postSubtitleSize,
         postBadges,
         showPostBadges,
-        primaryColor,
-        fg: colors.fg,
-        fgMuted: colors.fgMuted,
-        fgFaint: colors.fgFaint,
+        colors,
         contentScale,
       }),
     [
@@ -134,24 +122,25 @@ export default function CoverImage() {
       showCoverSubtitle,
       showCoverIcons,
       showCoverWebsite,
-      postTitle,
-      postSubtitle,
-      showPostTitle,
-      showPostSubtitle,
+      postBlocks,
       showPostIcons,
-      postTitleFont,
-      postSubtitleFont,
-      postTitleMono,
-      postTitleSize,
-      postSubtitleSize,
       postBadges,
       showPostBadges,
-      primaryColor,
-      colors.fg,
-      colors.fgMuted,
-      colors.fgFaint,
+      colors,
       contentScale,
     ],
+  );
+
+  // The watermark sits outside the content stack, so it's built separately.
+  const footer = useMemo(
+    () =>
+      buildFooter({
+        show: showFooter,
+        colors,
+        contentScale,
+        sidePadding,
+      }),
+    [showFooter, colors, contentScale, sidePadding],
   );
 
   const cs = contentScale / 100;
@@ -180,6 +169,7 @@ export default function CoverImage() {
         primaryColor,
         secondaryColor,
         items,
+        footer,
         iconsContainerRef,
       });
       const link = document.createElement("a");
@@ -226,30 +216,16 @@ export default function CoverImage() {
     setShowCoverSubtitle,
     setShowCoverIcons,
     setShowCoverWebsite,
-    postTitle,
-    setPostTitle,
-    postSubtitle,
-    setPostSubtitle,
-    postTitleFont,
-    setPostTitleFont,
-    postSubtitleFont,
-    setPostSubtitleFont,
-    postTitleSize,
-    setPostTitleSize,
-    postSubtitleSize,
-    setPostSubtitleSize,
-    postTitleMono,
-    setPostTitleMono,
+    postBlocks,
+    setPostBlocks,
     postBadges,
     setPostBadges,
-    showPostTitle,
-    showPostSubtitle,
     showPostBadges,
     showPostIcons,
-    setShowPostTitle,
-    setShowPostSubtitle,
     setShowPostBadges,
     setShowPostIcons,
+    showFooter,
+    setShowFooter,
   };
 
   return (
@@ -322,6 +298,7 @@ export default function CoverImage() {
                     pattern={pattern}
                     colors={colors}
                     items={items}
+                    footer={footer}
                     iconsContainerRef={iconsContainerRef}
                   />
                 </div>

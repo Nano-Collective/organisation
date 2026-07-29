@@ -11,7 +11,7 @@
 
 import { roundRect, svgToImage } from "./canvas-helpers";
 import { hexToRgba } from "./color";
-import { FONT_SANS, resolveFont } from "./fonts";
+import { resolveFont } from "./fonts";
 import { SOCIAL_ICONS } from "./social";
 import type {
   Alignment,
@@ -19,6 +19,7 @@ import type {
   BgStyle,
   Colors,
   ContentItem,
+  FooterItem,
   IconsItem,
   Pattern,
   TextItem,
@@ -38,6 +39,7 @@ export type RenderInput = {
   primaryColor: string;
   secondaryColor: string;
   items: ContentItem[];
+  footer: FooterItem | null;
   iconsContainerRef: React.RefObject<HTMLDivElement | null>;
 };
 
@@ -65,6 +67,7 @@ export async function renderCoverToCanvas(input: RenderInput): Promise<string> {
     primaryColor,
     secondaryColor,
     items,
+    footer,
     iconsContainerRef,
   } = input;
 
@@ -99,7 +102,7 @@ export async function renderCoverToCanvas(input: RenderInput): Promise<string> {
 
   // Content
   const totalHeight = items.reduce((sum, item, i) => {
-    const h = item.size + (item.marginBottom ?? 0);
+    const h = itemHeight(item) + (item.marginBottom ?? 0);
     return sum + h + (i > 0 ? contentGap : 0);
   }, 0);
   const startY = verticalCenter
@@ -131,7 +134,18 @@ export async function renderCoverToCanvas(input: RenderInput): Promise<string> {
     }
   }
 
+  if (footer) drawFooter(ctx, footer, width, height);
+
   return canvas.toDataURL("image/png");
+}
+
+// Height a single item occupies in the stack, excluding its margin. Text
+// and icons are their nominal size; a pill row adds its vertical padding
+// and border. Wrapped pill rows aren't accounted for here — the pre-pass
+// only needs a close-enough total to centre the stack.
+function itemHeight(item: ContentItem): number {
+  if (item.kind !== "badges") return item.size;
+  return item.size + item.padY * 2 + (item.borderWidth ?? 0) * 2;
 }
 
 function drawBackground(
@@ -348,12 +362,17 @@ function drawIcons(
 
 function drawBadges(cur: Cursor, item: BadgesItem) {
   // Badges: laid out left-to-right like the preview, wrapping at the
-  // content frame width so they don't overflow.
+  // content frame width so they don't overflow. A `borderColor` turns the
+  // row into outlined pills (the "CTA pill" block style) instead of
+  // filled ones.
   const { ctx, xForWidth, width, sidePadding, y } = cur;
-  ctx.font = `500 ${item.size}px ${FONT_SANS}`;
+  ctx.font = `500 ${item.size}px ${resolveFont(item.fontFamily)}`;
   ctx.textBaseline = "middle";
   const radius = item.size * 0.3;
-  const badgeH = item.size + item.padY * 2;
+  // The CSS box grows by the border on each side, so mirror that here and
+  // stroke inside the outer rect to keep the two paths the same size.
+  const bw = item.borderColor ? (item.borderWidth ?? 1) : 0;
+  const badgeH = item.size + item.padY * 2 + bw * 2;
   const maxRowWidth = width - sidePadding * 2;
   let row: Array<{ label: string; w: number }> = [];
   let rowWidth = 0;
@@ -367,7 +386,7 @@ function drawBadges(cur: Cursor, item: BadgesItem) {
     }
   };
   for (const label of item.labels) {
-    const w = ctx.measureText(label).width + item.padX * 2;
+    const w = ctx.measureText(label).width + item.padX * 2 + bw * 2;
     const next = rowWidth + (row.length > 0 ? rowGap : 0) + w;
     if (next > maxRowWidth && row.length > 0) {
       flush();
@@ -382,10 +401,25 @@ function drawBadges(cur: Cursor, item: BadgesItem) {
       line.reduce((s, b) => s + b.w, 0) + Math.max(0, line.length - 1) * rowGap;
     let bx = xForWidth(lineWidth);
     for (const { label, w } of line) {
-      // Pill: filled rounded rect with text centred inside.
-      ctx.fillStyle = item.fill;
-      roundRect(ctx, bx, badgeY, w, badgeH, radius);
-      ctx.fill();
+      // Pill: rounded rect — filled and/or outlined — with text centred.
+      if (item.fill) {
+        ctx.fillStyle = item.fill;
+        roundRect(ctx, bx, badgeY, w, badgeH, radius);
+        ctx.fill();
+      }
+      if (bw > 0 && item.borderColor) {
+        ctx.strokeStyle = item.borderColor;
+        ctx.lineWidth = bw;
+        roundRect(
+          ctx,
+          bx + bw / 2,
+          badgeY + bw / 2,
+          w - bw,
+          badgeH - bw,
+          Math.max(0, radius - bw / 2),
+        );
+        ctx.stroke();
+      }
       ctx.fillStyle = item.color;
       ctx.textAlign = "center";
       ctx.fillText(label, bx + w / 2, badgeY + badgeH / 2);
@@ -396,4 +430,23 @@ function drawBadges(cur: Cursor, item: BadgesItem) {
   }
   ctx.textBaseline = "top";
   cur.y = badgeY - 6 + (item.marginBottom ?? 0);
+}
+
+function drawFooter(
+  ctx: CanvasRenderingContext2D,
+  footer: FooterItem,
+  width: number,
+  height: number,
+) {
+  ctx.save();
+  ctx.textBaseline = "top";
+  ctx.font = `${footer.weight} ${footer.size}px ${resolveFont(footer.fontFamily)}`;
+  ctx.fillStyle = footer.color;
+  const w = ctx.measureText(footer.text).width;
+  ctx.fillText(
+    footer.text,
+    width - footer.inset - w,
+    height - footer.inset - footer.size,
+  );
+  ctx.restore();
 }

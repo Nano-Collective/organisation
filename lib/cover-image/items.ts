@@ -5,9 +5,17 @@
 // (`CoverPreview`) and the canvas download (`render.ts`) consume the
 // same output, so the export always matches what the user sees.
 
+import { BLOCK_STYLES, resolveBlockColor } from "./blocks";
 import { hexToRgba } from "./color";
 import { FONT_SANS } from "./fonts";
-import type { ContentItem, FontFamily } from "./types";
+import type { Colors, ContentItem, TextBlock } from "./types";
+
+// CTA pill geometry, expressed as ratios of the block's font size so a
+// pill keeps its proportions at any size. The values match the tag list's
+// 22px/14px/8px so both read as the same component.
+const CTA_PAD_X_RATIO = 14 / 22;
+const CTA_PAD_Y_RATIO = 8 / 22;
+const CTA_BORDER_RATIO = 2 / 22;
 
 export type BuildItemsInput = {
   mode: "cover" | "post";
@@ -18,30 +26,20 @@ export type BuildItemsInput = {
   showCoverIcons: boolean;
   showCoverWebsite: boolean;
   // Post state
-  postTitle: string;
-  postSubtitle: string;
-  showPostTitle: boolean;
-  showPostSubtitle: boolean;
+  postBlocks: TextBlock[];
   showPostIcons: boolean;
-  postTitleFont: FontFamily;
-  postSubtitleFont: FontFamily;
-  postTitleMono: boolean;
-  postTitleSize: number; // 0-200 percentage
-  postSubtitleSize: number; // 0-200 percentage
   postBadges: string;
   showPostBadges: boolean;
-  // Derived
-  primaryColor: string;
-  // Theme-aware text colours (from the active palette).
-  fg: string;
-  fgMuted: string;
-  fgFaint: string;
+  // Active palette — blocks resolve their colour role against this, so
+  // the hue slider and the light/dark theme flow straight through.
+  colors: Colors;
   // Size scaling (post-build, content-scale %)
   contentScale: number;
 };
 
 export function buildItems(input: BuildItemsInput): ContentItem[] {
   const cs = input.contentScale / 100;
+  const { colors } = input;
   if (input.mode === "cover") {
     const out: ContentItem[] = [];
     if (input.showCoverSubtitle) {
@@ -50,7 +48,7 @@ export function buildItems(input: BuildItemsInput): ContentItem[] {
         text: input.coverSubtitle,
         size: 18 * cs,
         weight: 500,
-        color: input.fgFaint,
+        color: colors.fgFaint,
         uppercase: true,
         letterSpacing: 0.025,
         fontFamily: FONT_SANS,
@@ -61,7 +59,7 @@ export function buildItems(input: BuildItemsInput): ContentItem[] {
         kind: "icons",
         size: 56 * cs,
         gap: 32 * cs,
-        color: input.fgMuted,
+        color: colors.fgMuted,
         marginBottom: 20 * cs,
       });
     }
@@ -71,7 +69,7 @@ export function buildItems(input: BuildItemsInput): ContentItem[] {
         text: input.coverWebsite,
         size: 48 * cs,
         weight: 700,
-        color: input.fg,
+        color: colors.fg,
         fontFamily: FONT_SANS,
       });
     }
@@ -79,30 +77,35 @@ export function buildItems(input: BuildItemsInput): ContentItem[] {
   }
 
   const out: ContentItem[] = [];
-  if (input.showPostTitle) {
-    // postTitleMono is the legacy single-bit toggle. postTitleFont takes
-    // precedence so users can pick mono/sans/serif/display directly.
-    const titleFont: FontFamily = input.postTitleMono
-      ? "mono"
-      : input.postTitleFont;
-    out.push({
-      kind: "text",
-      text: input.postTitle,
-      size: 96 * cs * (input.postTitleSize / 100),
-      weight: 700,
-      color: input.fg,
-      fontFamily: titleFont,
-    });
-  }
-  if (input.showPostSubtitle) {
-    out.push({
-      kind: "text",
-      text: input.postSubtitle,
-      size: 36 * cs * (input.postSubtitleSize / 100),
-      weight: 500,
-      color: input.fgMuted,
-      fontFamily: input.postSubtitleFont,
-    });
+  // Blocks render top to bottom in array order.
+  for (const block of input.postBlocks) {
+    if (!block.visible || block.text.trim().length === 0) continue;
+    const def = BLOCK_STYLES[block.style];
+    const size = def.size * cs * (block.size / 100);
+    const color = resolveBlockColor(block.color, colors);
+    if (block.style === "cta") {
+      out.push({
+        kind: "badges",
+        labels: [block.text.trim()],
+        size,
+        gap: 12 * cs,
+        padX: size * CTA_PAD_X_RATIO,
+        padY: size * CTA_PAD_Y_RATIO,
+        color,
+        borderColor: color,
+        borderWidth: Math.max(1, size * CTA_BORDER_RATIO),
+        fontFamily: block.font,
+      });
+    } else {
+      out.push({
+        kind: "text",
+        text: block.text,
+        size,
+        weight: def.weight,
+        color,
+        fontFamily: block.font,
+      });
+    }
   }
   if (input.showPostBadges && input.postBadges.trim().length > 0) {
     const labels = input.postBadges
@@ -117,8 +120,8 @@ export function buildItems(input: BuildItemsInput): ContentItem[] {
         gap: 12 * cs,
         padX: 14 * cs,
         padY: 8 * cs,
-        color: input.fg,
-        fill: hexToRgba(input.primaryColor, 0.18),
+        color: colors.fg,
+        fill: hexToRgba(colors.primary, 0.18),
       });
     }
   }
@@ -127,7 +130,7 @@ export function buildItems(input: BuildItemsInput): ContentItem[] {
       kind: "icons",
       size: 56 * cs,
       gap: 32 * cs,
-      color: input.fgMuted,
+      color: colors.fgMuted,
     });
   }
   return out;

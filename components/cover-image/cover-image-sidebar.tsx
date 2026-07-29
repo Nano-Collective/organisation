@@ -2,7 +2,7 @@
 // current values + setters from the page and renders them. Splitting
 // this out keeps the page file focused on layout and the render path.
 
-import { X } from "lucide-react";
+import { ArrowDown, ArrowUp, Plus, Trash2, X } from "lucide-react";
 import { Checkbox, Field, Section } from "@/components/cover-image/controls";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,13 +13,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  BLOCK_COLOR_LABELS,
+  BLOCK_COLOR_ORDER,
+  BLOCK_STYLE_ORDER,
+  BLOCK_STYLES,
+  createBlock,
+  withBlockMoved,
+  withBlockPatched,
+  withBlockRestyled,
+  withoutBlock,
+} from "@/lib/cover-image/blocks";
+import { FOOTER_TEXT } from "@/lib/cover-image/footer";
 import { SPACING_LABELS } from "@/lib/cover-image/spacing";
 import type {
   BgStyle,
+  BlockColor,
+  BlockStyle,
   FontFamily,
   Mode,
   Pattern,
   Spacing,
+  TextBlock,
 } from "@/lib/cover-image/types";
 
 type SizePreset = { label: string; w: number; h: number };
@@ -74,31 +89,18 @@ export type SidebarState = {
   setShowCoverSubtitle: (v: boolean) => void;
   setShowCoverIcons: (v: boolean) => void;
   setShowCoverWebsite: (v: boolean) => void;
-  // Post content
-  postTitle: string;
-  setPostTitle: (v: string) => void;
-  postSubtitle: string;
-  setPostSubtitle: (v: string) => void;
-  postTitleFont: FontFamily;
-  setPostTitleFont: (v: FontFamily) => void;
-  postSubtitleFont: FontFamily;
-  setPostSubtitleFont: (v: FontFamily) => void;
-  postTitleSize: number;
-  setPostTitleSize: (n: number) => void;
-  postSubtitleSize: number;
-  setPostSubtitleSize: (n: number) => void;
-  postTitleMono: boolean;
-  setPostTitleMono: (v: boolean) => void;
+  // Post content — an ordered array of text blocks plus the tag list.
+  postBlocks: TextBlock[];
+  setPostBlocks: (v: TextBlock[]) => void;
   postBadges: string;
   setPostBadges: (v: string) => void;
-  showPostTitle: boolean;
-  showPostSubtitle: boolean;
   showPostBadges: boolean;
   showPostIcons: boolean;
-  setShowPostTitle: (v: boolean) => void;
-  setShowPostSubtitle: (v: boolean) => void;
   setShowPostBadges: (v: boolean) => void;
   setShowPostIcons: (v: boolean) => void;
+  // Footer watermark
+  showFooter: boolean;
+  setShowFooter: (v: boolean) => void;
 };
 
 export function CoverImageSidebar({
@@ -139,6 +141,7 @@ export function CoverImageSidebar({
         ) : (
           <PostContentSection state={state} />
         )}
+        <FooterSection state={state} />
       </div>
     </aside>
   );
@@ -382,78 +385,43 @@ function CoverContentSection({ state }: { state: SidebarState }) {
 }
 
 function PostContentSection({ state }: { state: SidebarState }) {
+  const blocks = state.postBlocks;
   return (
     <Section title="Post content">
-      <Field label="Title">
-        <Input
-          type="text"
-          value={state.postTitle}
-          onChange={(e) => state.setPostTitle(e.target.value)}
-          className="w-44"
+      {blocks.length === 0 && (
+        <p className="text-xs text-muted-foreground">
+          No text blocks — add one below.
+        </p>
+      )}
+      {blocks.map((block, i) => (
+        <BlockEditor
+          key={block.id}
+          block={block}
+          index={i}
+          canMoveUp={i > 0}
+          canMoveDown={i < blocks.length - 1}
+          onPatch={(patch) =>
+            state.setPostBlocks(withBlockPatched(blocks, block.id, patch))
+          }
+          onRestyle={(style) =>
+            state.setPostBlocks(withBlockRestyled(blocks, block.id, style))
+          }
+          onMove={(dir) =>
+            state.setPostBlocks(withBlockMoved(blocks, block.id, dir))
+          }
+          onRemove={() => state.setPostBlocks(withoutBlock(blocks, block.id))}
         />
-      </Field>
-      <Field label="Title font">
-        <Select
-          value={state.postTitleFont}
-          onValueChange={(v) => state.setPostTitleFont(v as FontFamily)}
-        >
-          <SelectTrigger className="w-28">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="mono">Mono</SelectItem>
-            <SelectItem value="sans">Sans</SelectItem>
-            <SelectItem value="serif">Serif</SelectItem>
-            <SelectItem value="display">Display</SelectItem>
-          </SelectContent>
-        </Select>
-      </Field>
-      <Field label="Title size %">
-        <Input
-          type="number"
-          value={state.postTitleSize}
-          onChange={(e) => state.setPostTitleSize(Number(e.target.value))}
-          className="w-24"
-          min={50}
-          max={200}
-          step={5}
-        />
-      </Field>
-      <Field label="Subtitle">
-        <Input
-          type="text"
-          value={state.postSubtitle}
-          onChange={(e) => state.setPostSubtitle(e.target.value)}
-          className="w-44"
-        />
-      </Field>
-      <Field label="Subtitle font">
-        <Select
-          value={state.postSubtitleFont}
-          onValueChange={(v) => state.setPostSubtitleFont(v as FontFamily)}
-        >
-          <SelectTrigger className="w-28">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="mono">Mono</SelectItem>
-            <SelectItem value="sans">Sans</SelectItem>
-            <SelectItem value="serif">Serif</SelectItem>
-            <SelectItem value="display">Display</SelectItem>
-          </SelectContent>
-        </Select>
-      </Field>
-      <Field label="Subtitle size %">
-        <Input
-          type="number"
-          value={state.postSubtitleSize}
-          onChange={(e) => state.setPostSubtitleSize(Number(e.target.value))}
-          className="w-24"
-          min={50}
-          max={200}
-          step={5}
-        />
-      </Field>
+      ))}
+      <Button
+        variant="outline"
+        className="w-full"
+        onClick={() =>
+          state.setPostBlocks([...blocks, createBlock("body", "New text")])
+        }
+      >
+        <Plus className="w-4 h-4" />
+        Add block
+      </Button>
       <Field label="Badges">
         <Input
           type="text"
@@ -465,16 +433,6 @@ function PostContentSection({ state }: { state: SidebarState }) {
       </Field>
       <div className="flex flex-col gap-2 pt-1">
         <Checkbox
-          label="Show title"
-          checked={state.showPostTitle}
-          onChange={state.setShowPostTitle}
-        />
-        <Checkbox
-          label="Show subtitle"
-          checked={state.showPostSubtitle}
-          onChange={state.setShowPostSubtitle}
-        />
-        <Checkbox
           label="Show badges"
           checked={state.showPostBadges}
           onChange={state.setShowPostBadges}
@@ -484,12 +442,155 @@ function PostContentSection({ state }: { state: SidebarState }) {
           checked={state.showPostIcons}
           onChange={state.setShowPostIcons}
         />
-        <Checkbox
-          label="Monospace title"
-          checked={state.postTitleMono}
-          onChange={state.setPostTitleMono}
-        />
       </div>
+    </Section>
+  );
+}
+
+// One row of the block array. Stateless — every control hands an
+// immutable update back to the page via the callbacks.
+function BlockEditor({
+  block,
+  index,
+  canMoveUp,
+  canMoveDown,
+  onPatch,
+  onRestyle,
+  onMove,
+  onRemove,
+}: {
+  block: TextBlock;
+  index: number;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
+  onPatch: (patch: Partial<TextBlock>) => void;
+  onRestyle: (style: BlockStyle) => void;
+  onMove: (dir: -1 | 1) => void;
+  onRemove: () => void;
+}) {
+  return (
+    <div className="border border-foreground/20 p-3 space-y-3">
+      <div className="flex items-center justify-between gap-1">
+        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+          Block {index + 1}
+        </span>
+        <div className="flex items-center gap-1">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={() => onMove(-1)}
+            disabled={!canMoveUp}
+            aria-label="Move block up"
+          >
+            <ArrowUp className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={() => onMove(1)}
+            disabled={!canMoveDown}
+            aria-label="Move block down"
+          >
+            <ArrowDown className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={onRemove}
+            aria-label="Remove block"
+          >
+            <Trash2 className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+      <Input
+        type="text"
+        value={block.text}
+        onChange={(e) => onPatch({ text: e.target.value })}
+        className="w-full"
+        placeholder="Text"
+      />
+      <Field label="Style">
+        <Select
+          value={block.style}
+          onValueChange={(v) => onRestyle(v as BlockStyle)}
+        >
+          <SelectTrigger className="w-32">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {BLOCK_STYLE_ORDER.map((s) => (
+              <SelectItem key={s} value={s}>
+                {BLOCK_STYLES[s].label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </Field>
+      <Field label="Font">
+        <Select
+          value={block.font}
+          onValueChange={(v) => onPatch({ font: v as FontFamily })}
+        >
+          <SelectTrigger className="w-28">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="mono">Mono</SelectItem>
+            <SelectItem value="sans">Sans</SelectItem>
+            <SelectItem value="serif">Serif</SelectItem>
+            <SelectItem value="display">Display</SelectItem>
+          </SelectContent>
+        </Select>
+      </Field>
+      <Field label="Size %">
+        <Input
+          type="number"
+          value={block.size}
+          onChange={(e) => onPatch({ size: Number(e.target.value) })}
+          className="w-24"
+          min={10}
+          max={400}
+          step={5}
+        />
+      </Field>
+      <Field label="Color">
+        <Select
+          value={block.color}
+          onValueChange={(v) => onPatch({ color: v as BlockColor })}
+        >
+          <SelectTrigger className="w-32">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {BLOCK_COLOR_ORDER.map((c) => (
+              <SelectItem key={c} value={c}>
+                {BLOCK_COLOR_LABELS[c]}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </Field>
+      <Checkbox
+        label="Show"
+        checked={block.visible}
+        onChange={(v) => onPatch({ visible: v })}
+      />
+    </div>
+  );
+}
+
+function FooterSection({ state }: { state: SidebarState }) {
+  return (
+    <Section title="Footer">
+      <Checkbox
+        label={`Show "${FOOTER_TEXT}"`}
+        checked={state.showFooter}
+        onChange={state.setShowFooter}
+      />
+      <p className="text-xs text-muted-foreground">
+        Fixed to the bottom-right corner, inset by the side padding.
+      </p>
     </Section>
   );
 }

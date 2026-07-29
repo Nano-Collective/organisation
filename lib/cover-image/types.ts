@@ -14,6 +14,32 @@ export type Pattern = "grid" | "dots" | "diagonal" | "waves" | "none";
 export type BgStyle = "gradient" | "radial" | "mesh" | "solid";
 export type FontFamily = "sans" | "mono" | "serif" | "display";
 
+// A post's content is an ordered array of text blocks rather than a
+// fixed Title/Subtitle pair. `BlockStyle` supplies the default size,
+// weight, font and colour for a block; the per-block font/size/colour
+// fields override those defaults.
+export type BlockStyle = "heading" | "subheading" | "body" | "cta";
+
+// Palette role a block draws its colour from, so blocks follow the hue
+// slider and the light/dark theme instead of storing raw hex.
+export type BlockColor =
+  | "foreground"
+  | "muted"
+  | "faint"
+  | "primary"
+  | "secondary";
+
+export type TextBlock = {
+  id: string;
+  text: string;
+  style: BlockStyle;
+  font: FontFamily;
+  // Percentage of the style's default size. 100 = use the style default.
+  size: number;
+  color: BlockColor;
+  visible: boolean;
+};
+
 // Coarse preset for the vertical gap between consecutive content
 // items (title, subtitle, badges, icons). The page multiplies the
 // chosen pixel value by the content scale, so the relative spacing
@@ -54,6 +80,8 @@ export type IconsItem = {
   marginBottom?: number;
 };
 
+// Rounded pill row. Used both by the tag list (filled, no border) and by
+// "CTA pill" text blocks (bordered, single label, own font).
 export type BadgesItem = {
   kind: "badges";
   labels: string[];
@@ -62,11 +90,26 @@ export type BadgesItem = {
   padX: number;
   padY: number;
   color: string;
-  fill: string;
+  fill?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  fontFamily?: string;
   marginBottom?: number;
 };
 
 export type ContentItem = TextItem | IconsItem | BadgesItem;
+
+// Corner watermark. Positioned independently of the content stack — it
+// sits a fixed inset from the bottom-right edge rather than flowing with
+// the blocks.
+export type FooterItem = {
+  text: string;
+  size: number;
+  weight: 400 | 500 | 600 | 700;
+  color: string;
+  fontFamily?: string;
+  inset: number;
+};
 
 export type PreviewProps = {
   width: number;
@@ -80,5 +123,6 @@ export type PreviewProps = {
   pattern: Pattern;
   colors: Colors;
   items: ContentItem[];
+  footer: FooterItem | null;
   iconsContainerRef: React.RefObject<HTMLDivElement | null>;
 };

@@ -4,7 +4,7 @@
 
 import { getBackgroundStyle } from "@/lib/cover-image/background";
 import { hexToRgba } from "@/lib/cover-image/color";
-import { FONT_SANS, resolveFont } from "@/lib/cover-image/fonts";
+import { resolveFont } from "@/lib/cover-image/fonts";
 import { getPatternStyle } from "@/lib/cover-image/pattern";
 import { getPositionStyles } from "@/lib/cover-image/position";
 import { SOCIAL_ICONS } from "@/lib/cover-image/social";
@@ -23,6 +23,7 @@ export function CoverPreview(props: PreviewProps) {
     pattern,
     colors,
     items,
+    footer,
     iconsContainerRef,
   } = props;
   const iconsIndex = items.findIndex((it) => it.kind === "icons");
@@ -136,7 +137,8 @@ export function CoverPreview(props: PreviewProps) {
               </div>
             );
           }
-          // badges
+          // badges — also the "CTA pill" block style, which sets a border
+          // instead of a fill and carries its own font.
           return (
             <div
               // biome-ignore lint/suspicious/noArrayIndexKey: stable per-item slot
@@ -158,13 +160,16 @@ export function CoverPreview(props: PreviewProps) {
                     fontSize: `${item.size}px`,
                     fontWeight: 500,
                     color: item.color,
-                    fontFamily: FONT_SANS,
+                    fontFamily: resolveFont(item.fontFamily),
                     lineHeight: 1,
                     paddingLeft: `${item.padX}px`,
                     paddingRight: `${item.padX}px`,
                     paddingTop: `${item.padY}px`,
                     paddingBottom: `${item.padY}px`,
                     background: item.fill,
+                    border: item.borderColor
+                      ? `${item.borderWidth ?? 1}px solid ${item.borderColor}`
+                      : undefined,
                     borderRadius: `${item.size * 0.3}px`,
                     whiteSpace: "nowrap",
                   }}
@@ -176,6 +181,23 @@ export function CoverPreview(props: PreviewProps) {
           );
         })}
       </div>
+      {footer && (
+        <div
+          className="absolute z-10"
+          style={{
+            right: `${footer.inset}px`,
+            bottom: `${footer.inset}px`,
+            fontSize: `${footer.size}px`,
+            fontWeight: footer.weight,
+            color: footer.color,
+            fontFamily: resolveFont(footer.fontFamily),
+            lineHeight: 1,
+            whiteSpace: "pre",
+          }}
+        >
+          {footer.text}
+        </div>
+      )}
       {bgStyle === "gradient" && (
         <>
           <div
