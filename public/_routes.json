@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/_next/*",
+    "/contributors/*",
+    "/sponsors/*",
+    "/video/*",
+    "/apple-touch-icon.png",
+    "/favicon-96x96.png",
+    "/favicon.ico",
+    "/favicon.svg",
+    "/feed.atom",
+    "/feed.xml",
+    "/grain-dark.png",
+    "/llms.txt",
+    "/logo.png",
+    "/og-image.png",
+    "/robots.txt",
+    "/site.webmanifest",
+    "/sitemap.xml",
+    "/web-app-manifest-192x192.png",
+    "/web-app-manifest-512x512.png"
+  ]
+}

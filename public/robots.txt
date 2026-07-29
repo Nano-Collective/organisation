@@ -1,5 +1,11 @@
 # *
+# Content Signals declare how this content may be used once it is accessed.
+# search=yes: index this content and link back to it.
+# ai-input=yes: fetch this content to answer a user's question in real time.
+# ai-train=no: do not use this content to train generative AI models.
+# See https://contentsignals.org for the full definitions.
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 # Host
