@@ -52,6 +52,12 @@ export const CONTRIBUTORS: Contributor[] = [
   //   bio: "Full-stack developer passionate about open source AI tools"
   // },
   {
+    name: "AaryanCdry",
+    photo: "aaryan-cdry.png",
+    github: "AaryanCdry",
+    bio: "Contributing to nanocoder and open-source AI developer tooling.",
+  },
+  {
     name: "Will Lamerton",
     photo: "will-lamerton.jpg",
     github: "will-lamerton",
