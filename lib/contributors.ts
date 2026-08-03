@@ -224,4 +224,11 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "a total beginner in AI but good in UI and foreign languages",
     focus: ["C++", "docs"],
   },
+  {
+    name: "José Manuel de los Reyes",
+    photo: "jmdlrg.jpg",
+    github: "jmdlrg",
+    bio: "Software engineer",
+    focus: ["Engineering", "AI"],
+  },
 ];
