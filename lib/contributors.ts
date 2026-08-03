@@ -92,6 +92,12 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Community"],
   },
   {
+    name: "Bhupesh Cholake",
+    photo: "bhupesh-cholake.jpg",
+    github: "RealBhupesh",
+    bio: "Open-source contributor focused on developer tooling and AI.",
+  },
+  {
     name: "Luis Edward Miranda",
     photo: "luis-edward-miranda.jpg",
     github: "llupRisinglll",
