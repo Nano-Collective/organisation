@@ -236,5 +236,9 @@ export const CONTRIBUTORS: Contributor[] = [
     github: "jmdlrg",
     bio: "Software engineer",
     focus: ["Engineering", "AI"],
+    name: "AaryanCdry",
+    photo: "aaryan-cdry.png",
+    github: "AaryanCdry",
+    bio: "Contributing to Nanocoder and open-source AI developer tooling.",
   },
 ];
