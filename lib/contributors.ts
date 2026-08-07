@@ -97,6 +97,14 @@ export const CONTRIBUTORS: Contributor[] = [
     github: "RealBhupesh",
     bio: "Open-source contributor focused on developer tooling and AI.",
   },
+   {
+    name: "Arpan Sarkar",
+    photo: "arpan-sarkar.png",
+    github: "arpan7sarkar",
+    website: "https://arpansarkar.vercel.app",
+    bio: "19 y/o Full Stack Developer, Currently interning, freelancing, and contributing to open source.",
+    focus: ["Engineering", "AI","Startups"],
+  },
   {
     name: "Luis Edward Miranda",
     photo: "luis-edward-miranda.jpg",
