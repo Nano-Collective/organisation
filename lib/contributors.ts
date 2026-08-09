@@ -98,6 +98,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Open-source contributor focused on developer tooling and AI.",
   },
   {
+    name: "Aditya Mishra",
+    photo: "aditya-mishra.png",
+    github: "addyCooks",
+    bio: "Developer & Open Source Contributor | Building, learning, and shipping!",
+  },
+  {
     name: "Arpan Sarkar",
     photo: "arpan-sarkar.png",
     github: "arpan7sarkar",
