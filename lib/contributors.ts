@@ -264,4 +264,11 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "AI Researcher and Developer",
     focus: ["Research", "Engineering"],
   },
+  {
+    name: "Aryan Nandanwar",
+    photo: "aryan-nandanwar.jpg",
+    github: "AryanNandanwar",
+    bio: "Full Stack and AI Dev",
+    focus: ["Engineering", "AI"],
+  },
 ];
