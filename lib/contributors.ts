@@ -257,4 +257,11 @@ export const CONTRIBUTORS: Contributor[] = [
     github: "AaryanCdry",
     bio: "Contributing to Nanocoder and open-source AI developer tooling.",
   },
+  {
+    name: "Ronak Raj",
+    photo: "ronak-raj.jpg",
+    github: "RONAK-AI647",
+    bio: "AI Researcher and Developer",
+    focus: ["Research", "Engineering"],
+  },
 ];
