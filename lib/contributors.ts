@@ -265,10 +265,17 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Research", "Engineering"],
   },
   {
+    name: "Aryan Nandanwar",
+    photo: "aryan-nandanwar.jpg",
+    github: "AryanNandanwar",
+    bio: "Full Stack and AI Dev",
+    focus: ["Engineering", "AI"],
+  },
+  {
     name: "Lakshay",
     photo: "lakshay.png",
     github: "lakshay-2411",
     bio: "Developer in the making - learning by building and contributing to open source.",
     focus: ["Engineering"],
-  }
+  },
 ];
