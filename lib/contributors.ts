@@ -270,5 +270,5 @@ export const CONTRIBUTORS: Contributor[] = [
     github: "lakshay-2411",
     bio: "Developer in the making - learning by building and contributing to open source.",
     focus: ["Engineering"],
-  }
+  },
 ];
