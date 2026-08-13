@@ -278,4 +278,11 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Software Developer",
     focus: ["AI", "Networking"],
   },
+  {
+    name: "Lakshay",
+    photo: "lakshay.png",
+    github: "lakshay-2411",
+    bio: "Developer in the making - learning by building and contributing to open source.",
+    focus: ["Engineering"],
+  },
 ];
