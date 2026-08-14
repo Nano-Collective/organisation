@@ -278,4 +278,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Developer in the making - learning by building and contributing to open source.",
     focus: ["Engineering"],
   },
+  {
+    name: "Arya Garg",
+    photo: "arya-garg.png",
+    github: "Aryagarg23",
+    website: "https://aryagarg23.com",
+    bio: "Engineer x Futures Researcher. I believe in small distributed models for specialized use-cases.",
+    focus: ["Engineering", "Futures"],
+  },
 ];
