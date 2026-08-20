@@ -272,6 +272,13 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Engineering", "AI"],
   },
   {
+    name: "Kartik",
+    photo: "kartik.jpg",
+    github: "Kartik-2239",
+    bio: "Software Developer",
+    focus: ["AI", "Networking"],
+  },
+  {
     name: "Lakshay",
     photo: "lakshay.png",
     github: "lakshay-2411",
