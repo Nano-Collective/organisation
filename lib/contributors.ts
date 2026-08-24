@@ -272,6 +272,13 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Engineering", "AI"],
   },
   {
+    name: "Kartik",
+    photo: "kartik.jpg",
+    github: "Kartik-2239",
+    bio: "Software Developer",
+    focus: ["AI", "Networking"],
+  },
+  {
     name: "Lakshay",
     photo: "lakshay.png",
     github: "lakshay-2411",
@@ -285,5 +292,12 @@ export const CONTRIBUTORS: Contributor[] = [
     website: "https://aryagarg23.com",
     bio: "Engineer x Futures Researcher. I believe in small distributed models for specialized use-cases.",
     focus: ["Engineering", "Futures"],
+  },
+  {
+    name: "Rohan Sharma",
+    photo: "Rohan.jpeg",
+    github: "rohanshrma222",
+    bio: "Real-time systems builder and open source contributor",
+    focus: ["Engineering"],
   },
 ];
