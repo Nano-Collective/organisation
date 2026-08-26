@@ -286,6 +286,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Engineering"],
   },
   {
+    name: "Arya Garg",
+    photo: "arya-garg.png",
+    github: "Aryagarg23",
+    website: "https://aryagarg23.com",
+    bio: "Engineer x Futures Researcher. I believe in small distributed models for specialized use-cases.",
+    focus: ["Engineering", "Futures"],
+  },
+  {
     name: "Rohan Sharma",
     photo: "Rohan.jpeg",
     github: "rohanshrma222",
