@@ -300,4 +300,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Real-time systems builder and open source contributor",
     focus: ["Engineering"],
   },
+  {
+    name: "Arun",
+    photo: "hiarun02.jpeg",
+    github: "hiarun02",
+    website: "https://hiarun.com",
+    bio: "a full-stack developer who loves building things that feel smooth, work fast, and look good.",
+    focus: ["Full satck dev"],
+  },
 ];
