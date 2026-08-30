@@ -308,4 +308,11 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "a full-stack developer who loves building things that feel smooth, work fast, and look good.",
     focus: ["Full satck dev"],
   },
-];
+  {
+    name: "Anisayak Mitra",
+    photo: "",
+    github: "anisayakmitra-in",
+    bio: "Open-source contributor focused on developer tooling, AI, and reliable software.",
+    focus: ["Engineering", "AI", "Open Source"],
+  },
+];\n
