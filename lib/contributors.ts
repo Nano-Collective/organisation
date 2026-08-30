@@ -315,4 +315,11 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Open-source contributor focused on developer tooling, AI, and reliable software.",
     focus: ["Engineering", "AI", "Open Source"],
   },
-];\n
+  {
+    name: "Gabriele Monni",
+    photo: "gabriele-monni.jpg",
+    github: "Zer0codestuff",
+    bio: "Fixed repeated paste handling in Nanocoder and added regression coverage for placeholder round trips.",
+    focus: ["Engineering"],
+  },
+];
