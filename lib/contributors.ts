@@ -315,4 +315,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Open-source contributor focused on developer tooling, AI, and reliable software.",
     focus: ["Engineering", "AI", "Open Source"],
   },
+  {
+    name: "Raheeb Gill",
+    photo: "raheeb-gill.jpg",
+    github: "raheebgill29",
+    website: "https://raheeb-gill-portfolio.vercel.app/",
+    bio: "Full-stack developer building AI-powered backends — RAG systems, ReAct agents, real-time voice AI — alongside production Next.js apps.",
+    focus: ["Engineering", "AI"],
+  },
 ];\n
