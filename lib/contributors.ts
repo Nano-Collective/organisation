@@ -92,6 +92,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Community"],
   },
   {
+    name: "Aniket Rawat",
+    photo: "aniket.jpg",
+    github: "AniketR10",
+    website: "https://www.aniketrawat.com/",
+    bio: "Software developer and open source contributor.",
+    focus: ["Engineering"],
+  },
+  {
     name: "Bhupesh Cholake",
     photo: "bhupesh-cholake.jpg",
     github: "RealBhupesh",
@@ -315,4 +323,4 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Open-source contributor focused on developer tooling, AI, and reliable software.",
     focus: ["Engineering", "AI", "Open Source"],
   },
-];\n
+];
