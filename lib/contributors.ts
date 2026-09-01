@@ -322,4 +322,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Fixed repeated paste handling in Nanocoder and added regression coverage for placeholder round trips.",
     focus: ["Engineering"],
   },
+  {
+    name: "Hafeez",
+    photo: "hafeez.jpg",
+    github: "hafzism",
+    website: "https://hafzism.in",
+    bio: "Fixed the inline-diff similarity helper name in Nanocoder and added regression coverage.",
+    focus: ["Engineering"],
+  },
 ];
