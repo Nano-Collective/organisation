@@ -211,6 +211,14 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Full Stack Developer",
   },
   {
+    name: "Yash Kumar Saini",
+    photo: "yashksaini-coder.jpg",
+    github: "yashksaini-coder",
+    website: "https://yashksaini.vercel.app/",
+    bio: "Building in public, mostly from a terminal — and writing about what breaks.",
+    focus: ["Systems Design", "Backend Engineering", "Protocols", "AI", "Web3"],
+  },
+  {
     name: "Rakshith N",
     photo: "rakshithn.jpg",
     github: "rakshith1928",
