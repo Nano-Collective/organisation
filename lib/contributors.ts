@@ -345,5 +345,5 @@ export const CONTRIBUTORS: Contributor[] = [
     website: "https://hafzism.in",
     bio: "Fixed the inline-diff similarity helper name in Nanocoder and added regression coverage.",
     focus: ["Engineering"],
-  }
+  },
 ];
