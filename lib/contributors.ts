@@ -92,6 +92,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Community"],
   },
   {
+    name: "Aniket Rawat",
+    photo: "aniket.jpg",
+    github: "AniketR10",
+    website: "https://www.aniketrawat.com/",
+    bio: "Software developer and open source contributor.",
+    focus: ["Engineering"],
+  },
+  {
     name: "Bhupesh Cholake",
     photo: "bhupesh-cholake.jpg",
     github: "RealBhupesh",
@@ -329,5 +337,5 @@ export const CONTRIBUTORS: Contributor[] = [
     github: "Zer0codestuff",
     bio: "Fixed repeated paste handling in Nanocoder and added regression coverage for placeholder round trips.",
     focus: ["Engineering"],
-  },
+  }
 ];
