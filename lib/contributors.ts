@@ -346,4 +346,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Fixed the inline-diff similarity helper name in Nanocoder and added regression coverage.",
     focus: ["Engineering"],
   },
+    {
+    name: "Raheeb Gill",
+    photo: "raheeb-gill.jpg",
+    github: "raheebgill29",
+    website: "https://raheeb-gill-portfolio.vercel.app/",
+    bio: "Full-stack developer building AI-powered backends — RAG systems, ReAct agents, real-time voice AI — alongside production Next.js apps.",
+    focus: ["Engineering", "AI"],
+  },
 ];
