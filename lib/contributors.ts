@@ -92,6 +92,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Community"],
   },
   {
+    name: "Aniket Rawat",
+    photo: "aniket.jpg",
+    github: "AniketR10",
+    website: "https://www.aniketrawat.com/",
+    bio: "Software developer and open source contributor.",
+    focus: ["Engineering"],
+  },
+  {
     name: "Bhupesh Cholake",
     photo: "bhupesh-cholake.jpg",
     github: "RealBhupesh",
@@ -211,6 +219,14 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Full Stack Developer",
   },
   {
+    name: "Yash Kumar Saini",
+    photo: "yashksaini-coder.jpg",
+    github: "yashksaini-coder",
+    website: "https://yashksaini.vercel.app/",
+    bio: "Building in public, mostly from a terminal — and writing about what breaks.",
+    focus: ["Systems Design", "Backend Engineering", "Protocols", "AI", "Web3"],
+  },
+  {
     name: "Rakshith N",
     photo: "rakshithn.jpg",
     github: "rakshith1928",
@@ -315,4 +331,11 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Open-source contributor focused on developer tooling, AI, and reliable software.",
     focus: ["Engineering", "AI", "Open Source"],
   },
+  {
+    name: "Gabriele Monni",
+    photo: "gabriele-monni.jpg",
+    github: "Zer0codestuff",
+    bio: "Fixed repeated paste handling in Nanocoder and added regression coverage for placeholder round trips.",
+    focus: ["Engineering"],
+  }
 ];
