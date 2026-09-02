@@ -92,6 +92,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Community"],
   },
   {
+    name: "Aniket Rawat",
+    photo: "aniket.jpg",
+    github: "AniketR10",
+    website: "https://www.aniketrawat.com/",
+    bio: "Software developer and open source contributor.",
+    focus: ["Engineering"],
+  },
+  {
     name: "Bhupesh Cholake",
     photo: "bhupesh-cholake.jpg",
     github: "RealBhupesh",
@@ -209,6 +217,14 @@ export const CONTRIBUTORS: Contributor[] = [
     github: "OMEE-Y",
     website: "https://omeey.vercel.app/",
     bio: "Full Stack Developer",
+  },
+  {
+    name: "Yash Kumar Saini",
+    photo: "yashksaini-coder.jpg",
+    github: "yashksaini-coder",
+    website: "https://yashksaini.vercel.app/",
+    bio: "Building in public, mostly from a terminal — and writing about what breaks.",
+    focus: ["Systems Design", "Backend Engineering", "Protocols", "AI", "Web3"],
   },
   {
     name: "Rakshith N",
@@ -329,5 +345,5 @@ export const CONTRIBUTORS: Contributor[] = [
     website: "https://hafzism.in",
     bio: "Fixed the inline-diff similarity helper name in Nanocoder and added regression coverage.",
     focus: ["Engineering"],
-  },
+  }
 ];
