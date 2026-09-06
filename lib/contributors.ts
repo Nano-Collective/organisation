@@ -359,7 +359,7 @@ export const CONTRIBUTORS: Contributor[] = [
     photo: "isaac-emmanuel.jpg",
     github: "1cbyc",
     website: "https://nsisong.com",
-    bio: "Contributed explicit handling for unsupported skill targets in Nanocoder.",
+    bio: "Senior Software Engineer, Mathematician, Father & Husband.",
     focus: ["Backend Engineering", "Developer Tooling"],
   },
 ];
