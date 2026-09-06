@@ -354,4 +354,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Full-stack developer building AI-powered backends — RAG systems, ReAct agents, real-time voice AI — alongside production Next.js apps.",
     focus: ["Engineering", "AI"],
   },
+  {
+    name: "Isaac Emmanuel",
+    photo: "isaac-emmanuel.jpg",
+    github: "1cbyc",
+    website: "https://nsisong.com",
+    bio: "Contributed explicit handling for unsupported skill targets in Nanocoder.",
+    focus: ["Backend Engineering", "Developer Tooling"],
+  },
 ];
