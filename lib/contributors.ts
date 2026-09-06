@@ -354,4 +354,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Full-stack developer building AI-powered backends — RAG systems, ReAct agents, real-time voice AI — alongside production Next.js apps.",
     focus: ["Engineering", "AI"],
   },
+  {
+    name: "Akshat Patil",
+    photo: "akshat-patil.png",
+    github: "aashu2006",
+    website: "https://akshatpatil.vercel.app/",
+    bio: "Currently diving deeper into machine learning, building projects and exploring RAG applications, AI agents, and practical ML systems.",
+    focus: ["Engineering", "AI", "Machine Learning"],
+  },
 ];
