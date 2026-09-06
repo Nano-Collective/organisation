@@ -360,6 +360,6 @@ export const CONTRIBUTORS: Contributor[] = [
     github: "1cbyc",
     website: "https://nsisong.com",
     bio: "Senior Software Engineer, Mathematician, Father & Husband.",
-    focus: ["Backend Engineering", "Developer Tooling"],
+    focus: ["Backend Engineering", "AI Security"],
   },
 ];
