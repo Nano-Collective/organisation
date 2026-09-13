@@ -165,6 +165,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "MD-PhD trainee/computational biologist with a dream of democratized AI and a love of exploring the unknown.",
   },
   {
+    name: "Machen John",
+    photo: "machen-john.jpg",
+    github: "macjayz",
+    bio: "Contributed token usage visibility settings to Nanocoder's VS Code extension.",
+  },
+  {
     name: "Nassim Amar",
     photo: "nassim-amar.jpg",
     github: "namar0x0309",
