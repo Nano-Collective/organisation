@@ -354,4 +354,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Full-stack developer building AI-powered backends — RAG systems, ReAct agents, real-time voice AI — alongside production Next.js apps.",
     focus: ["Engineering", "AI"],
   },
+  {
+    name: "coralsundy",
+    photo: "coralsundy.jpg",
+    github: "coralsundy",
+    website: "https://coralsundy.com/about/",
+    bio: "Project Lead (2010-2015) for Commandos: Strike In Narrow Path (http://strikeinnarrowpath.com/). I love old movies and making subtitles.",
+    focus: ["Engineering", "VideoGames", "Subtitles"],
+  },
 ];
