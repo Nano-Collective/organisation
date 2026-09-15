@@ -361,6 +361,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Engineering", "AI"],
   },
   {
+    name: "coralsundy",
+    photo: "coralsundy.jpg",
+    github: "coralsundy",
+    website: "https://coralsundy.com/about/",
+    bio: "Project Lead (2010-2015) for Commandos: Strike In Narrow Path (http://strikeinnarrowpath.com/). I love old movies and making subtitles.",
+    focus: ["Engineering", "VideoGames", "Subtitles"],
+  },
+  {
     name: "Syed Talha Ahmed Gardazi",
     photo: "syed-talha-ahmed-gardazi.jpg",
     github: "stag7824",
