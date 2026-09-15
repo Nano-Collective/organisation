@@ -165,6 +165,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "MD-PhD trainee/computational biologist with a dream of democratized AI and a love of exploring the unknown.",
   },
   {
+    name: "Machen John",
+    photo: "machen-john.jpg",
+    github: "macjayz",
+    bio: "Contributed token usage visibility settings to Nanocoder's VS Code extension.",
+  },
+  {
     name: "Nassim Amar",
     photo: "nassim-amar.jpg",
     github: "namar0x0309",
@@ -361,5 +367,29 @@ export const CONTRIBUTORS: Contributor[] = [
     website: "https://coralsundy.com/about/",
     bio: "Project Lead (2010-2015) for Commandos: Strike In Narrow Path (http://strikeinnarrowpath.com/). I love old movies and making subtitles.",
     focus: ["Engineering", "VideoGames", "Subtitles"],
+  },
+  {
+    name: "Syed Talha Ahmed Gardazi",
+    photo: "syed-talha-ahmed-gardazi.jpg",
+    github: "stag7824",
+    website: "https://blogs.bugbrewery.tech",
+    bio: "Fixed metadata-only detection in Nanocoder's read_file tool and added regression coverage.",
+    focus: ["Engineering"],
+  },
+  {
+    name: "Akshat Patil",
+    photo: "akshat-patil.png",
+    github: "aashu2006",
+    website: "https://akshatpatil.vercel.app/",
+    bio: "Currently diving deeper into machine learning, building projects and exploring RAG applications, AI agents, and practical ML systems.",
+    focus: ["Engineering", "AI", "Machine Learning"],
+  },
+  {
+    name: "Isaac Emmanuel",
+    photo: "isaac-emmanuel.jpg",
+    github: "1cbyc",
+    website: "https://nsisong.com",
+    bio: "Senior Software Engineer, Mathematician, Father & Husband.",
+    focus: ["Backend Engineering", "AI Security"],
   },
 ];
