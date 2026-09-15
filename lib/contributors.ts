@@ -355,6 +355,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Engineering", "AI"],
   },
   {
+    name: "Syed Talha Ahmed Gardazi",
+    photo: "syed-talha-ahmed-gardazi.jpg",
+    github: "stag7824",
+    website: "https://blogs.bugbrewery.tech",
+    bio: "Fixed metadata-only detection in Nanocoder's read_file tool and added regression coverage.",
+    focus: ["Engineering"],
+  },
+  {
     name: "Akshat Patil",
     photo: "akshat-patil.png",
     github: "aashu2006",
