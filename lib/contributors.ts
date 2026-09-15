@@ -355,6 +355,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Engineering", "AI"],
   },
   {
+    name: "Akshat Patil",
+    photo: "akshat-patil.png",
+    github: "aashu2006",
+    website: "https://akshatpatil.vercel.app/",
+    bio: "Currently diving deeper into machine learning, building projects and exploring RAG applications, AI agents, and practical ML systems.",
+    focus: ["Engineering", "AI", "Machine Learning"],
+  },
+  {
     name: "Isaac Emmanuel",
     photo: "isaac-emmanuel.jpg",
     github: "1cbyc",
