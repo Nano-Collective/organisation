@@ -28,7 +28,7 @@ import { SectionReveal } from "@/components/ui/motion";
 import { fetchProductStats, type ProductStats } from "@/lib/product-stats";
 
 const GITHUB_URL = "https://github.com/Nano-Collective/nanocoder";
-const DOCS_URL = "https://docs.nanocollective.org/nanocoder/getting-started";
+const DOCS_URL = "https://docs.nanocollective.org/nanocoder/docs";
 
 const features: Feature[] = [
   {

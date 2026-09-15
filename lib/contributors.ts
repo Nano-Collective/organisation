@@ -362,4 +362,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Currently diving deeper into machine learning, building projects and exploring RAG applications, AI agents, and practical ML systems.",
     focus: ["Engineering", "AI", "Machine Learning"],
   },
+  {
+    name: "Isaac Emmanuel",
+    photo: "isaac-emmanuel.jpg",
+    github: "1cbyc",
+    website: "https://nsisong.com",
+    bio: "Senior Software Engineer, Mathematician, Father & Husband.",
+    focus: ["Backend Engineering", "AI Security"],
+  },
 ];

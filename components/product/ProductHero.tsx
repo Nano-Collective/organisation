@@ -11,7 +11,8 @@ interface ProductHeroProps {
   eyebrow: string;
   title: string;
   description: string;
-  githubUrl: string;
+  /** Omit to drop the GitHub button — e.g. when the primary CTA is the app. */
+  githubUrl?: string;
   docsUrl: string;
   /** The demo shown on the right — e.g. a terminal animation or a GIF. */
   demo: ReactNode;
@@ -19,6 +20,12 @@ interface ProductHeroProps {
   badge?: string;
   /** Shown under the badge — what the maturity label means for the reader. */
   badgeNote?: string;
+  /**
+   * For products that are live sites rather than installable tools: rendered
+   * as the primary (blue) button, demoting the GitHub button to the
+   * secondary style.
+   */
+  primaryCta?: { href: string; label: string };
 }
 
 export function ProductHero({
@@ -30,7 +37,13 @@ export function ProductHero({
   demo,
   badge,
   badgeNote,
+  primaryCta,
 }: ProductHeroProps) {
+  const primaryButtonClass =
+    "inline-flex h-12 items-center justify-center whitespace-nowrap rounded-none bg-[#0000EE] dark:bg-foreground px-8 text-xs sm:text-sm font-semibold tracking-wide text-white dark:text-background transition-colors hover:bg-[#0000EE]/90 dark:hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
+  const secondaryButtonClass =
+    "inline-flex h-12 items-center justify-center whitespace-nowrap rounded-none border border-foreground/20 bg-background px-8 text-xs sm:text-sm font-semibold tracking-wide text-foreground transition-colors hover:border-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
+
   return (
     <section className="relative pt-12 pb-12 sm:pb-20 px-4 md:px-6 container mx-auto">
       <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-16 items-center">
@@ -74,20 +87,34 @@ export function ProductHero({
 
           <StaggerItem>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 pt-4 sm:pt-6">
-              <SubtleButtonLink
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-12 items-center justify-center rounded-none bg-[#0000EE] dark:bg-foreground px-8 text-xs sm:text-sm font-semibold tracking-wide text-white dark:text-background transition-colors hover:bg-[#0000EE]/90 dark:hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              >
-                <FaGithub className="mr-2 h-4 w-4" />
-                View on GitHub
-              </SubtleButtonLink>
+              {primaryCta && (
+                <SubtleButtonLink
+                  href={primaryCta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={primaryButtonClass}
+                >
+                  {primaryCta.label}
+                </SubtleButtonLink>
+              )}
+              {githubUrl && (
+                <SubtleButtonLink
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={
+                    primaryCta ? secondaryButtonClass : primaryButtonClass
+                  }
+                >
+                  <FaGithub className="mr-2 h-4 w-4" />
+                  View on GitHub
+                </SubtleButtonLink>
+              )}
               <SubtleButtonLink
                 href={docsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 items-center justify-center rounded-none border border-foreground/20 bg-background px-8 text-xs sm:text-sm font-semibold tracking-wide text-foreground transition-colors hover:border-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className={secondaryButtonClass}
               >
                 Documentation
               </SubtleButtonLink>
