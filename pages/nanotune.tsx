@@ -24,7 +24,7 @@ import { SponsorsSection } from "@/components/product/SponsorsSection";
 import { SectionReveal } from "@/components/ui/motion";
 
 const GITHUB_URL = "https://github.com/Nano-Collective/nanotune";
-const DOCS_URL = "https://docs.nanocollective.org/nanotune/getting-started";
+const DOCS_URL = "https://docs.nanocollective.org/nanotune/docs";
 
 const features: Feature[] = [
   {
