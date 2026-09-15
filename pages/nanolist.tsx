@@ -1,12 +1,4 @@
-import {
-  EyeOff,
-  FileJson,
-  GitPullRequest,
-  Lock,
-  Search,
-  Users,
-  Zap,
-} from "lucide-react";
+import { EyeOff, FileJson, Search, Users, Zap } from "lucide-react";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { Footer } from "@/components/Footer";
@@ -14,7 +6,6 @@ import { CommunityStats } from "@/components/product/CommunityStats";
 import { type Feature, FeatureGrid } from "@/components/product/FeatureGrid";
 import { FinalCTA } from "@/components/product/FinalCTA";
 import { ProductHero } from "@/components/product/ProductHero";
-import { type Reason, ReasonsGrid } from "@/components/product/ReasonsGrid";
 import { SponsorsSection } from "@/components/product/SponsorsSection";
 import { SectionReveal } from "@/components/ui/motion";
 import { fetchProductStats, type ProductStats } from "@/lib/product-stats";
@@ -25,55 +16,122 @@ const GITHUB_URL = "https://github.com/Nano-Collective/nanolist";
 const DOCS_URL = "https://docs.nanocollective.org/nanolist/docs";
 
 const DESCRIPTION =
-  "The easiest way to browse the AI tool ecosystem — a community-curated directory with a bias toward open-source, local-first, privacy-respecting software.";
+  "A browsable, community-curated directory of AI tools — biased toward open-source, local-first, privacy-respecting software.";
 
 const features: Feature[] = [
   {
     icon: Users,
     title: "Curated by Humans",
     description:
-      "Every listing is reviewed by a person before it goes live. No pay-to-list, no SEO spam — a submission earns its place or it doesn't get one.",
+      "Every listing is reviewed by a person before it goes live. No pay-to-list, no SEO spam.",
   },
   {
     icon: EyeOff,
     title: "Zero Third-Party Requests",
     description:
-      "Search runs in your browser, icons are self-hosted, and there is no analytics. Browsing the directory tells no one what you looked at.",
+      "Search runs in your browser, icons are self-hosted, no analytics. Browsing tells no one what you looked at.",
   },
   {
     icon: FileJson,
     title: "Open Data",
     description:
-      "Every listing is a single JSON file in a public repository. The whole dataset is yours to read, fork, or build on — the site is just one view of it.",
+      "Every listing is one JSON file in a public repository — read it, fork it, build on it.",
   },
   {
     icon: Zap,
     title: "Fast and Static",
     description:
-      "The entire directory ships as a static site. No backend, no database, no cookies — just pages that load instantly and search that works offline.",
+      "No backend, no database, no cookies. Pages load instantly and search works offline.",
   },
 ];
 
-const reasons: Reason[] = [
+/** Static mock of the Nanolist homepage; entries mirror real listing data. */
+const mockListings = [
   {
-    icon: Lock,
-    title: "Private by Default",
+    name: "Ollama",
+    author: "Ollama",
     description:
-      "A directory of privacy-respecting tools should itself respect your privacy. Visitors make zero third-party requests, full stop.",
+      "Run open large language models locally with a simple CLI and REST API.",
+    badges: ["Open source", "Local-first", "Privacy-first", "Self-hostable"],
+    category: "Local Inference",
   },
   {
-    icon: Search,
-    title: "A Bias Worth Having",
+    name: "whisper.cpp",
+    author: "ggml-org (Georgi Gerganov)",
     description:
-      "Listings lean deliberately toward open-source, local-first software — the tools you can run, inspect, and keep when a vendor pivots.",
-  },
-  {
-    icon: GitPullRequest,
-    title: "Anyone Can Contribute",
-    description:
-      "Spotted a missing tool or a stale description? It's a form away — or a pull request against a JSON file. The community keeps the list honest.",
+      "Port of OpenAI's Whisper speech recognition model in plain C/C++.",
+    badges: ["Open source", "Local-first", "Privacy-first", "Self-hostable"],
+    category: "Audio & Voice",
   },
 ];
+
+function HomepageMock() {
+  return (
+    <div className="bg-background dark:bg-[#111] p-4 sm:p-6 space-y-4 select-none">
+      <div className="flex items-center justify-between border-b border-foreground/20 pb-3">
+        <span className="font-bold tracking-tight text-sm text-foreground">
+          Nanolist
+        </span>
+        <span className="font-mono text-[10px] uppercase tracking-widest text-foreground/50">
+          list.nanocollective.org
+        </span>
+      </div>
+
+      <div className="text-sm sm:text-base font-bold tracking-tight text-foreground">
+        AI tools that{" "}
+        <span className="font-serif font-medium text-[#0000EE] dark:text-[#A1A1AA]">
+          respect you
+        </span>
+      </div>
+
+      <div className="flex items-center gap-2 border border-foreground/20 bg-muted/30 px-3 py-2">
+        <Search className="h-4 w-4 text-muted-foreground shrink-0" />
+        <span className="font-mono text-xs text-muted-foreground">
+          Search tools, tags, authors...
+        </span>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {mockListings.map((listing) => (
+          <div
+            key={listing.name}
+            className="flex flex-col border border-foreground/20 bg-background p-4"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-foreground/20 bg-muted font-mono text-xs font-bold text-foreground/70">
+                {listing.name[0].toUpperCase()}
+              </span>
+              <div className="min-w-0">
+                <div className="truncate text-sm font-bold tracking-tight text-foreground">
+                  {listing.name}
+                </div>
+                <div className="truncate font-mono text-[10px] text-muted-foreground">
+                  {listing.author}
+                </div>
+              </div>
+            </div>
+            <p className="mt-2.5 line-clamp-1 text-xs leading-relaxed text-foreground/70">
+              {listing.description}
+            </p>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {listing.badges.map((badge) => (
+                <span
+                  key={badge}
+                  className="border border-foreground/20 bg-muted px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-foreground/70"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
+            <div className="mt-3 font-mono text-[10px] font-bold text-[#0000EE] dark:text-[#A1A1AA]">
+              [ {listing.category} ]
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function NanolistPage({ stats }: { stats: ProductStats }) {
   return (
@@ -90,30 +148,12 @@ export default function NanolistPage({ stats }: { stats: ProductStats }) {
 
       <div className="min-h-screen bg-background font-sans flex flex-col">
         <ProductHero
-          eyebrow="THE AI TOOL DIRECTORY"
+          eyebrow="COMMUNITY-CURATED DIRECTORY"
           title="Nanolist"
           description={DESCRIPTION}
-          githubUrl={GITHUB_URL}
           docsUrl={DOCS_URL}
           primaryCta={{ href: LIVE_URL, label: "Browse the Directory" }}
-          demo={
-            <div className="font-mono text-sm leading-relaxed overflow-x-auto bg-background dark:bg-[#111] text-foreground dark:text-zinc-300 p-6">
-              <div className="text-[#0000EE] dark:text-pink-400 mb-2 font-bold dark:font-normal">
-                list.nanocollective.org
-              </div>
-              <div className="text-foreground/80 dark:text-zinc-300 border-l-2 border-foreground/20 dark:border-zinc-700 pl-4 py-2 bg-muted/50 dark:bg-zinc-900/50 mb-4">
-                <div>search: "local inference"</div>
-              </div>
-              <div className="text-foreground/80 dark:text-zinc-300 border-l-2 border-foreground/20 dark:border-zinc-700 pl-4 py-2 bg-muted/50 dark:bg-zinc-900/50">
-                <div>ollama — [open-source] [local-first]</div>
-                <div>llama.cpp — [open-source] [local-first]</div>
-                <div>LM Studio — [local-first] [privacy-first]</div>
-                <div className="mt-2 text-foreground/50">
-                  searched in your browser · 0 third-party requests
-                </div>
-              </div>
-            </div>
-          }
+          demo={<HomepageMock />}
         />
 
         <CommunityStats stats={stats} />
@@ -124,24 +164,13 @@ export default function NanolistPage({ stats }: { stats: ProductStats }) {
               <div className="container mx-auto px-4 md:px-6">
                 <div className="max-w-4xl mx-auto text-center space-y-8">
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-                    A directory you can trust.
+                    AI tools that respect you.
                   </h2>
-                  <div className="space-y-6 text-sm sm:text-base md:text-lg text-foreground/70 leading-relaxed font-medium">
-                    <p>
-                      The AI tool landscape moves fast, and most directories
-                      chasing it are ad-funded listicles ranked by whoever paid
-                      most recently. Nanolist is the opposite: a
-                      community-curated catalogue where every entry is a single
-                      JSON file in a public repository, reviewed by a human
-                      before it goes live.
-                    </p>
-                    <p>
-                      The result is a fast, static, searchable site with a
-                      deliberate bias toward open-source, local-first,
-                      privacy-respecting software — and a browsing experience
-                      that makes zero third-party requests while you use it.
-                    </p>
-                  </div>
+                  <p className="text-sm sm:text-base md:text-lg text-foreground/70 leading-relaxed font-medium">
+                    Every entry is a single JSON file in a public repository,
+                    reviewed by a human before it goes live — and the site makes
+                    zero third-party requests while you browse it.
+                  </p>
                 </div>
               </div>
             </section>
@@ -149,57 +178,23 @@ export default function NanolistPage({ stats }: { stats: ProductStats }) {
 
           <FeatureGrid features={features} />
 
-          {/* How a tool gets listed — the submission pipeline, not an install. */}
           <SectionReveal>
             <section className="py-16 sm:py-24 border-b border-foreground/20 bg-muted/10">
               <div className="container mx-auto px-4 md:px-6">
-                <div className="max-w-4xl mx-auto space-y-12">
-                  <div className="text-center">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-                      Know a tool that belongs here?
-                    </h2>
-                    <p className="text-md text-foreground/70">
-                      Submissions take a couple of minutes. Review is done by
-                      people, not a queue that goes nowhere.
-                    </p>
-                  </div>
-
-                  <ol className="space-y-4 font-mono text-sm sm:text-base text-foreground/70">
-                    <li className="flex items-start gap-3 border border-foreground/20 bg-background p-4 sm:p-6">
-                      <span className="text-[#0000EE] dark:text-[#A1A1AA] font-bold">
-                        1
-                      </span>
-                      <span>
-                        Fill in the submission form — name, link, and why the
-                        tool fits the directory's bias.
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3 border border-foreground/20 bg-background p-4 sm:p-6">
-                      <span className="text-[#0000EE] dark:text-[#A1A1AA] font-bold">
-                        2
-                      </span>
-                      <span>
-                        A validation bot checks the submission and opens a pull
-                        request adding one JSON file.
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3 border border-foreground/20 bg-background p-4 sm:p-6">
-                      <span className="text-[#0000EE] dark:text-[#A1A1AA] font-bold">
-                        3
-                      </span>
-                      <span>
-                        A maintainer reviews it. On merge, the listing is live
-                        on the next deploy.
-                      </span>
-                    </li>
-                  </ol>
-
+                <div className="max-w-3xl mx-auto text-center space-y-6">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+                    Know a tool that belongs here?
+                  </h2>
+                  <p className="text-md text-foreground/70">
+                    Submissions take a couple of minutes and are reviewed by
+                    people, not a queue that goes nowhere.
+                  </p>
                   <div className="flex justify-center pt-2">
                     <a
                       href={SUBMIT_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex h-12 items-center justify-center rounded-none bg-[#0000EE] dark:bg-foreground px-8 text-xs sm:text-sm font-semibold tracking-wide text-white dark:text-background transition-colors hover:bg-[#0000EE]/90 dark:hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                      className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-none bg-[#0000EE] dark:bg-foreground px-8 text-xs sm:text-sm font-semibold tracking-wide text-white dark:text-background transition-colors hover:bg-[#0000EE]/90 dark:hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                     >
                       Submit a Tool
                     </a>
@@ -208,8 +203,6 @@ export default function NanolistPage({ stats }: { stats: ProductStats }) {
               </div>
             </section>
           </SectionReveal>
-
-          <ReasonsGrid product="Nanolist" reasons={reasons} />
 
           <SponsorsSection />
 

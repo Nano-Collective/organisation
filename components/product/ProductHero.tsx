@@ -11,7 +11,8 @@ interface ProductHeroProps {
   eyebrow: string;
   title: string;
   description: string;
-  githubUrl: string;
+  /** Omit to drop the GitHub button — e.g. when the primary CTA is the app. */
+  githubUrl?: string;
   docsUrl: string;
   /** The demo shown on the right — e.g. a terminal animation or a GIF. */
   demo: ReactNode;
@@ -39,9 +40,9 @@ export function ProductHero({
   primaryCta,
 }: ProductHeroProps) {
   const primaryButtonClass =
-    "inline-flex h-12 items-center justify-center rounded-none bg-[#0000EE] dark:bg-foreground px-8 text-xs sm:text-sm font-semibold tracking-wide text-white dark:text-background transition-colors hover:bg-[#0000EE]/90 dark:hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
+    "inline-flex h-12 items-center justify-center whitespace-nowrap rounded-none bg-[#0000EE] dark:bg-foreground px-8 text-xs sm:text-sm font-semibold tracking-wide text-white dark:text-background transition-colors hover:bg-[#0000EE]/90 dark:hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
   const secondaryButtonClass =
-    "inline-flex h-12 items-center justify-center rounded-none border border-foreground/20 bg-background px-8 text-xs sm:text-sm font-semibold tracking-wide text-foreground transition-colors hover:border-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
+    "inline-flex h-12 items-center justify-center whitespace-nowrap rounded-none border border-foreground/20 bg-background px-8 text-xs sm:text-sm font-semibold tracking-wide text-foreground transition-colors hover:border-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
 
   return (
     <section className="relative pt-12 pb-12 sm:pb-20 px-4 md:px-6 container mx-auto">
@@ -96,17 +97,19 @@ export function ProductHero({
                   {primaryCta.label}
                 </SubtleButtonLink>
               )}
-              <SubtleButtonLink
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={
-                  primaryCta ? secondaryButtonClass : primaryButtonClass
-                }
-              >
-                <FaGithub className="mr-2 h-4 w-4" />
-                View on GitHub
-              </SubtleButtonLink>
+              {githubUrl && (
+                <SubtleButtonLink
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={
+                    primaryCta ? secondaryButtonClass : primaryButtonClass
+                  }
+                >
+                  <FaGithub className="mr-2 h-4 w-4" />
+                  View on GitHub
+                </SubtleButtonLink>
+              )}
               <SubtleButtonLink
                 href={docsUrl}
                 target="_blank"
