@@ -480,26 +480,31 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
         },
       );
 
-      if (!githubResponse.ok) {
+      // A GitHub failure (an unauthenticated build hits the 60/hour limit fast)
+      // must not discard the NPM data we already have — it only costs us the
+      // release markers. Dropping the whole package here is what turned a
+      // missing token into an empty page.
+      let releases: Release[] = [];
+
+      if (githubResponse.ok) {
+        const githubData = (await githubResponse.json()) as Array<{
+          tag_name: string;
+          published_at: string;
+          name: string | null;
+        }>;
+
+        releases = githubData
+          .map((release) => ({
+            tag: `${config.displayName} ${release.tag_name}`,
+            date: release.published_at.split("T")[0],
+            name: `${config.displayName} ${release.tag_name}`,
+          }))
+          .reverse(); // Oldest first
+      } else {
         console.error(
           `GitHub API error for ${config.githubRepo}: ${githubResponse.status}`,
         );
-        continue;
       }
-
-      const githubData = (await githubResponse.json()) as Array<{
-        tag_name: string;
-        published_at: string;
-        name: string | null;
-      }>;
-
-      const releases: Release[] = githubData
-        .map((release) => ({
-          tag: `${config.displayName} ${release.tag_name}`,
-          date: release.published_at.split("T")[0],
-          name: `${config.displayName} ${release.tag_name}`,
-        }))
-        .reverse(); // Oldest first
 
       // Daily star history for the same repo
       const { history: starHistory, totalStars } = await fetchStarHistory(

@@ -106,11 +106,13 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      # cloudflare/pages-action was retired and no longer resolves, which failed
+      # this job at setup — before the build step ever ran. wrangler-action is
+      # its replacement.
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: website
-          directory: ./dist
-          branch: main # override
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy ./dist --project-name=website --branch=main
