@@ -106,17 +106,18 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      # cloudflare/pages-action was retired and no longer resolves, which failed
-      # this job at setup — before the build step ever ran. wrangler-action is
-      # its replacement.
+      # Deployed with a plain npx call rather than an action. cloudflare/pages-action
+      # was retired and no longer resolves at all; cloudflare/wrangler-action
+      # installs Wrangler into the workspace, and neither package manager manages
+      # that here — pnpm 11 aborts on workerd's blocked build script, and npm
+      # cannot walk a pnpm-linked node_modules. Running from a scratch directory
+      # keeps the Wrangler install off the repo's dependency tree entirely.
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v4
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          command: pages deploy ./dist --project-name=website --branch=main
-          # The action installs Wrangler itself. Left on pnpm it inherits this
-          # repo's pnpm 11, which refuses workerd's build script and exits 1;
-          # npm installs the action's own tooling without touching ours.
-          packageManager: npm
+        working-directory: ${{ runner.temp }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: >-
+          npx --yes wrangler@4 pages deploy "$GITHUB_WORKSPACE/dist"
+          --project-name=website
+          --branch=main
