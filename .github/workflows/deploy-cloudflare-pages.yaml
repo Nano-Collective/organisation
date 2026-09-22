@@ -116,3 +116,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           command: pages deploy ./dist --project-name=website --branch=main
+          # The action installs Wrangler itself. Left on pnpm it inherits this
+          # repo's pnpm 11, which refuses workerd's build script and exits 1;
+          # npm installs the action's own tooling without touching ours.
+          packageManager: npm
