@@ -161,3 +161,38 @@
   background-color: var(--selection-bg);
   color: var(--selection-text);
 }
+
+/*
+ * Categorical chart series palette.
+ *
+ * Eight fixed slots, assigned to an entity in order and never cycled or
+ * reassigned by rank. The dark column is the same eight hues re-stepped for the
+ * dark surface, not an automatic flip. Both sets are validated against this
+ * site's own surfaces (#ffffff / #09090b) for lightness band, chroma floor,
+ * colour-blind separation and normal-vision separation on adjacent pairs.
+ * Light-mode slots 3, 4 and 5 fall below 3:1 against white, so any chart using
+ * them must also carry the values in text (legend + breakdown table), never
+ * colour alone. Adding a ninth series means folding to "Other" or faceting —
+ * not inventing a ninth hue.
+ */
+.chart-series {
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #4a3aa7;
+  --series-8: #e34948;
+}
+
+.dark .chart-series {
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+}

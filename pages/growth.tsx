@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Footer } from "@/components/Footer";
 import { GrowthChart } from "@/components/GrowthChart";
 import { GrowthMetrics } from "@/components/GrowthMetrics";
+import { StarsSection } from "@/components/StarsSection";
 import { TrafficSection } from "@/components/TrafficSection";
 import {
   SectionReveal,
@@ -11,6 +12,7 @@ import {
   StaggerItem,
 } from "@/components/ui/motion";
 import { fetchTraffic, type SiteTraffic } from "@/lib/cloudflare-stats";
+import { fetchStarHistory, type StarHistory } from "@/lib/github-stars";
 
 interface DownloadData {
   date: string;
@@ -30,6 +32,11 @@ interface PackageData {
   downloadData: DownloadData[];
   releases: Release[];
   totalDownloads: number;
+  starHistory: StarHistory;
+  totalStars: number;
+  // Fixed chart-colour slot, taken from the package's position in the config
+  // below so a product keeps its colour even if another one drops out.
+  seriesSlot: number;
 }
 
 interface GrowthPageProps {
@@ -200,7 +207,7 @@ export default function Growth({
         <title>Package Growth Tracker | Nano Collective</title>
         <meta
           name="description"
-          content="Track Nano Collective package growth metrics, download statistics, and release impact."
+          content="Track Nano Collective package growth metrics, download statistics, GitHub star history, and release impact."
         />
       </Head>
 
@@ -227,7 +234,7 @@ export default function Growth({
 
                 <StaggerItem>
                   <p className="text-xs sm:text-lg lg:text-xl text-foreground/70 leading-relaxed max-w-[800px]">
-                    Tracking NPM downloads for{" "}
+                    Tracking NPM downloads and GitHub stars for{" "}
                     <a
                       href={`https://github.com/${currentPackageData.githubRepo}`}
                       target="_blank"
@@ -334,6 +341,14 @@ export default function Growth({
               </div>
             </StaggerItem>
 
+            {/* GitHub Stars */}
+            <StaggerItem>
+              <StarsSection
+                packages={packages}
+                selectedPackage={selectedPackage}
+              />
+            </StaggerItem>
+
             {/* Website Traffic */}
             <StaggerItem>
               <TrafficSection traffic={traffic} />
@@ -390,7 +405,7 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
 
   const packages: PackageData[] = [];
 
-  for (const config of packagesConfig) {
+  for (const [index, config] of packagesConfig.entries()) {
     try {
       // Fetch NPM download statistics for current package
       const npmResponse = await fetch(
@@ -486,6 +501,11 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
         }))
         .reverse(); // Oldest first
 
+      // Daily star history for the same repo
+      const { history: starHistory, totalStars } = await fetchStarHistory(
+        config.githubRepo,
+      );
+
       packages.push({
         packageName: config.packageName,
         displayName: config.displayName,
@@ -493,6 +513,9 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
         downloadData,
         releases,
         totalDownloads,
+        starHistory,
+        totalStars,
+        seriesSlot: index + 1,
       });
     } catch (error) {
       console.error(`Error fetching data for ${config.packageName}:`, error);
