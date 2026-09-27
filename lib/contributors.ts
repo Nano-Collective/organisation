@@ -392,4 +392,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Senior Software Engineer, Mathematician, Father & Husband.",
     focus: ["Backend Engineering", "AI Security"],
   },
+  {
+    name: "Rudra",
+    photo: "rudra.png",
+    github: "Rudra2637",
+    website: "https://github.com/Rudra2637",
+    bio: "Open-source contributor",
+    focus: ["Backend Engineering"],
+  },
 ];
