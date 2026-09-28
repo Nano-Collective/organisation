@@ -378,6 +378,12 @@ export const getStaticProps: GetStaticProps<GrowthPageProps> = async () => {
       oldPackage: null,
     },
     {
+      packageName: "@nanocollective/roster",
+      displayName: "Roster",
+      githubRepo: "Nano-Collective/roster",
+      oldPackage: null,
+    },
+    {
       packageName: "@nanocollective/sentinel",
       displayName: "Sentinel",
       githubRepo: "Nano-Collective/sentinel",
