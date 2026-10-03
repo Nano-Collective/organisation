@@ -392,4 +392,12 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "Senior Software Engineer, Mathematician, Father & Husband.",
     focus: ["Backend Engineering", "AI Security"],
   },
+  {
+    name: "Aakash Sharma",
+    photo: "aakash-sharma.jpg",
+    github: "aakash-env",
+    website: "https://aakashisdev.vercel.app/",
+    bio: "Building things that scale",
+    focus: ["Backend Engineer", "AI Engineer", "Open Source"],
+  },
 ];
