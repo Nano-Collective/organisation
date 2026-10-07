@@ -85,6 +85,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Engineering"],
   },
   {
+    name: "Aditya Mishra",
+    photo: "aditya-mishra.png",
+    github: "addyCooks",
+    bio: "Developer & Open Source Contributor | Building, learning, and shipping!",
+    coreTeam: true,
+    focus: ["Engineering"],
+  },
+  {
     name: "Lottie Oxford",
     photo: "lottie-oxford.JPEG",
     bio: "Helps with the community behind the Nano Collective. Passionate about building in open source and AI.",
@@ -104,12 +112,6 @@ export const CONTRIBUTORS: Contributor[] = [
     photo: "bhupesh-cholake.jpg",
     github: "RealBhupesh",
     bio: "Open-source contributor focused on developer tooling and AI.",
-  },
-  {
-    name: "Aditya Mishra",
-    photo: "aditya-mishra.png",
-    github: "addyCooks",
-    bio: "Developer & Open Source Contributor | Building, learning, and shipping!",
   },
   {
     name: "Arpan Sarkar",
