@@ -532,7 +532,7 @@ export const themes: Record<ThemePreset, Theme> = {
     displayName: "Solarized Light",
     themeType: "light",
     colors: {
-      text: "#657b83",
+      text: "#586e75",
       base: "#fdf6e3",
       primary: "#268bd2",
       tool: "#2aa198",

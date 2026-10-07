@@ -15,6 +15,10 @@ export const NC_PACKAGES: NpmPackageConfig[] = [
     displayName: "Nanotune",
   },
   {
+    packageName: "@nanocollective/roster",
+    displayName: "Roster",
+  },
+  {
     packageName: "@nanocollective/sentinel",
     displayName: "Sentinel",
   },

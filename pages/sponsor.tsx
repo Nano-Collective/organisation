@@ -40,6 +40,12 @@ const projects = [
       "Interactive CLI for fine-tuning small language models on Apple Silicon",
   },
   {
+    name: "Roster (alpha)",
+    url: "https://github.com/Nano-Collective/roster",
+    description:
+      "An agent-run organisation, powered by GitHub, with AI staff whose brain is a repo",
+  },
+  {
     name: "Sentinel (alpha)",
     url: "https://github.com/Nano-Collective/sentinel",
     description:

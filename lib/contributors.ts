@@ -85,6 +85,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Engineering"],
   },
   {
+    name: "Aditya Mishra",
+    photo: "aditya-mishra.png",
+    github: "addyCooks",
+    bio: "Developer & Open Source Contributor | Building, learning, and shipping!",
+    coreTeam: true,
+    focus: ["Engineering"],
+  },
+  {
     name: "Lottie Oxford",
     photo: "lottie-oxford.JPEG",
     bio: "Helps with the community behind the Nano Collective. Passionate about building in open source and AI.",
@@ -104,12 +112,6 @@ export const CONTRIBUTORS: Contributor[] = [
     photo: "bhupesh-cholake.jpg",
     github: "RealBhupesh",
     bio: "Open-source contributor focused on developer tooling and AI.",
-  },
-  {
-    name: "Aditya Mishra",
-    photo: "aditya-mishra.png",
-    github: "addyCooks",
-    bio: "Developer & Open Source Contributor | Building, learning, and shipping!",
   },
   {
     name: "Arpan Sarkar",
@@ -399,5 +401,21 @@ export const CONTRIBUTORS: Contributor[] = [
     website: "https://github.com/Rudra2637",
     bio: "Open-source contributor",
     focus: ["Backend Engineering"],
+  },
+  {
+    name: "Aditya Kumar Puri",
+    photo: "aditya-kumar-puri.jpg",
+    github: "puri-adityakumar",
+    website: "https://www.adityalogs.xyz/",
+    bio: "AI engineer with an eye for design, focused on scaling systems, LLMs, and open source.",
+    focus: ["Engineering", "Design"],
+  },
+  {
+    name: "Aakash Sharma",
+    photo: "aakash-sharma.jpg",
+    github: "aakash-env",
+    website: "https://aakashisdev.vercel.app/",
+    bio: "Building things that scale",
+    focus: ["Backend Engineer", "AI Engineer", "Open Source"],
   },
 ];
