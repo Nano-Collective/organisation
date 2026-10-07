@@ -395,6 +395,14 @@ export const CONTRIBUTORS: Contributor[] = [
     focus: ["Backend Engineering", "AI Security"],
   },
   {
+    name: "Rudra",
+    photo: "rudra.png",
+    github: "Rudra2637",
+    website: "https://github.com/Rudra2637",
+    bio: "Open-source contributor",
+    focus: ["Backend Engineering"],
+  },
+  {
     name: "Aditya Kumar Puri",
     photo: "aditya-kumar-puri.jpg",
     github: "puri-adityakumar",
@@ -402,6 +410,7 @@ export const CONTRIBUTORS: Contributor[] = [
     bio: "AI engineer with an eye for design, focused on scaling systems, LLMs, and open source.",
     focus: ["Engineering", "Design"],
   },
+  {
     name: "Aakash Sharma",
     photo: "aakash-sharma.jpg",
     github: "aakash-env",
