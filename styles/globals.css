@@ -161,3 +161,103 @@
   background-color: var(--selection-bg);
   color: var(--selection-text);
 }
+
+/*
+ * Categorical chart series palette.
+ *
+ * Eight fixed slots, assigned to an entity in order and never cycled or
+ * reassigned by rank. The dark column is the same eight hues re-stepped for the
+ * dark surface, not an automatic flip. Both sets are validated against this
+ * site's own surfaces (#ffffff / #09090b) for lightness band, chroma floor,
+ * colour-blind separation and normal-vision separation on adjacent pairs.
+ * Light-mode slots 3, 4 and 5 fall below 3:1 against white, so any chart using
+ * them must also carry the values in text (legend + breakdown table), never
+ * colour alone. Adding a ninth series means folding to "Other" or faceting —
+ * not inventing a ninth hue.
+ */
+.chart-series {
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #4a3aa7;
+  --series-8: #e34948;
+}
+
+.dark .chart-series {
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+}
+
+/*
+ * Roster's own palette (iOS system colours), scoped to the homepage preview so
+ * the card looks like roster.nanocollective.org rather than this site. Mirrored
+ * from Roster's website/src/app/globals.css; the dark set follows this site's
+ * .dark toggle instead of prefers-color-scheme.
+ */
+.roster-preview {
+  --r-bg-2: #f5f5f7;
+  --r-surface: #ffffff;
+  --r-fill: #f2f2f7;
+  --r-fill-2: #e9e9ee;
+  --r-line: rgba(0, 0, 0, 0.08);
+  --r-text: #1d1d1f;
+  --r-text-2: #6e6e73;
+  --r-text-3: #aeaeb2;
+  --r-accent: #248a3d;
+  --r-accent-fill: #34c759;
+  --r-accent-soft: rgba(52, 199, 89, 0.12);
+  --r-blue: #007aff;
+  --r-shadow-lg:
+    0 2px 4px rgba(0, 0, 0, 0.03), 0 24px 64px -12px rgba(0, 0, 0, 0.14);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI",
+    sans-serif;
+  color: var(--r-text);
+}
+
+.dark .roster-preview {
+  --r-bg-2: #0c0c0d;
+  --r-surface: #1c1c1e;
+  --r-fill: #1c1c1e;
+  --r-fill-2: #2c2c2e;
+  --r-line: rgba(255, 255, 255, 0.1);
+  --r-text: #f5f5f7;
+  --r-text-2: #98989d;
+  --r-text-3: #636366;
+  --r-accent: #30d158;
+  --r-accent-fill: #30d158;
+  --r-accent-soft: rgba(48, 209, 88, 0.15);
+  --r-blue: #0a84ff;
+  --r-shadow-lg:
+    0 0 0 1px rgba(255, 255, 255, 0.1), 0 24px 64px -12px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes roster-notif-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.roster-notif-in {
+  animation: roster-notif-in 450ms cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roster-notif-in {
+    animation: none;
+  }
+}

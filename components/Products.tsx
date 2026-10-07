@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import NanocoderTerminal from "@/components/NanocoderTerminal";
 import NanotuneTerminal from "@/components/NanotuneTerminal";
+import { RosterPreview } from "@/components/RosterPreview";
 
 interface ProductsProps {
   nanocoderVersion: string;
@@ -172,7 +173,7 @@ export function Products({ nanocoderVersion }: ProductsProps) {
           </div>
         </div>
 
-        {/* Sentinel Card — alpha */}
+        {/* Roster Card — alpha. Roster has its own site, so the card links out. */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 lg:gap-0 items-stretch bg-background border border-foreground/20 group relative overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)]">
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 dark:opacity-100 pointer-events-none" />
           <div className="space-y-4 sm:space-y-8 p-8 lg:p-12 lg:pr-16 lg:border-r border-foreground/20 flex flex-col justify-center relative z-10">
@@ -180,6 +181,87 @@ export function Products({ nanocoderVersion }: ProductsProps) {
               <div className="flex flex-wrap items-center gap-3 mb-2">
                 <span className="font-mono text-xs sm:text-sm font-bold text-[#0000EE] dark:text-[#A1A1AA]">
                   [ 03 ]
+                </span>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                  Roster
+                </h3>
+                <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest bg-[#0000EE] dark:bg-foreground text-white dark:text-background px-2 py-1">
+                  Alpha
+                </span>
+              </div>
+              <p className="text-sm sm:text-lg text-foreground/70 leading-relaxed">
+                An agent-run organisation, powered by GitHub. Hire AI staff
+                whose brain is a repo: a charter, a memory, and a scheduled
+                session that does a day&apos;s work unattended and hands off.
+              </p>
+            </div>
+
+            <ul className="space-y-3 py-4 font-mono text-sm">
+              <li className="flex items-start gap-3">
+                <span className="text-[#0000EE] dark:text-[#A1A1AA] font-bold">
+                  &gt;
+                </span>
+                <span className="text-foreground">
+                  One repo per staff member
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#0000EE] dark:text-[#A1A1AA] font-bold">
+                  &gt;
+                </span>
+                <span className="text-foreground">
+                  Scheduled, unattended sessions
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#0000EE] dark:text-[#A1A1AA] font-bold">
+                  &gt;
+                </span>
+                <span className="text-foreground">
+                  Composable, org-wide prompts
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#0000EE] dark:text-[#A1A1AA] font-bold">
+                  &gt;
+                </span>
+                <span className="text-foreground">
+                  Any coding agent, including Nanocoder
+                </span>
+              </li>
+            </ul>
+
+            <p className="text-xs sm:text-sm text-foreground/60 font-mono leading-relaxed border-l-2 border-[#0000EE] dark:border-[#A1A1AA] pl-4">
+              In alpha and run daily against a live org. Nothing changes
+              anything without <code>--apply</code>, and finished work waits as
+              a pull request for a human to merge.
+            </p>
+
+            <div>
+              <a
+                href="https://roster.nanocollective.org"
+                className="inline-flex h-12 items-center justify-center rounded-none bg-[#0000EE] dark:bg-foreground px-8 text-sm font-semibold tracking-wide text-white dark:text-background transition-colors hover:bg-[#0000EE]/90 dark:hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              >
+                Explore Roster
+              </a>
+            </div>
+          </div>
+
+          <div className="bg-muted p-4 md:p-8 flex items-center justify-center overflow-hidden">
+            <div className="w-full relative z-10">
+              <RosterPreview />
+            </div>
+          </div>
+        </div>
+
+        {/* Sentinel Card — alpha */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 lg:gap-0 items-stretch bg-background border border-foreground/20 group relative overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)]">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 dark:opacity-100 pointer-events-none" />
+          <div className="space-y-4 sm:space-y-8 p-8 lg:p-12 lg:pr-16 lg:border-r border-foreground/20 flex flex-col justify-center relative z-10">
+            <div className="space-y-2 sm:space-y-4">
+              <div className="flex flex-wrap items-center gap-3 mb-2">
+                <span className="font-mono text-xs sm:text-sm font-bold text-[#0000EE] dark:text-[#A1A1AA]">
+                  [ 04 ]
                 </span>
                 <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
                   Sentinel
