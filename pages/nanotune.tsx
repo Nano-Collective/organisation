@@ -321,7 +321,7 @@ export default function NanotunePage() {
 
           <ReasonsGrid product="Nanotune" reasons={reasons} />
 
-          <SponsorsSection exclude={["Atlas Cloud"]} />
+          <SponsorsSection />
 
           <FinalCTA docsUrl={DOCS_URL} githubUrl={GITHUB_URL} />
         </main>
