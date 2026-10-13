@@ -34,16 +34,16 @@ const projects = [
     description: "CLI coding agent with multi-provider AI support",
   },
   {
+    name: "Roster (beta)",
+    url: "https://github.com/Nano-Collective/roster",
+    description:
+      "An agent-run organisation, powered by GitHub, with AI staff whose brain is a repo",
+  },
+  {
     name: "Nanotune",
     url: "https://github.com/Nano-Collective/nanotune",
     description:
       "Interactive CLI for fine-tuning small language models on Apple Silicon",
-  },
-  {
-    name: "Roster (alpha)",
-    url: "https://github.com/Nano-Collective/roster",
-    description:
-      "An agent-run organisation, powered by GitHub, with AI staff whose brain is a repo",
   },
   {
     name: "Sentinel (alpha)",
