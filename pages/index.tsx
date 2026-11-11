@@ -8,6 +8,7 @@ import { LatestDiscussions } from "@/components/LatestDiscussions";
 import { Mission } from "@/components/Mission";
 import { Products } from "@/components/Products";
 import { ProofBar } from "@/components/ProofBar";
+import { RosterFeature } from "@/components/RosterFeature";
 import { Sponsors } from "@/components/Sponsors";
 import { SectionReveal } from "@/components/ui/motion";
 import { fetchRedditSubscribers } from "@/lib/product-stats";
@@ -77,6 +78,9 @@ export default function Home({
           </SectionReveal>
           <SectionReveal>
             <ProofBar stats={orgStats} />
+          </SectionReveal>
+          <SectionReveal>
+            <RosterFeature />
           </SectionReveal>
           <SectionReveal>
             <Products nanocoderVersion={nanocoderVersion} />

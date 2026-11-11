@@ -9,6 +9,20 @@ export function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-16 items-center lg:items-stretch">
         {/* Left side: Typography */}
         <div className="space-y-4 sm:space-y-8 lg:pr-8">
+          <Link
+            href="#roster"
+            className="group inline-flex items-center gap-3 border border-foreground/20 bg-background pr-3 font-mono text-xs transition-colors hover:border-[#0000EE] dark:hover:border-[#A1A1AA]"
+          >
+            <span className="bg-[#0000EE] dark:bg-foreground px-2 py-1 font-bold uppercase tracking-widest text-white dark:text-background">
+              New
+            </span>
+            <span className="text-foreground/80">
+              Roster is in beta: run your org on AI staff
+            </span>
+            <span className="text-[#0000EE] dark:text-[#A1A1AA] font-bold transition-transform group-hover:translate-x-0.5">
+              &gt;
+            </span>
+          </Link>
           <div className="flex items-center gap-2 text-xs font-semibold font-mono text-muted-foreground uppercase tracking-widest border-b border-foreground/20 pb-2 max-w-[200px]">
             <span className="text-[#0000EE] dark:text-[#A1A1AA] font-bold">
               &gt;
